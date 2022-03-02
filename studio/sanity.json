@@ -1,18 +1,17 @@
 {
   "root": true,
   "project": {
-    "name": "twin-hawks-outdoors"
+    "name": "Twin Hawks Outdoors"
   },
   "api": {
-    "projectId": "oc6b1h2d",
-    "dataset": "production"
+    "projectId": "rur2issm",
+    "dataset": "development"
   },
   "plugins": [
     "@sanity/base",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/desk-tool",
-    "barcode-input"
+    "@sanity/desk-tool"
   ],
   "env": {
     "development": {
