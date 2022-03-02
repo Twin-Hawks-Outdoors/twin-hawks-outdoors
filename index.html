@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Palette</title>
+
+  <style>
+    #color-box {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+
+    }
+
+        .color {
+          width: 100%;
+          height:300px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          color: white;
+          font-weight: bold;
+
+        }
+    @media (min-width: 768px) {
+      #color-box {flex-direction: row;}
+
+      .color {
+        height: 100%;
+
+      }
+    }
+  </style>
+</head>
+<body style="margin: 0;padding: 0;">
+  <div id="color-box" style="height: 100vh;"></div>
+  <script>
+    const colorBox = document.querySelector("#color-box")
+
+    const colorsArray = [
+      "#2E2C2B","#8C8A68", "#8C2D18", "#326C73", "#F2EAD0", "#262220","#8C5637",
+      "#2A332E","#0B1A26"
+    ]
+
+    colorsArray.forEach(color => {
+      let div = document.createElement('div')
+      div.style = `background-color: ${color};`
+      div.classList = "color"
+      div.innerHTML = `<span style="background-color:black;color: white; padding: .5rem 1rem; border-radius: 10px;">${color}</span>`
+      colorBox.appendChild(div)
+    })
+    console.log(colorBox)
+  </script>
+</body>
+</html>
+
