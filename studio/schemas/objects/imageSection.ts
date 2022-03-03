@@ -19,6 +19,17 @@ export default {
       title: "Text",
     },
     {
+      name: 'imagePlacement',
+      title: 'Image Placement',
+      type: 'string',
+      initialValue: 'left',
+      options: {
+        list: ["left", "right"],
+        layout: 'radio',
+        direction: 'horizontal'
+      }
+    },
+    {
       name: "image",
       type: "figure",
       title: "Image",

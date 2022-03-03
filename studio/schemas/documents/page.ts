@@ -1,10 +1,13 @@
+import { MdOutlineContentCopy } from "react-icons/md";
+
 export default {
   name: "page",
   title: "Page",
   type: "document",
+  icon: MdOutlineContentCopy,
   groups: [
     { name: "seo", title: "SEO" },
-    { name: "content", title: "Content" },
+    { name: "content", title: "Content", default: true },
   ],
   fields: [
     {
@@ -28,7 +31,7 @@ export default {
       title: "Page Content",
       type: "array",
       group: "content",
-      of: [{ type: "hero" }, { type: "imageSection" }, { type: "textSection" }],
+      of: [{ type: "hero" }, { type: "imageSection" }, { type: "textSection" }, {type: 'gallerySection'}, {type: 'cardSection'}],
     },
     {
       name: "description",

@@ -1,6 +1,9 @@
+import { MdOutlineCategory } from "react-icons/md";
+
 export default {
   name: 'category',
   title: 'Category',
+  icon: MdOutlineCategory,
   type: 'document',
   fields: [
     {
