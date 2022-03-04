@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --font-size-sm: clamp(0.9rem, -0.07vw + 0.91rem, 0.84rem);
+  --font-size-base: clamp(1.13rem, 0.07vw + 1.11rem, 1.19rem);
+  --font-size-md: clamp(1.41rem, 0.32vw + 1.34rem, 1.68rem);
+  --font-size-lg: clamp(1.76rem, 0.73vw + 1.61rem, 2.37rem);
+  --font-size-xl: clamp(2.2rem, 1.36vw + 1.92rem, 3.36rem);
+  --font-size-xxl: clamp(2.75rem, 2.35vw + 2.28rem, 4.75rem);
+  --font-size-xxxl: clamp(3.43rem, 3.86vw + 2.66rem, 6.71rem);
+}
+
+@layer base {
+  p,
+  a,
+  ul,
+  li {
+    @apply font-serif text-base text-black;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans;
+  }
+
+  h1 {
+    @apply text-xxxl;
+  }
+
+  h2 {
+    @apply text-xxl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+  h4 {
+    @apply text-lg;
+  }
+  h5 {
+    @apply text-md;
+  }
+  h6 {
+    @apply text-base;
+  }
+}
