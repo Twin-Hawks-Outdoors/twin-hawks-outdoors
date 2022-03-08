@@ -1,41 +1,44 @@
-import type { GatsbyConfig } from "gatsby";
-import path from "path";
+import type { GatsbyConfig } from 'gatsby';
+import path from 'path';
+
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: "Twin Hawks Outdoors",
-    siteUrl: "https://www.twinhawksoutdoors.com",
+    title: 'Twin Hawks Outdoors',
+    siteUrl: 'https://www.twinhawksoutdoors.com',
   },
   plugins: [
     {
-      resolve:`gatsby-plugin-graphql-codegen`,
+      resolve: `gatsby-plugin-graphql-codegen`,
       options: {
-        codegenDelay: 2000
-      }
+        codegenDelay: 2000,
+      },
     },
 
     {
-      resolve: "gatsby-source-sanity",
+      resolve: 'gatsby-source-sanity',
       options: {
-        projectId: "rur2issm",
-        dataset: "development",
+        projectId: 'rur2issm',
+        dataset: 'development',
+        watchMode: process.env.NODE_ENV === 'development',
+        token: process.env.SANITY_READ_TOKEN,yy
       },
     },
-    "gatsby-plugin-image",
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sitemap",
+    'gatsby-plugin-image',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sitemap',
     {
-      resolve: "gatsby-plugin-manifest",
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        icon: path.resolve("src/images/icon.png"),
+        icon: path.resolve('src/images/icon.png'),
       },
     },
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: "images",
-        path: path.resolve("src/images/"),
+        name: 'images',
+        path: path.resolve('src/images/'),
       },
     },
     `gatsby-plugin-postcss`,

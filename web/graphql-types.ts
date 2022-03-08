@@ -638,6 +638,7 @@ export type SanityPage = SanityDocument & Node & {
   _rawSlug?: Maybe<Scalars['JSON']>;
   _rawContent?: Maybe<Scalars['JSON']>;
   _rawOpenGraphImage?: Maybe<Scalars['JSON']>;
+  gatsbyPath?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -673,6 +674,11 @@ export type SanityPage_RawContentArgs = {
 
 export type SanityPage_RawOpenGraphImageArgs = {
   resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityPageGatsbyPathArgs = {
+  filePath?: InputMaybe<Scalars['String']>;
 };
 
 export type SanityPerson = SanityDocument & Node & {
@@ -1953,6 +1959,7 @@ export type QuerySanityPageArgs = {
   _rawSlug?: InputMaybe<JsonQueryOperatorInput>;
   _rawContent?: InputMaybe<JsonQueryOperatorInput>;
   _rawOpenGraphImage?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyPath?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -4597,6 +4604,7 @@ export type SanityPageFieldsEnum =
   | '_rawSlug'
   | '_rawContent'
   | '_rawOpenGraphImage'
+  | 'gatsbyPath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -4739,6 +4747,7 @@ export type SanityPageFilterInput = {
   _rawSlug?: InputMaybe<JsonQueryOperatorInput>;
   _rawContent?: InputMaybe<JsonQueryOperatorInput>;
   _rawOpenGraphImage?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyPath?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -6313,6 +6322,7 @@ export type SanityRouteFieldsEnum =
   | 'page____rawSlug'
   | 'page____rawContent'
   | 'page____rawOpenGraphImage'
+  | 'page___gatsbyPath'
   | 'page___id'
   | 'page___parent___id'
   | 'page___parent___parent___id'
@@ -7137,6 +7147,7 @@ export type SanitySiteConfigFieldsEnum =
   | 'frontpage____rawSlug'
   | 'frontpage____rawContent'
   | 'frontpage____rawOpenGraphImage'
+  | 'frontpage___gatsbyPath'
   | 'frontpage___id'
   | 'frontpage___parent___id'
   | 'frontpage___parent___parent___id'
@@ -7278,6 +7289,7 @@ export type SanitySiteConfigFieldsEnum =
   | 'mainNavigation___page____rawSlug'
   | 'mainNavigation___page____rawContent'
   | 'mainNavigation___page____rawOpenGraphImage'
+  | 'mainNavigation___page___gatsbyPath'
   | 'mainNavigation___page___id'
   | 'mainNavigation___page___parent___id'
   | 'mainNavigation___page___parent___children'
@@ -7363,6 +7375,7 @@ export type SanitySiteConfigFieldsEnum =
   | 'footerNavigation___page____rawSlug'
   | 'footerNavigation___page____rawContent'
   | 'footerNavigation___page____rawOpenGraphImage'
+  | 'footerNavigation___page___gatsbyPath'
   | 'footerNavigation___page___id'
   | 'footerNavigation___page___parent___id'
   | 'footerNavigation___page___parent___children'

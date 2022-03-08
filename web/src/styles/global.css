@@ -13,6 +13,10 @@
 }
 
 @layer base {
+  body {
+    @apply leading-7;
+  }
+
   p,
   a,
   ul,
@@ -23,9 +27,9 @@
   h2,
   h3,
   h4,
-  h5,
-  h6 {
-    @apply font-sans;
+  h5 {
+    margin: 3rem 0 1.38rem;
+    @apply font-sans leading-snug;
   }
 
   h1 {
@@ -46,7 +50,7 @@
     @apply text-md;
   }
   h6 {
-    @apply text-base;
+    @apply text-base font-sans;
   }
 
   p {
@@ -60,6 +64,6 @@
   }
 
   .container {
-    @apply w-11/12 mx-auto max-w-screen-2xl
+    @apply w-11/12 mx-auto max-w-screen-2xl;
   }
 }
