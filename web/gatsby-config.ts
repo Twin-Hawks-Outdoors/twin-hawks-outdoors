@@ -6,7 +6,13 @@ const config: GatsbyConfig = {
     siteUrl: "https://www.twinhawksoutdoors.com",
   },
   plugins: [
-    `gatsby-plugin-graphql-codegen`,
+    {
+      resolve:`gatsby-plugin-graphql-codegen`,
+      options: {
+        codegenDelay: 2000
+      }
+    },
+
     {
       resolve: "gatsby-source-sanity",
       options: {
