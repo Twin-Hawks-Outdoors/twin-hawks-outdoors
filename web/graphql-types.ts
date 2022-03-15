@@ -600,6 +600,42 @@ export type SanityLink = {
   href?: Maybe<Scalars['String']>;
 };
 
+export type SanityMediaTag = SanityDocument & Node & {
+  _id?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  _createdAt?: Maybe<Scalars['Date']>;
+  _updatedAt?: Maybe<Scalars['Date']>;
+  _rev?: Maybe<Scalars['String']>;
+  _key?: Maybe<Scalars['String']>;
+  name?: Maybe<SanitySlug>;
+  _rawName?: Maybe<Scalars['JSON']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type SanityMediaTag_CreatedAtArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type SanityMediaTag_UpdatedAtArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type SanityMediaTag_RawNameArgs = {
+  resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
+};
+
 export type SanityOpeningHours = {
   _key?: Maybe<Scalars['String']>;
   _type?: Maybe<Scalars['String']>;
@@ -1683,6 +1719,8 @@ export type Query = {
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sanityCategory?: Maybe<SanityCategory>;
   allSanityCategory: SanityCategoryConnection;
+  sanityMediaTag?: Maybe<SanityMediaTag>;
+  allSanityMediaTag: SanityMediaTagConnection;
   sanityPage?: Maybe<SanityPage>;
   allSanityPage: SanityPageConnection;
   sanityPerson?: Maybe<SanityPerson>;
@@ -1940,6 +1978,30 @@ export type QuerySanityCategoryArgs = {
 export type QueryAllSanityCategoryArgs = {
   filter?: InputMaybe<SanityCategoryFilterInput>;
   sort?: InputMaybe<SanityCategorySortInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QuerySanityMediaTagArgs = {
+  _id?: InputMaybe<StringQueryOperatorInput>;
+  _type?: InputMaybe<StringQueryOperatorInput>;
+  _createdAt?: InputMaybe<DateQueryOperatorInput>;
+  _updatedAt?: InputMaybe<DateQueryOperatorInput>;
+  _rev?: InputMaybe<StringQueryOperatorInput>;
+  _key?: InputMaybe<StringQueryOperatorInput>;
+  name?: InputMaybe<SanitySlugFilterInput>;
+  _rawName?: InputMaybe<JsonQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+};
+
+
+export type QueryAllSanityMediaTagArgs = {
+  filter?: InputMaybe<SanityMediaTagFilterInput>;
+  sort?: InputMaybe<SanityMediaTagSortInput>;
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
@@ -4347,6 +4409,210 @@ export type SanityCategoryFilterInput = {
 
 export type SanityCategorySortInput = {
   fields?: InputMaybe<Array<InputMaybe<SanityCategoryFieldsEnum>>>;
+  order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
+};
+
+export type SanityMediaTagConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityMediaTagEdge>;
+  nodes: Array<SanityMediaTag>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<SanityMediaTagGroupConnection>;
+};
+
+
+export type SanityMediaTagConnectionDistinctArgs = {
+  field: SanityMediaTagFieldsEnum;
+};
+
+
+export type SanityMediaTagConnectionMaxArgs = {
+  field: SanityMediaTagFieldsEnum;
+};
+
+
+export type SanityMediaTagConnectionMinArgs = {
+  field: SanityMediaTagFieldsEnum;
+};
+
+
+export type SanityMediaTagConnectionSumArgs = {
+  field: SanityMediaTagFieldsEnum;
+};
+
+
+export type SanityMediaTagConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: SanityMediaTagFieldsEnum;
+};
+
+export type SanityMediaTagEdge = {
+  next?: Maybe<SanityMediaTag>;
+  node: SanityMediaTag;
+  previous?: Maybe<SanityMediaTag>;
+};
+
+export type SanityMediaTagFieldsEnum =
+  | '_id'
+  | '_type'
+  | '_createdAt'
+  | '_updatedAt'
+  | '_rev'
+  | '_key'
+  | 'name____key'
+  | 'name____type'
+  | 'name___current'
+  | '_rawName'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type SanityMediaTagGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityMediaTagEdge>;
+  nodes: Array<SanityMediaTag>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<SanityMediaTagGroupConnection>;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+
+export type SanityMediaTagGroupConnectionDistinctArgs = {
+  field: SanityMediaTagFieldsEnum;
+};
+
+
+export type SanityMediaTagGroupConnectionMaxArgs = {
+  field: SanityMediaTagFieldsEnum;
+};
+
+
+export type SanityMediaTagGroupConnectionMinArgs = {
+  field: SanityMediaTagFieldsEnum;
+};
+
+
+export type SanityMediaTagGroupConnectionSumArgs = {
+  field: SanityMediaTagFieldsEnum;
+};
+
+
+export type SanityMediaTagGroupConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: SanityMediaTagFieldsEnum;
+};
+
+export type SanityMediaTagFilterInput = {
+  _id?: InputMaybe<StringQueryOperatorInput>;
+  _type?: InputMaybe<StringQueryOperatorInput>;
+  _createdAt?: InputMaybe<DateQueryOperatorInput>;
+  _updatedAt?: InputMaybe<DateQueryOperatorInput>;
+  _rev?: InputMaybe<StringQueryOperatorInput>;
+  _key?: InputMaybe<StringQueryOperatorInput>;
+  name?: InputMaybe<SanitySlugFilterInput>;
+  _rawName?: InputMaybe<JsonQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+};
+
+export type SanityMediaTagSortInput = {
+  fields?: InputMaybe<Array<InputMaybe<SanityMediaTagFieldsEnum>>>;
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
@@ -8099,6 +8365,15 @@ export type ImageSharpSortInput = {
   fields?: InputMaybe<Array<InputMaybe<ImageSharpFieldsEnum>>>;
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
+
+export type SanityHeroFragment = { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null } | null> | null };
+
+export type SanityPageQueryQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type SanityPageQueryQuery = { sanityPage?: { title?: string | null, slug?: { current?: string | null } | null } | null };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 

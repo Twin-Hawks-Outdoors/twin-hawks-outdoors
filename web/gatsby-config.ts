@@ -1,6 +1,10 @@
 import type { GatsbyConfig } from 'gatsby';
 import path from 'path';
 
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Twin Hawks Outdoors',
@@ -20,7 +24,7 @@ const config: GatsbyConfig = {
         projectId: 'rur2issm',
         dataset: 'development',
         watchMode: process.env.NODE_ENV === 'development',
-        token: process.env.SANITY_READ_TOKEN,yy
+        token: process.env.SANITY_READ_TOKEN,
       },
     },
     'gatsby-plugin-image',
