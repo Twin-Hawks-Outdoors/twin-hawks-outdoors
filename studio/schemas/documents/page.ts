@@ -1,4 +1,5 @@
 import { MdOutlineContentCopy } from "react-icons/md";
+import { slugWithType } from "../../lib/slugWithType";
 
 export default {
   name: "page",
@@ -16,16 +17,7 @@ export default {
       type: "string",
       group: ["seo", "content"],
     },
-    {
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      group: "seo",
-      validation: (Rule) => Rule.required(),
-      options: {
-        source: "title",
-      },
-    },
+    slugWithType(),
     {
       name: "content",
       title: "Page Content",

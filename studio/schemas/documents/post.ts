@@ -1,4 +1,5 @@
 import { GrBlog } from "react-icons/gr";
+import { slugWithType } from "../../lib/slugWithType";
 
 export default {
   name: "post",
@@ -11,15 +12,7 @@ export default {
       title: "Title",
       type: "string",
     },
-    {
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: {
-        source: "title",
-        maxLength: 96,
-      },
-    },
+    slugWithType('articles', 'title'),
     {
       name: "author",
       title: "Author",

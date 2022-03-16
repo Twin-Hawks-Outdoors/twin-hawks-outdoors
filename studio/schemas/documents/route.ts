@@ -1,4 +1,5 @@
 import { MdLink } from "react-icons/md";
+import { slugWithType } from "../../lib/slugWithType";
 
 export default {
   name: "route",
@@ -6,11 +7,7 @@ export default {
   title: "Route",
   icon: MdLink,
   fields: [
-    {
-      name: "slug",
-      type: "slug",
-      title: "Slug",
-    },
+    slugWithType(),
     {
       name: "page",
       type: "reference",
@@ -41,7 +38,7 @@ export default {
     },
     prepare({ slug, pageTitle }) {
       return {
-        title: slug === "/" ? "/" : `/${slug}`,
+        title: slug === "/" ? "/" : slug,
         subtitle: `Page: ${pageTitle}`,
       };
     },
