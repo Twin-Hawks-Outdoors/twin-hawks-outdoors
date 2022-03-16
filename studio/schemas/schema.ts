@@ -9,7 +9,7 @@ import page from './documents/page'
 import cta from './objects/cta'
 import figure from './objects/figure'
 import hero from './objects/hero'
-import imageSection from './objects/imageSection'
+import textWithImageSection from './objects/textWithImageSection'
 import internalLink from './objects/internalLink'
 import link from './objects/link'
 import simplePortableText from './objects/simplePortableText'
@@ -52,7 +52,7 @@ export default createSchema({
     cta,
     figure,
     hero,
-    imageSection,
+    textWithImageSection,
     internalLink,
     link,
     simplePortableText,

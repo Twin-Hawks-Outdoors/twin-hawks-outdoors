@@ -1,6 +1,6 @@
 export default {
   type: "object",
-  name: "imageSection",
+  name: "textWithImageSection",
   title: "Image with text",
   fields: [
     {
@@ -28,6 +28,12 @@ export default {
         layout: 'radio',
         direction: 'horizontal'
       }
+    },
+    {
+      name: 'vintageBackground',
+      title: 'Vintage Text Background?',
+      type: 'boolean',
+      initialValue: false,
     },
     {
       name: "image",

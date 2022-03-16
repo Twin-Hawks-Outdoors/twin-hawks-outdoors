@@ -13,11 +13,12 @@ const config: GatsbyConfig = {
   plugins: [
     {
       resolve: `gatsby-plugin-graphql-codegen`,
+
       options: {
         codegenDelay: 2000,
       },
     },
-
+    `gatsby-plugin-loadable-components-ssr`,
     {
       resolve: 'gatsby-source-sanity',
       options: {

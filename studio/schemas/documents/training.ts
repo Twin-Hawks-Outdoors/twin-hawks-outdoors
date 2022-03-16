@@ -1,4 +1,5 @@
-import { GiCampfire } from 'react-icons/gi'
+import { GiCampfire } from "react-icons/gi";
+import { slugWithType } from "../../lib/slugWithType";
 
 export default {
   name: "training",
@@ -16,22 +17,18 @@ export default {
       type: "string",
       group: ["seo", "content"],
     },
-    {
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      group: "seo",
-      validation: (Rule) => Rule.required(),
-      options: {
-        source: "title",
-      },
-    },
+    slugWithType('training', 'title'),
     {
       name: "content",
       title: "Page Content",
       type: "array",
       group: "content",
-      of: [{ type: "hero" }, { type: "imageSection" }, { type: "textSection" }, {type: 'imageGallery'}],
+      of: [
+        { type: "hero" },
+        { type: "textWithImageSection" },
+        { type: "textSection" },
+        { type: "imageGallery" },
+      ],
     },
     {
       name: "description",

@@ -23,7 +23,7 @@ export default {
       title: "Page Content",
       type: "array",
       group: "content",
-      of: [{ type: "hero" }, { type: "imageSection" }, { type: "textSection" }, {type: 'gallerySection'}, {type: 'cardSection'}],
+      of: [{ type: "hero" }, { type: "textWithImageSection" }, { type: "textSection" }, {type: 'gallerySection'}, {type: 'cardSection'}],
     },
     {
       name: "description",

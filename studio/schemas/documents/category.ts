@@ -1,4 +1,5 @@
 import { MdOutlineCategory } from "react-icons/md";
+import { slugWithType } from "../../lib/slugWithType";
 
 export default {
   name: 'category',
@@ -11,15 +12,7 @@ export default {
       title: 'Title',
       type: 'string',
     },
-    {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96
-      }
-    },
+    slugWithType('category', 'title'),
     {
       name: 'description',
       title: 'Description',
