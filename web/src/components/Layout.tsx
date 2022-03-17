@@ -1,16 +1,14 @@
-import React, { ReactNode } from 'react'
-import Header from './Header'
+import React, { ReactNode } from 'react';
+import Header from './Header';
 
-function Layout({children}: {children: ReactNode}) {
+function Layout({ children }: { children: ReactNode }) {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <main>{children}</main>
-      <footer>
-        this is the footer
-      </footer>
-    </>
-  )
+      <main className="flex-grow">{children}</main>
+      <footer>this is the footer</footer>
+    </div>
+  );
 }
 
-export default Layout
+export default Layout;

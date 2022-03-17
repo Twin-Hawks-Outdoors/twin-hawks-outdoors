@@ -4,19 +4,18 @@ import loadable from '@loadable/component';
 import { SanityPageQueryQuery } from '../../graphql-types';
 import PrettyJson from '../components/PrettyJson';
 
-const SanityPage = (props: PageProps<SanityPageQueryQuery>) =>
-  props?.data?.sanityPage?.content?.map((element) => {
+const SanityPage = ({ data, location }: PageProps<SanityPageQueryQuery>) =>
+  data?.sanityPage?.content?.map((element, idx) => {
     const typename = element?.__typename.replace('Sanity', '');
-    console.log(typename);
+
     const Component = loadable(
-      () => import(`../components/modules/${typename}`)
+      () => import(`../components/modules/${typename as string}`)
     );
 
     return (
       <Component
         props={{ ...element, location }}
-        key={element._key}
-        location={location}
+        key={(element?._key as string) || idx}
       />
     );
   });
@@ -34,6 +33,10 @@ export const query: StaticQueryDocument = graphql`
       content {
         __typename
         ...SanityHero
+        ...SanityCardSection
+        ...SanityGallerySection
+        ...SanityTextWithImageSection
+        ...SanityTextSection
       }
     }
   }

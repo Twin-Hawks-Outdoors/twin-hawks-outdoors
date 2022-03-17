@@ -1,19 +1,31 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable react/prop-types */
+import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { Link } from 'gatsby';
-import { StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import React from 'react';
 import { SanityHeroFragment } from '../../../graphql-types';
+import PrettyJson from '../PrettyJson';
 
-const Hero = (data: SanityHeroFragment) => (
-  <section className="hero min-h-max grid">
-    <StaticImage
-      className="row-start-1 col-span-full filter brightness-50 md:aspect-video xl:aspect-[21/9]"
-      alt="sam making a fire from scratch"
-      src="../../images/hero-img.jpg"
+const components: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => <p className="text-white max-w-md">{children}</p>,
+  },
+};
+
+const Hero = ({ props }: { props: SanityHeroFragment }) => (
+  <section className="hero min-h-max grid lg:place-items-center">
+    {/* <PrettyJson data={props} /> */}
+    <GatsbyImage
+      className="row-start-1 col-span-full filter brightness-50 md:aspect-video xl:aspect-[21/9]  w-full"
+      // imgClassName=" w-full"
       loading="eager"
-      layout="fullWidth"
-      // aspectRatio={16 / 9}
-      placeholder="dominantColor"
+      objectFit="cover"
+      objectPosition="center"
+      image={props?.backgroundImage?.asset?.gatsbyImageData}
+      alt={props?.backgroundImage?.asset?.altText || ''}
     />
+
     <StaticImage
       className="row-start-1 col-span-full filter brightness-50 md:aspect-video xl:aspect-[21/9] z-10 pointer-events-none"
       alt="grit"
@@ -22,18 +34,21 @@ const Hero = (data: SanityHeroFragment) => (
       layout="fullWidth"
       placeholder="none"
     />
-    <div className="text-white p-24 row-start-1 col-span-full z-0">
-      <h1 className="">Conquer YOUR Frontier!</h1>
-      <p className="text-white max-w-md ">
-        Journey with us back to the roots of American Frontier life, and learn
-        how to live off the land!
-      </p>
-      <Link
-        to="/classes"
-        className="button bg-red-500/90 hover:bg-red-400 focus:bg-red-400  "
-      >
-        Learn More!
-      </Link>
+    <div className="text-white p-12 lg:container lg:p-0  row-start-1 col-span-full z-0 ">
+      {props?.heading && <h1 className="mt-0">{props?.heading}</h1>}
+      {props?._rawTagline && (
+        <PortableText components={components} value={props?._rawTagline} />
+      )}
+      {props?.ctas &&
+        props?.ctas.map((cta) => (
+          <Link
+            key={cta?._key}
+            to={(cta?.route?.slug?.current as string) || (cta?.link as string)}
+            className="button bg-red-500/90 hover:bg-red-400 focus:bg-red-400 fir"
+          >
+            {cta?.title}
+          </Link>
+        ))}
     </div>
   </section>
 );

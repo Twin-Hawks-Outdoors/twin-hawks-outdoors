@@ -8367,14 +8367,27 @@ export type ImageSharpSortInput = {
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
-export type SanityHeroFragment = { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null } | null> | null };
+export type SiteConfigQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SiteConfigQuery = { sanitySiteConfig?: { _id?: string | null, _type?: string | null, url?: string | null, logo?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, socialLinks?: Array<{ url?: string | null, platform?: string | null } | null> | null, mainNavigation?: Array<{ disallowRobots?: boolean | null, includeInSitemap?: boolean | null, slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null> | null } | null };
+
+export type SanityHeroFragment = { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null } | null> | null };
+
+export type SanityCardSectionFragment = { _key?: string | null };
+
+export type SanityGallerySectionFragment = { _key?: string | null };
+
+export type SanityTextWithImageSectionFragment = { _key?: string | null };
+
+export type SanityTextSectionFragment = { _key?: string | null };
 
 export type SanityPageQueryQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type SanityPageQueryQuery = { sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection' } | { __typename: 'SanityGallerySection' } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection' } | { __typename: 'SanityTextWithImageSection' } | null> | null } | null };
+export type SanityPageQueryQuery = { sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection', _key?: string | null } | { __typename: 'SanityGallerySection', _key?: string | null } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection', _key?: string | null } | { __typename: 'SanityTextWithImageSection', _key?: string | null } | null> | null } | null };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 

@@ -14,7 +14,23 @@
 
 @layer base {
   body {
-    @apply leading-7;
+    @apply leading-7 scrollbar  scrollbar-thumb-teal-800 scrollbar-track-teal-300 hover:scrollbar-thumb-teal-800 selection:bg-teal-500 selection:text-white;
+  }
+
+  /* Scrollbar styles */
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  html {
+    @apply scrollbar-thin hover:scrollbar-track-teal-800 hover:scrollbar-thumb-teal-300;
+    /* scrollbar-color: var(--yellow) var(--dark); */
+  }
+  body::-webkit-scrollbar-track {
+    @apply bg-teal-800;
+  }
+  body::-webkit-scrollbar-thumb {
+    @apply bg-teal-300 rounded-md border-2 border-solid border-teal-300;
   }
 
   p,

@@ -9,13 +9,8 @@ export const fragments = graphql`
     _rawTagline(resolveReferences: { maxDepth: 10 })
     backgroundImage {
       asset {
-        gatsbyImageData(
-          aspectRatio: 1.5
-          formats: AUTO
-          layout: FULL_WIDTH
-          outputPixelDensities: 1.5
-          placeholder: DOMINANT_COLOR
-        )
+        altText
+        gatsbyImageData(placeholder: DOMINANT_COLOR)
       }
     }
     ctas {
@@ -33,6 +28,18 @@ export const fragments = graphql`
       }
     }
   }
+
+  fragment SanityCardSection on SanityCardSection {
+    _key
+  }
+
+  fragment SanityGallerySection on SanityGallerySection {
+    _key
+  }
+  fragment SanityTextWithImageSection on SanityTextWithImageSection {
+    _key
+  }
+  fragment SanityTextSection on SanityTextSection {
+    _key
+  }
 `;
-
-
