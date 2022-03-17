@@ -51,11 +51,12 @@ const Header = (): ReactElement => {
           alt="logo"
         />
       </Link>
-      <nav className="flex gap-4 justify-end ">
+      <nav className="flex gap-4 justify-end flex-wrap ">
         {sanitySiteConfig?.mainNavigation?.map((item) => (
           <Link
             key={item?.slug?.current}
-            className="font-sans uppercase"
+            className="font-sans uppercase  border-b-cu  "
+            activeClassName="text-red-500 border-b-current border-b-2"
             to={item?.slug?.current as string}
           >
             {item?.page?.title}

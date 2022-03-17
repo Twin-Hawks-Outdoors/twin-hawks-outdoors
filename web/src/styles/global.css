@@ -14,7 +14,7 @@
 
 @layer base {
   body {
-    @apply leading-7 scrollbar  scrollbar-thumb-teal-800 scrollbar-track-teal-300 hover:scrollbar-thumb-teal-800 selection:bg-teal-500 selection:text-white;
+    @apply leading-7 scrollbar  scrollbar-thumb-teal-800 scrollbar-track-teal-300 hover:scrollbar-thumb-teal-800 selection:bg-teal-500 selection:text-white bg-cream-300;
   }
 
   /* Scrollbar styles */

@@ -15,7 +15,6 @@ const components: PortableTextComponents = {
 
 const Hero = ({ props }: { props: SanityHeroFragment }) => (
   <section className="hero min-h-max grid lg:place-items-center">
-    {/* <PrettyJson data={props} /> */}
     <GatsbyImage
       className="row-start-1 col-span-full filter brightness-50 md:aspect-video xl:aspect-[21/9]  w-full"
       // imgClassName=" w-full"
@@ -39,16 +38,20 @@ const Hero = ({ props }: { props: SanityHeroFragment }) => (
       {props?._rawTagline && (
         <PortableText components={components} value={props?._rawTagline} />
       )}
-      {props?.ctas &&
-        props?.ctas.map((cta) => (
-          <Link
-            key={cta?._key}
-            to={(cta?.route?.slug?.current as string) || (cta?.link as string)}
-            className="button bg-red-500/90 hover:bg-red-400 focus:bg-red-400 fir"
-          >
-            {cta?.title}
-          </Link>
-        ))}
+      <div className="flex flex-wrap gap-8 justify-center sm:justify-start">
+        {props?.ctas &&
+          props?.ctas.map((cta) => (
+            <Link
+              key={cta?._key}
+              to={
+                (cta?.route?.slug?.current as string) || (cta?.link as string)
+              }
+              className="button bg-red-500/90 hover:bg-red-400 focus:bg-red-400 even:bg-rust-600/90 even:hover:bg-rust-400 even:focus:bg-rust-400"
+            >
+              {cta?.title}
+            </Link>
+          ))}
+      </div>
     </div>
   </section>
 );
