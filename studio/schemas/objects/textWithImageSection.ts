@@ -1,7 +1,7 @@
 export default {
   type: "object",
   name: "textWithImageSection",
-  title: "Image with text",
+  title: "Image with Text",
   fields: [
     {
       name: "heading",
@@ -56,7 +56,7 @@ export default {
     prepare({ heading, media }) {
       return {
         title: `Image: ${heading}`,
-        subtitle: "Image section",
+        subtitle: "Text With Image Section",
         media,
       };
     },
