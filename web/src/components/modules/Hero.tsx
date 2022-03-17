@@ -5,7 +5,6 @@ import { Link } from 'gatsby';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import React from 'react';
 import { SanityHeroFragment } from '../../../graphql-types';
-import PrettyJson from '../PrettyJson';
 
 const components: PortableTextComponents = {
   block: {

@@ -38,6 +38,34 @@ export const fragments = graphql`
   }
   fragment SanityTextWithImageSection on SanityTextWithImageSection {
     _key
+    _type
+    heading
+    vintageBackground
+    imagePlacement
+    label
+    image {
+      alt
+      asset {
+        gatsbyImageData(
+          outputPixelDensities: 1.5
+          layout: FULL_WIDTH
+          formats: AUTO
+          placeholder: BLURRED
+        )
+      }
+    }
+    _rawText(resolveReferences: { maxDepth: 10 })
+    cta {
+      title
+      route {
+        page {
+          slug {
+            current
+          }
+        }
+      }
+      link
+    }
   }
   fragment SanityTextSection on SanityTextSection {
     _key
