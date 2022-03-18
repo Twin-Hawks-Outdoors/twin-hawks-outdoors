@@ -42,7 +42,7 @@ const Header = (): ReactElement => {
   console.log(sanitySiteConfig);
 
   return (
-    <header className="flex items-center justify-between container p-4">
+    <header className="flex items-center justify-between container mx-auto p-4">
       <Link to="/">
         <GatsbyImage
           image={

@@ -18,14 +18,7 @@ export const fragments = graphql`
       _key
       link
       title
-      route {
-        slug {
-          current
-        }
-        page {
-          title
-        }
-      }
+      ...CtaRouteFragment
     }
   }
 
@@ -57,17 +50,46 @@ export const fragments = graphql`
     _rawText(resolveReferences: { maxDepth: 10 })
     cta {
       title
-      route {
-        page {
-          slug {
-            current
-          }
-        }
-      }
+      ...CtaRouteFragment
       link
     }
   }
   fragment SanityTextSection on SanityTextSection {
     _key
+  }
+
+  fragment CtaRouteFragment on SanityCta {
+    route {
+      ... on SanityPost {
+        id
+        slug {
+          current
+        }
+      }
+      ... on SanityPage {
+        id
+        slug {
+          current
+        }
+      }
+      ... on SanityProduct {
+        id
+        slug {
+          current
+        }
+      }
+      ... on SanityRoute {
+        id
+        slug {
+          current
+        }
+      }
+      ... on SanityTraining {
+        id
+        slug {
+          current
+        }
+      }
+    }
   }
 `;

@@ -374,7 +374,7 @@ export type SanityCardSection_RawCtasArgs = {
   resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
 };
 
-export type SanityCardSectionOrGallerySectionOrHeroOrTextSectionOrTextWithImageSection = SanityCardSection | SanityGallerySection | SanityHero | SanityTextSection | SanityTextWithImageSection;
+export type SanityCardSectionOrCtaSectionOrGallerySectionOrHeroOrTextSectionOrTextWithImageSectionOrUiComponentRef = SanityCardSection | SanityCtaSection | SanityGallerySection | SanityHero | SanityTextSection | SanityTextWithImageSection | SanityUiComponentRef;
 
 export type SanityCategory = SanityDocument & Node & {
   _id?: Maybe<Scalars['String']>;
@@ -418,13 +418,32 @@ export type SanityCta = {
   _key?: Maybe<Scalars['String']>;
   _type?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
-  route?: Maybe<SanityRoute>;
+  route?: Maybe<SanityPageOrPostOrProductOrRouteOrTraining>;
   link?: Maybe<Scalars['String']>;
   _rawRoute?: Maybe<Scalars['JSON']>;
 };
 
 
 export type SanityCta_RawRouteArgs = {
+  resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
+};
+
+export type SanityCtaSection = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  cta?: Maybe<SanityCta>;
+  body?: Maybe<Array<Maybe<SanityBlock>>>;
+  _rawBody?: Maybe<Scalars['JSON']>;
+  _rawCta?: Maybe<Scalars['JSON']>;
+};
+
+
+export type SanityCtaSection_RawBodyArgs = {
+  resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityCtaSection_RawCtaArgs = {
   resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
 };
 
@@ -639,7 +658,7 @@ export type SanityPage = SanityDocument & Node & {
   _key?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   slug?: Maybe<SanitySlug>;
-  content?: Maybe<Array<Maybe<SanityCardSectionOrGallerySectionOrHeroOrTextSectionOrTextWithImageSection>>>;
+  content?: Maybe<Array<Maybe<SanityCardSectionOrCtaSectionOrGallerySectionOrHeroOrTextSectionOrTextWithImageSectionOrUiComponentRef>>>;
   description?: Maybe<Scalars['String']>;
   openGraphImage?: Maybe<SanityImage>;
   _rawSlug?: Maybe<Scalars['JSON']>;
@@ -687,6 +706,8 @@ export type SanityPage_RawOpenGraphImageArgs = {
 export type SanityPageGatsbyPathArgs = {
   filePath?: InputMaybe<Scalars['String']>;
 };
+
+export type SanityPageOrPostOrProductOrRouteOrTraining = SanityPage | SanityPost | SanityProduct | SanityRoute | SanityTraining;
 
 export type SanityPerson = SanityDocument & Node & {
   _id?: Maybe<Scalars['String']>;
@@ -1430,6 +1451,12 @@ export type SanityTraining_RawOpenGraphImageArgs = {
   resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
 };
 
+export type SanityUiComponentRef = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type SanityResolveReferencesConfiguration = {
   /** Max depth to resolve references to */
   maxDepth: Scalars['Int'];
@@ -1703,109 +1730,6 @@ export type ImageSharpResize = {
   originalName?: Maybe<Scalars['String']>;
 };
 
-export type StaticImage = Node & {
-  id: Scalars['ID'];
-  parent?: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-  sourceInstanceName?: Maybe<Scalars['String']>;
-  relativePath?: Maybe<Scalars['String']>;
-  extension?: Maybe<Scalars['String']>;
-  prettySize?: Maybe<Scalars['String']>;
-  modifiedTime?: Maybe<Scalars['Date']>;
-  accessTime?: Maybe<Scalars['Date']>;
-  changeTime?: Maybe<Scalars['Date']>;
-  birthTime?: Maybe<Scalars['Date']>;
-  root?: Maybe<Scalars['String']>;
-  dir?: Maybe<Scalars['String']>;
-  base?: Maybe<Scalars['String']>;
-  ext?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  absolutePath?: Maybe<Scalars['String']>;
-  relativeDirectory?: Maybe<Scalars['String']>;
-  dev?: Maybe<Scalars['Int']>;
-  mode?: Maybe<Scalars['Int']>;
-  nlink?: Maybe<Scalars['Int']>;
-  uid?: Maybe<Scalars['Int']>;
-  rdev?: Maybe<Scalars['Int']>;
-  blksize?: Maybe<Scalars['Int']>;
-  ino?: Maybe<Scalars['Int']>;
-  size?: Maybe<Scalars['Int']>;
-  blocks?: Maybe<Scalars['Int']>;
-  atimeMs?: Maybe<Scalars['Float']>;
-  mtimeMs?: Maybe<Scalars['Float']>;
-  ctimeMs?: Maybe<Scalars['Float']>;
-  birthtimeMs?: Maybe<Scalars['Float']>;
-  atime?: Maybe<Scalars['Date']>;
-  mtime?: Maybe<Scalars['Date']>;
-  ctime?: Maybe<Scalars['Date']>;
-  birthtime?: Maybe<Scalars['Date']>;
-};
-
-
-export type StaticImageModifiedTimeArgs = {
-  formatString?: InputMaybe<Scalars['String']>;
-  fromNow?: InputMaybe<Scalars['Boolean']>;
-  difference?: InputMaybe<Scalars['String']>;
-  locale?: InputMaybe<Scalars['String']>;
-};
-
-
-export type StaticImageAccessTimeArgs = {
-  formatString?: InputMaybe<Scalars['String']>;
-  fromNow?: InputMaybe<Scalars['Boolean']>;
-  difference?: InputMaybe<Scalars['String']>;
-  locale?: InputMaybe<Scalars['String']>;
-};
-
-
-export type StaticImageChangeTimeArgs = {
-  formatString?: InputMaybe<Scalars['String']>;
-  fromNow?: InputMaybe<Scalars['Boolean']>;
-  difference?: InputMaybe<Scalars['String']>;
-  locale?: InputMaybe<Scalars['String']>;
-};
-
-
-export type StaticImageBirthTimeArgs = {
-  formatString?: InputMaybe<Scalars['String']>;
-  fromNow?: InputMaybe<Scalars['Boolean']>;
-  difference?: InputMaybe<Scalars['String']>;
-  locale?: InputMaybe<Scalars['String']>;
-};
-
-
-export type StaticImageAtimeArgs = {
-  formatString?: InputMaybe<Scalars['String']>;
-  fromNow?: InputMaybe<Scalars['Boolean']>;
-  difference?: InputMaybe<Scalars['String']>;
-  locale?: InputMaybe<Scalars['String']>;
-};
-
-
-export type StaticImageMtimeArgs = {
-  formatString?: InputMaybe<Scalars['String']>;
-  fromNow?: InputMaybe<Scalars['Boolean']>;
-  difference?: InputMaybe<Scalars['String']>;
-  locale?: InputMaybe<Scalars['String']>;
-};
-
-
-export type StaticImageCtimeArgs = {
-  formatString?: InputMaybe<Scalars['String']>;
-  fromNow?: InputMaybe<Scalars['Boolean']>;
-  difference?: InputMaybe<Scalars['String']>;
-  locale?: InputMaybe<Scalars['String']>;
-};
-
-
-export type StaticImageBirthtimeArgs = {
-  formatString?: InputMaybe<Scalars['String']>;
-  fromNow?: InputMaybe<Scalars['Boolean']>;
-  difference?: InputMaybe<Scalars['String']>;
-  locale?: InputMaybe<Scalars['String']>;
-};
-
 export type Query = {
   file?: Maybe<File>;
   allFile: FileConnection;
@@ -1847,8 +1771,6 @@ export type Query = {
   allSanityTraining: SanityTrainingConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
-  staticImage?: Maybe<StaticImage>;
-  allStaticImage: StaticImageConnection;
 };
 
 
@@ -2454,54 +2376,6 @@ export type QueryImageSharpArgs = {
 export type QueryAllImageSharpArgs = {
   filter?: InputMaybe<ImageSharpFilterInput>;
   sort?: InputMaybe<ImageSharpSortInput>;
-  skip?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
-};
-
-
-export type QueryStaticImageArgs = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  parent?: InputMaybe<NodeFilterInput>;
-  children?: InputMaybe<NodeFilterListInput>;
-  internal?: InputMaybe<InternalFilterInput>;
-  sourceInstanceName?: InputMaybe<StringQueryOperatorInput>;
-  relativePath?: InputMaybe<StringQueryOperatorInput>;
-  extension?: InputMaybe<StringQueryOperatorInput>;
-  prettySize?: InputMaybe<StringQueryOperatorInput>;
-  modifiedTime?: InputMaybe<DateQueryOperatorInput>;
-  accessTime?: InputMaybe<DateQueryOperatorInput>;
-  changeTime?: InputMaybe<DateQueryOperatorInput>;
-  birthTime?: InputMaybe<DateQueryOperatorInput>;
-  root?: InputMaybe<StringQueryOperatorInput>;
-  dir?: InputMaybe<StringQueryOperatorInput>;
-  base?: InputMaybe<StringQueryOperatorInput>;
-  ext?: InputMaybe<StringQueryOperatorInput>;
-  name?: InputMaybe<StringQueryOperatorInput>;
-  absolutePath?: InputMaybe<StringQueryOperatorInput>;
-  relativeDirectory?: InputMaybe<StringQueryOperatorInput>;
-  dev?: InputMaybe<IntQueryOperatorInput>;
-  mode?: InputMaybe<IntQueryOperatorInput>;
-  nlink?: InputMaybe<IntQueryOperatorInput>;
-  uid?: InputMaybe<IntQueryOperatorInput>;
-  rdev?: InputMaybe<IntQueryOperatorInput>;
-  blksize?: InputMaybe<IntQueryOperatorInput>;
-  ino?: InputMaybe<IntQueryOperatorInput>;
-  size?: InputMaybe<IntQueryOperatorInput>;
-  blocks?: InputMaybe<IntQueryOperatorInput>;
-  atimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  mtimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  ctimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  atime?: InputMaybe<DateQueryOperatorInput>;
-  mtime?: InputMaybe<DateQueryOperatorInput>;
-  ctime?: InputMaybe<DateQueryOperatorInput>;
-  birthtime?: InputMaybe<DateQueryOperatorInput>;
-};
-
-
-export type QueryAllStaticImageArgs = {
-  filter?: InputMaybe<StaticImageFilterInput>;
-  sort?: InputMaybe<StaticImageSortInput>;
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
@@ -8520,277 +8394,29 @@ export type ImageSharpSortInput = {
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
-export type StaticImageConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<StaticImageEdge>;
-  nodes: Array<StaticImage>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  max?: Maybe<Scalars['Float']>;
-  min?: Maybe<Scalars['Float']>;
-  sum?: Maybe<Scalars['Float']>;
-  group: Array<StaticImageGroupConnection>;
-};
-
-
-export type StaticImageConnectionDistinctArgs = {
-  field: StaticImageFieldsEnum;
-};
-
-
-export type StaticImageConnectionMaxArgs = {
-  field: StaticImageFieldsEnum;
-};
-
-
-export type StaticImageConnectionMinArgs = {
-  field: StaticImageFieldsEnum;
-};
-
-
-export type StaticImageConnectionSumArgs = {
-  field: StaticImageFieldsEnum;
-};
-
-
-export type StaticImageConnectionGroupArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
-  field: StaticImageFieldsEnum;
-};
-
-export type StaticImageEdge = {
-  next?: Maybe<StaticImage>;
-  node: StaticImage;
-  previous?: Maybe<StaticImage>;
-};
-
-export type StaticImageFieldsEnum =
-  | 'id'
-  | 'parent___id'
-  | 'parent___parent___id'
-  | 'parent___parent___parent___id'
-  | 'parent___parent___parent___children'
-  | 'parent___parent___children'
-  | 'parent___parent___children___id'
-  | 'parent___parent___children___children'
-  | 'parent___parent___internal___content'
-  | 'parent___parent___internal___contentDigest'
-  | 'parent___parent___internal___description'
-  | 'parent___parent___internal___fieldOwners'
-  | 'parent___parent___internal___ignoreType'
-  | 'parent___parent___internal___mediaType'
-  | 'parent___parent___internal___owner'
-  | 'parent___parent___internal___type'
-  | 'parent___children'
-  | 'parent___children___id'
-  | 'parent___children___parent___id'
-  | 'parent___children___parent___children'
-  | 'parent___children___children'
-  | 'parent___children___children___id'
-  | 'parent___children___children___children'
-  | 'parent___children___internal___content'
-  | 'parent___children___internal___contentDigest'
-  | 'parent___children___internal___description'
-  | 'parent___children___internal___fieldOwners'
-  | 'parent___children___internal___ignoreType'
-  | 'parent___children___internal___mediaType'
-  | 'parent___children___internal___owner'
-  | 'parent___children___internal___type'
-  | 'parent___internal___content'
-  | 'parent___internal___contentDigest'
-  | 'parent___internal___description'
-  | 'parent___internal___fieldOwners'
-  | 'parent___internal___ignoreType'
-  | 'parent___internal___mediaType'
-  | 'parent___internal___owner'
-  | 'parent___internal___type'
-  | 'children'
-  | 'children___id'
-  | 'children___parent___id'
-  | 'children___parent___parent___id'
-  | 'children___parent___parent___children'
-  | 'children___parent___children'
-  | 'children___parent___children___id'
-  | 'children___parent___children___children'
-  | 'children___parent___internal___content'
-  | 'children___parent___internal___contentDigest'
-  | 'children___parent___internal___description'
-  | 'children___parent___internal___fieldOwners'
-  | 'children___parent___internal___ignoreType'
-  | 'children___parent___internal___mediaType'
-  | 'children___parent___internal___owner'
-  | 'children___parent___internal___type'
-  | 'children___children'
-  | 'children___children___id'
-  | 'children___children___parent___id'
-  | 'children___children___parent___children'
-  | 'children___children___children'
-  | 'children___children___children___id'
-  | 'children___children___children___children'
-  | 'children___children___internal___content'
-  | 'children___children___internal___contentDigest'
-  | 'children___children___internal___description'
-  | 'children___children___internal___fieldOwners'
-  | 'children___children___internal___ignoreType'
-  | 'children___children___internal___mediaType'
-  | 'children___children___internal___owner'
-  | 'children___children___internal___type'
-  | 'children___internal___content'
-  | 'children___internal___contentDigest'
-  | 'children___internal___description'
-  | 'children___internal___fieldOwners'
-  | 'children___internal___ignoreType'
-  | 'children___internal___mediaType'
-  | 'children___internal___owner'
-  | 'children___internal___type'
-  | 'internal___content'
-  | 'internal___contentDigest'
-  | 'internal___description'
-  | 'internal___fieldOwners'
-  | 'internal___ignoreType'
-  | 'internal___mediaType'
-  | 'internal___owner'
-  | 'internal___type'
-  | 'sourceInstanceName'
-  | 'relativePath'
-  | 'extension'
-  | 'prettySize'
-  | 'modifiedTime'
-  | 'accessTime'
-  | 'changeTime'
-  | 'birthTime'
-  | 'root'
-  | 'dir'
-  | 'base'
-  | 'ext'
-  | 'name'
-  | 'absolutePath'
-  | 'relativeDirectory'
-  | 'dev'
-  | 'mode'
-  | 'nlink'
-  | 'uid'
-  | 'rdev'
-  | 'blksize'
-  | 'ino'
-  | 'size'
-  | 'blocks'
-  | 'atimeMs'
-  | 'mtimeMs'
-  | 'ctimeMs'
-  | 'birthtimeMs'
-  | 'atime'
-  | 'mtime'
-  | 'ctime'
-  | 'birthtime';
-
-export type StaticImageGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<StaticImageEdge>;
-  nodes: Array<StaticImage>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  max?: Maybe<Scalars['Float']>;
-  min?: Maybe<Scalars['Float']>;
-  sum?: Maybe<Scalars['Float']>;
-  group: Array<StaticImageGroupConnection>;
-  field: Scalars['String'];
-  fieldValue?: Maybe<Scalars['String']>;
-};
-
-
-export type StaticImageGroupConnectionDistinctArgs = {
-  field: StaticImageFieldsEnum;
-};
-
-
-export type StaticImageGroupConnectionMaxArgs = {
-  field: StaticImageFieldsEnum;
-};
-
-
-export type StaticImageGroupConnectionMinArgs = {
-  field: StaticImageFieldsEnum;
-};
-
-
-export type StaticImageGroupConnectionSumArgs = {
-  field: StaticImageFieldsEnum;
-};
-
-
-export type StaticImageGroupConnectionGroupArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
-  field: StaticImageFieldsEnum;
-};
-
-export type StaticImageFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  parent?: InputMaybe<NodeFilterInput>;
-  children?: InputMaybe<NodeFilterListInput>;
-  internal?: InputMaybe<InternalFilterInput>;
-  sourceInstanceName?: InputMaybe<StringQueryOperatorInput>;
-  relativePath?: InputMaybe<StringQueryOperatorInput>;
-  extension?: InputMaybe<StringQueryOperatorInput>;
-  prettySize?: InputMaybe<StringQueryOperatorInput>;
-  modifiedTime?: InputMaybe<DateQueryOperatorInput>;
-  accessTime?: InputMaybe<DateQueryOperatorInput>;
-  changeTime?: InputMaybe<DateQueryOperatorInput>;
-  birthTime?: InputMaybe<DateQueryOperatorInput>;
-  root?: InputMaybe<StringQueryOperatorInput>;
-  dir?: InputMaybe<StringQueryOperatorInput>;
-  base?: InputMaybe<StringQueryOperatorInput>;
-  ext?: InputMaybe<StringQueryOperatorInput>;
-  name?: InputMaybe<StringQueryOperatorInput>;
-  absolutePath?: InputMaybe<StringQueryOperatorInput>;
-  relativeDirectory?: InputMaybe<StringQueryOperatorInput>;
-  dev?: InputMaybe<IntQueryOperatorInput>;
-  mode?: InputMaybe<IntQueryOperatorInput>;
-  nlink?: InputMaybe<IntQueryOperatorInput>;
-  uid?: InputMaybe<IntQueryOperatorInput>;
-  rdev?: InputMaybe<IntQueryOperatorInput>;
-  blksize?: InputMaybe<IntQueryOperatorInput>;
-  ino?: InputMaybe<IntQueryOperatorInput>;
-  size?: InputMaybe<IntQueryOperatorInput>;
-  blocks?: InputMaybe<IntQueryOperatorInput>;
-  atimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  mtimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  ctimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  atime?: InputMaybe<DateQueryOperatorInput>;
-  mtime?: InputMaybe<DateQueryOperatorInput>;
-  ctime?: InputMaybe<DateQueryOperatorInput>;
-  birthtime?: InputMaybe<DateQueryOperatorInput>;
-};
-
-export type StaticImageSortInput = {
-  fields?: InputMaybe<Array<InputMaybe<StaticImageFieldsEnum>>>;
-  order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
-};
-
 export type SiteConfigQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SiteConfigQuery = { sanitySiteConfig?: { _id?: string | null, _type?: string | null, url?: string | null, logo?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, socialLinks?: Array<{ url?: string | null, platform?: string | null } | null> | null, mainNavigation?: Array<{ disallowRobots?: boolean | null, includeInSitemap?: boolean | null, slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null> | null } | null };
 
-export type SanityHeroFragment = { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null } | null> | null };
+export type SanityHeroFragment = { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null> | null };
 
 export type SanityCardSectionFragment = { _key?: string | null };
 
 export type SanityGallerySectionFragment = { _key?: string | null };
 
-export type SanityTextWithImageSectionFragment = { _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { page?: { slug?: { current?: string | null } | null } | null } | null } | null };
+export type SanityTextWithImageSectionFragment = { _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null };
 
 export type SanityTextSectionFragment = { _key?: string | null };
+
+export type CtaRouteFragmentFragment = { route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null };
 
 export type SanityPageQueryQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type SanityPageQueryQuery = { sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection', _key?: string | null } | { __typename: 'SanityGallerySection', _key?: string | null } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { slug?: { current?: string | null } | null, page?: { title?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection', _key?: string | null } | { __typename: 'SanityTextWithImageSection', _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { page?: { slug?: { current?: string | null } | null } | null } | null } | null } | null> | null } | null };
+export type SanityPageQueryQuery = { sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection', _key?: string | null } | { __typename: 'SanityCtaSection' } | { __typename: 'SanityGallerySection', _key?: string | null } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection', _key?: string | null } | { __typename: 'SanityTextWithImageSection', _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityUiComponentRef' } | null> | null } | null };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 
