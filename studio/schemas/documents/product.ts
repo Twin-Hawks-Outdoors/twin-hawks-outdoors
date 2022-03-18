@@ -1,4 +1,5 @@
 import { MdLocalDrink } from "react-icons/md";
+import { slugWithType } from "../../lib/slugWithType";
 
 export default {
   name: "product",
@@ -69,15 +70,7 @@ export default {
         },
       ],
     },
-    {
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: {
-        source: "title",
-        maxLength: 96,
-      },
-    },
+    slugWithType("products", "title")
   ],
 
   preview: {
@@ -86,5 +79,6 @@ export default {
       manufactor: "manufactor.title",
       media: "defaultProductVariant.images[0]",
     },
+
   },
 };

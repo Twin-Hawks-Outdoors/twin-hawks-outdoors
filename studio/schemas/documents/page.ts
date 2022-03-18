@@ -23,7 +23,7 @@ export default {
       title: "Page Content",
       type: "array",
       group: "content",
-      of: [{ type: "hero" }, { type: "textWithImageSection" }, { type: "textSection" }, {type: 'gallerySection'}, {type: 'cardSection'}],
+      of: [{ type: "hero" }, { type: "textWithImageSection" }, { type: "textSection" }, {type: 'gallerySection'}, {type: 'cardSection'}, {type: 'ctaSection', title: 'Call To Action Section'}, {type: 'uiComponentRef', title: 'UI Component'}],
     },
     {
       name: "description",

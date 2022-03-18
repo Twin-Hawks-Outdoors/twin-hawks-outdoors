@@ -29,6 +29,8 @@ import training from './documents/training'
 import post from './documents/post'
 import gallerySection from './objects/gallerySection'
 import cardSection from './objects/cardSection'
+import ctaSection from './objects/ctaSection'
+import uiComponent from './objects/uiComponent'
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -63,6 +65,8 @@ export default createSchema({
     socialLink,
     imageGallery,
     gallerySection,
-    cardSection
+    cardSection,
+    ctaSection,
+    uiComponent
   ]),
 })
