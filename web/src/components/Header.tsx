@@ -39,7 +39,6 @@ const Header = (): ReactElement => {
       }
     }
   `);
-  console.log(sanitySiteConfig);
 
   return (
     <header className="flex items-center justify-between container mx-auto p-4">
