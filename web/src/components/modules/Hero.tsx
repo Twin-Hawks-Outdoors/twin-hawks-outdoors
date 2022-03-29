@@ -6,7 +6,7 @@ import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import React from 'react';
 import { SanityHeroFragment } from '../../../graphql-types';
 
-const components: PortableTextComponents = {
+export const components: PortableTextComponents = {
   block: {
     normal: ({ children }) => <p className="text-white max-w-md">{children}</p>,
   },

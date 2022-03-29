@@ -38,6 +38,7 @@ export const query: StaticQueryDocument = graphql`
         ...SanityTextWithImageSection
         ...SanityTextSection
         ...SanityUiComponentRef
+        ...SanityCtaSection
       }
     }
   }

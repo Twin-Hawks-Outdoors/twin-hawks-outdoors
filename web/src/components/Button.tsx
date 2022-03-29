@@ -19,7 +19,7 @@ const Button = ({
   className?: string;
 }) => (
   <Link
-    className={`inline-block mt-8 button ${
+    className={`inline-block mt-8 button cursor-pointer ${
       BG_COLORS[bgColor as keyof typeof BG_COLORS]
     } ${className}`}
     to={to}

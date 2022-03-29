@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby';
-import { SanityUiComponentRef } from '../../graphql-types';
+import { SanityCtaSection, SanityUiComponentRef } from '../../graphql-types';
 
 export const fragments = graphql`
   fragment SanityHero on SanityHero {
@@ -34,6 +34,16 @@ export const fragments = graphql`
 
   fragment SanityGallerySection on SanityGallerySection {
     _key
+  }
+
+  fragment SanityCtaSection on SanityCtaSection {
+    _key
+    cta {
+      title
+      link
+      ...CtaRouteFragment
+    }
+    _rawBody(resolveReferences: { maxDepth: 10 })
   }
   fragment SanityTextWithImageSection on SanityTextWithImageSection {
     _key
