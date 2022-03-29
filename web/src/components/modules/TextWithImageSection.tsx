@@ -14,18 +14,28 @@ const TextWithImageSection = ({
 }) => {
   const orderClass =
     props?.imagePlacement === 'right' ? 'md:col-start-1' : 'md:col-start-2';
-  console.log(props);
+  let bgColor;
+  if (props?.cta?.route?.slug?.current?.includes('/classes/')) {
+    bgColor = 'red';
+  } else if (props?.cta?.route?.slug?.current?.includes('/shop/')) {
+    bgColor = 'rust';
+  } else {
+    bgColor = 'teal';
+  }
+
   return (
     <section className="container mx-auto py-24 md:py-48 md:grid grid-cols-1 md:grid-cols-2 gap-8 relative ">
       {props?.vintageBackground && (
-        <StaticImage
-          className="hidden md:block -z-10 absolute w-[125%] h-[60%] top-24 -left-12 md:h-[90%] md:w-full md:-left-24 "
-          src="../../images/vintage-bg-2.png"
-          layout="fullWidth"
-          // objectFit="cover"
-          objectPosition="center"
-          alt=""
-        />
+        <div className="hidden md:block row-start-1 col-start-1 col-span-full relative  md:h-[140%] md:top-[-180px] lg:h-[125%] md:w-full md:-left-24 w-[125%] h-[60%] ">
+          <StaticImage
+            className="-z-10 absolute top-24 -left-12 md:h-[90%] md:w-full md:-left-24 w-[125%] h-[60%] "
+            src="../../images/vintage-bg-2.png"
+            layout="fullWidth"
+            // objectFit="cover"
+            objectPosition="center"
+            alt=""
+          />
+        </div>
       )}
       <GatsbyImage
         className={`aspect-square rounded-md shadow-md shadow-black/50 row-start-1 self-center ${
@@ -37,7 +47,11 @@ const TextWithImageSection = ({
       <div className={`${orderClass} row-start-1 self-center`}>
         {/* <PrettyJson data={props} /> */}
         <div className=" self-center">
-          <h2 className="col-span-full md:mt-0">
+          <h2
+            className={`col-span-full ${
+              props?.vintageBackground ? 'lg:mt-0' : 'md:mt-0'
+            }`}
+          >
             {props?.heading || props?.label}
           </h2>
           <div className={`prose `}>
@@ -48,6 +62,7 @@ const TextWithImageSection = ({
               to={
                 (props?.cta?.route?.slug?.current || props?.cta?.link) as string
               }
+              bgColor={bgColor}
             >
               {props?.cta?.title}
             </Button>
