@@ -1,4 +1,5 @@
 import { graphql } from 'gatsby';
+import { SanityUiComponentRef } from '../../graphql-types';
 
 export const fragments = graphql`
   fragment SanityHero on SanityHero {
@@ -24,6 +25,11 @@ export const fragments = graphql`
 
   fragment SanityCardSection on SanityCardSection {
     _key
+  }
+
+  fragment SanityUiComponentRef on SanityUiComponentRef {
+    _key
+    name
   }
 
   fragment SanityGallerySection on SanityGallerySection {

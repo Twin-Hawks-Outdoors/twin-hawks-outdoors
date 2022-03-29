@@ -243,6 +243,8 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Int']>;
+  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   jsxRuntime?: Maybe<Scalars['String']>;
@@ -1874,6 +1876,8 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
+  port?: InputMaybe<IntQueryOperatorInput>;
+  host?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
@@ -3230,6 +3234,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___siteUrl'
+  | 'port'
+  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'jsxRuntime'
@@ -3365,6 +3371,8 @@ export type SiteGroupConnectionGroupArgs = {
 export type SiteFilterInput = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
+  port?: InputMaybe<IntQueryOperatorInput>;
+  host?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
@@ -8395,6 +8403,8 @@ export type SanityHeroFragment = { __typename: 'SanityHero', _key?: string | nul
 
 export type SanityCardSectionFragment = { _key?: string | null };
 
+export type SanityUiComponentRefFragment = { _key?: string | null, name?: string | null };
+
 export type SanityGallerySectionFragment = { _key?: string | null };
 
 export type SanityTextWithImageSectionFragment = { _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null };
@@ -8408,7 +8418,7 @@ export type SanityPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type SanityPageQueryQuery = { sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection', _key?: string | null } | { __typename: 'SanityCtaSection' } | { __typename: 'SanityGallerySection', _key?: string | null } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection', _key?: string | null } | { __typename: 'SanityTextWithImageSection', _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityUiComponentRef' } | null> | null } | null };
+export type SanityPageQueryQuery = { sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection', _key?: string | null } | { __typename: 'SanityCtaSection' } | { __typename: 'SanityGallerySection', _key?: string | null } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection', _key?: string | null } | { __typename: 'SanityTextWithImageSection', _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityUiComponentRef', _key?: string | null, name?: string | null } | null> | null } | null };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 

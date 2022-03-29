@@ -11,15 +11,17 @@ const Button = ({
   to,
   children,
   bgColor = 'default',
+  className = '',
 }: {
   to: string;
   children: ReactNode;
   bgColor?: string;
+  className?: string;
 }) => (
   <Link
     className={`inline-block mt-8 button ${
       BG_COLORS[bgColor as keyof typeof BG_COLORS]
-    }`}
+    } ${className}`}
     to={to}
   >
     {children}
