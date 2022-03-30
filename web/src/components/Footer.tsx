@@ -48,16 +48,16 @@ function Footer() {
         src="../images/whitegrit.png"
         alt=""
         height={500}
-        className="col-span-full row-start-1 col-start-1"
+        className="col-span-full row-start-1 col-start-1 brightness-50 "
       />
-      <div className="py-12 container mx-auto col-start-1 row-start-1 col-span-full flex flex-wrap items-center justify-between gap-8 ">
+      <div className="py-12 container mx-auto col-start-1 row-start-1 col-span-full flex flex-wrap items-center justify-between gap-8 z-10">
         <StaticImage
           width={200}
           height={200}
           src="../images/logo-inverted.svg"
           alt="logo"
         />
-        <nav className='z-10 text-white'>
+        <nav className=' text-white'>
           <ul className="flex gap-8 flex-wrap justify-between items-center">
             {sanitySiteConfig?.footerNavigation?.map((item) => (
               <Link className="font-sans uppercase text-white "
