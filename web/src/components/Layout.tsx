@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import Footer from './Footer';
 import Header from './Header';
 
 function Layout({ children }: { children: ReactNode }) {
@@ -6,7 +7,7 @@ function Layout({ children }: { children: ReactNode }) {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">{children}</main>
-      <footer>this is the footer</footer>
+      <Footer />
     </div>
   );
 }

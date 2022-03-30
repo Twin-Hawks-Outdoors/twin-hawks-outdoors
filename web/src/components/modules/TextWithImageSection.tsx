@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { PortableText } from '@portabletext/react';
-import { Link } from 'gatsby';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import React from 'react';
 import { SanityTextWithImageSection } from '../../../graphql-types';
 import Button from '../Button';
-import PrettyJson from '../PrettyJson';
 
 const TextWithImageSection = ({
   props,

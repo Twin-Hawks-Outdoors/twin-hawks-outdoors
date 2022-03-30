@@ -1,11 +1,8 @@
 import loadable from '@loadable/component';
-import { StaticImage } from 'gatsby-plugin-image';
 import pascalCase from 'just-pascal-case';
 import React from 'react';
 import { SanityUiComponentRef } from '../../../graphql-types';
-import PrettyJson from '../PrettyJson';
 
-pascalCase;
 
 const getUiComponent = (type: string) => {
   const formattedType = pascalCase(type);
