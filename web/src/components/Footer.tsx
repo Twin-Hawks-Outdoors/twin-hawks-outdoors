@@ -50,7 +50,7 @@ function Footer() {
         height={500}
         className="col-span-full row-start-1 col-start-1 brightness-50 "
       />
-      <div className="py-12 container mx-auto col-start-1 row-start-1 col-span-full flex flex-wrap items-center justify-between gap-8 z-10">
+      <div className="py-12 container mx-auto col-start-1 row-start-1 col-span-full flex flex-wrap items-center justify-center lg:justify-between gap-8 z-10">
         <StaticImage
           width={200}
           height={200}
