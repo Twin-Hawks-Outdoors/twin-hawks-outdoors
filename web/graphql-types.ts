@@ -1057,7 +1057,7 @@ export type SanityFileAsset_RawSourceArgs = {
   resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
 };
 
-export type SanityImageAsset = SanityDocument & Node & RemoteFile & {
+export type SanityImageAsset = SanityDocument & Node & {
   _id?: Maybe<Scalars['String']>;
   _type?: Maybe<Scalars['String']>;
   _createdAt?: Maybe<Scalars['Date']>;
@@ -1071,7 +1071,7 @@ export type SanityImageAsset = SanityDocument & Node & RemoteFile & {
   altText?: Maybe<Scalars['String']>;
   sha1hash?: Maybe<Scalars['String']>;
   extension?: Maybe<Scalars['String']>;
-  mimeType: Scalars['String'];
+  mimeType?: Maybe<Scalars['String']>;
   size?: Maybe<Scalars['Float']>;
   assetId?: Maybe<Scalars['String']>;
   uploadId?: Maybe<Scalars['String']>;
@@ -1086,14 +1086,6 @@ export type SanityImageAsset = SanityDocument & Node & RemoteFile & {
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
-  filename: Scalars['String'];
-  filesize?: Maybe<Scalars['Int']>;
-  width?: Maybe<Scalars['Int']>;
-  height?: Maybe<Scalars['Int']>;
-  publicUrl: Scalars['String'];
-  resize?: Maybe<RemoteFileResize>;
-  /** Data used in the <GatsbyImage /> component. See https://gatsby.dev/img for more info. */
-  gatsbyImage?: Maybe<Scalars['JSON']>;
 };
 
 
@@ -1136,117 +1128,6 @@ export type SanityImageAssetGatsbyImageDataArgs = {
   backgroundColor?: InputMaybe<Scalars['String']>;
   fit?: InputMaybe<SanityImageFit>;
 };
-
-
-export type SanityImageAssetResizeArgs = {
-  width?: InputMaybe<Scalars['Int']>;
-  height?: InputMaybe<Scalars['Int']>;
-  aspectRatio?: InputMaybe<Scalars['Float']>;
-  fit?: InputMaybe<RemoteFileFit>;
-  format?: InputMaybe<RemoteFileFormat>;
-  cropFocus?: InputMaybe<Array<InputMaybe<RemoteFileCropFocus>>>;
-  quality?: InputMaybe<Scalars['Int']>;
-};
-
-
-export type SanityImageAssetGatsbyImageArgs = {
-  layout?: InputMaybe<RemoteFileLayout>;
-  width?: InputMaybe<Scalars['Int']>;
-  height?: InputMaybe<Scalars['Int']>;
-  placeholder?: InputMaybe<RemoteFilePlaceholder>;
-  aspectRatio?: InputMaybe<Scalars['Float']>;
-  formats?: InputMaybe<Array<RemoteFileFormat>>;
-  outputPixelDensities?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
-  breakpoints?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
-  sizes?: InputMaybe<Scalars['String']>;
-  backgroundColor?: InputMaybe<Scalars['String']>;
-  fit?: InputMaybe<RemoteFileFit>;
-  cropFocus?: InputMaybe<Array<InputMaybe<RemoteFileCropFocus>>>;
-  quality?: InputMaybe<Scalars['Int']>;
-};
-
-/** Remote Interface */
-export type RemoteFile = {
-  id: Scalars['ID'];
-  mimeType: Scalars['String'];
-  filename: Scalars['String'];
-  filesize?: Maybe<Scalars['Int']>;
-  width?: Maybe<Scalars['Int']>;
-  height?: Maybe<Scalars['Int']>;
-  publicUrl: Scalars['String'];
-  resize?: Maybe<RemoteFileResize>;
-  /** Data used in the <GatsbyImage /> component. See https://gatsby.dev/img for more info. */
-  gatsbyImage?: Maybe<Scalars['JSON']>;
-};
-
-
-/** Remote Interface */
-export type RemoteFileResizeArgs = {
-  width?: InputMaybe<Scalars['Int']>;
-  height?: InputMaybe<Scalars['Int']>;
-  aspectRatio?: InputMaybe<Scalars['Float']>;
-  fit?: InputMaybe<RemoteFileFit>;
-  format?: InputMaybe<RemoteFileFormat>;
-  cropFocus?: InputMaybe<Array<InputMaybe<RemoteFileCropFocus>>>;
-  quality?: InputMaybe<Scalars['Int']>;
-};
-
-
-/** Remote Interface */
-export type RemoteFileGatsbyImageArgs = {
-  layout?: InputMaybe<RemoteFileLayout>;
-  width?: InputMaybe<Scalars['Int']>;
-  height?: InputMaybe<Scalars['Int']>;
-  placeholder?: InputMaybe<RemoteFilePlaceholder>;
-  aspectRatio?: InputMaybe<Scalars['Float']>;
-  formats?: InputMaybe<Array<RemoteFileFormat>>;
-  outputPixelDensities?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
-  breakpoints?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
-  sizes?: InputMaybe<Scalars['String']>;
-  backgroundColor?: InputMaybe<Scalars['String']>;
-  fit?: InputMaybe<RemoteFileFit>;
-  cropFocus?: InputMaybe<Array<InputMaybe<RemoteFileCropFocus>>>;
-  quality?: InputMaybe<Scalars['Int']>;
-};
-
-export type RemoteFileResize = {
-  width?: Maybe<Scalars['Int']>;
-  height?: Maybe<Scalars['Int']>;
-  src?: Maybe<Scalars['String']>;
-};
-
-export type RemoteFileFit =
-  | 'COVER'
-  | 'FILL'
-  | 'OUTSIDE'
-  | 'CONTAIN';
-
-export type RemoteFileFormat =
-  | 'AUTO'
-  | 'JPG'
-  | 'PNG'
-  | 'WEBP'
-  | 'AVIF';
-
-export type RemoteFileCropFocus =
-  | 'CENTER'
-  | 'TOP'
-  | 'RIGHT'
-  | 'BOTTOM'
-  | 'LEFT'
-  | 'ENTROPY'
-  | 'EDGES'
-  | 'FACES';
-
-export type RemoteFileLayout =
-  | 'FIXED'
-  | 'FULL_WIDTH'
-  | 'CONSTRAINED';
-
-export type RemoteFilePlaceholder =
-  | 'DOMINANT_COLOR'
-  | 'BLURRED'
-  | 'NONE';
 
 export type SanityGatsbyImagePlaceholder =
   | 'DOMINANT_COLOR'
@@ -2403,13 +2284,6 @@ export type QuerySanityImageAssetArgs = {
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
   internal?: InputMaybe<InternalFilterInput>;
-  filename?: InputMaybe<StringQueryOperatorInput>;
-  filesize?: InputMaybe<IntQueryOperatorInput>;
-  width?: InputMaybe<IntQueryOperatorInput>;
-  height?: InputMaybe<IntQueryOperatorInput>;
-  publicUrl?: InputMaybe<StringQueryOperatorInput>;
-  resize?: InputMaybe<RemoteFileResizeFilterInput>;
-  gatsbyImage?: InputMaybe<JsonQueryOperatorInput>;
 };
 
 
@@ -4810,13 +4684,6 @@ export type SanityImageAssetFilterInput = {
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
   internal?: InputMaybe<InternalFilterInput>;
-  filename?: InputMaybe<StringQueryOperatorInput>;
-  filesize?: InputMaybe<IntQueryOperatorInput>;
-  width?: InputMaybe<IntQueryOperatorInput>;
-  height?: InputMaybe<IntQueryOperatorInput>;
-  publicUrl?: InputMaybe<StringQueryOperatorInput>;
-  resize?: InputMaybe<RemoteFileResizeFilterInput>;
-  gatsbyImage?: InputMaybe<JsonQueryOperatorInput>;
 };
 
 export type SanityImageMetadataFilterInput = {
@@ -4884,12 +4751,6 @@ export type SanityAssetSourceDataFilterInput = {
   name?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   url?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type RemoteFileResizeFilterInput = {
-  width?: InputMaybe<IntQueryOperatorInput>;
-  height?: InputMaybe<IntQueryOperatorInput>;
-  src?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type SanityImageHotspotFilterInput = {
@@ -5019,15 +4880,6 @@ export type SanityPageFieldsEnum =
   | 'openGraphImage___asset___internal___mediaType'
   | 'openGraphImage___asset___internal___owner'
   | 'openGraphImage___asset___internal___type'
-  | 'openGraphImage___asset___filename'
-  | 'openGraphImage___asset___filesize'
-  | 'openGraphImage___asset___width'
-  | 'openGraphImage___asset___height'
-  | 'openGraphImage___asset___publicUrl'
-  | 'openGraphImage___asset___resize___width'
-  | 'openGraphImage___asset___resize___height'
-  | 'openGraphImage___asset___resize___src'
-  | 'openGraphImage___asset___gatsbyImage'
   | 'openGraphImage___hotspot____key'
   | 'openGraphImage___hotspot____type'
   | 'openGraphImage___hotspot___x'
@@ -5319,15 +5171,6 @@ export type SanityPersonFieldsEnum =
   | 'photo___asset___internal___mediaType'
   | 'photo___asset___internal___owner'
   | 'photo___asset___internal___type'
-  | 'photo___asset___filename'
-  | 'photo___asset___filesize'
-  | 'photo___asset___width'
-  | 'photo___asset___height'
-  | 'photo___asset___publicUrl'
-  | 'photo___asset___resize___width'
-  | 'photo___asset___resize___height'
-  | 'photo___asset___resize___src'
-  | 'photo___asset___gatsbyImage'
   | 'photo___hotspot____key'
   | 'photo___hotspot____type'
   | 'photo___hotspot___x'
@@ -5834,12 +5677,6 @@ export type SanityPostFieldsEnum =
   | 'author___photo___asset___gatsbyImageData'
   | 'author___photo___asset___id'
   | 'author___photo___asset___children'
-  | 'author___photo___asset___filename'
-  | 'author___photo___asset___filesize'
-  | 'author___photo___asset___width'
-  | 'author___photo___asset___height'
-  | 'author___photo___asset___publicUrl'
-  | 'author___photo___asset___gatsbyImage'
   | 'author___photo___hotspot____key'
   | 'author___photo___hotspot____type'
   | 'author___photo___hotspot___x'
@@ -5948,15 +5785,6 @@ export type SanityPostFieldsEnum =
   | 'mainImage___asset___internal___mediaType'
   | 'mainImage___asset___internal___owner'
   | 'mainImage___asset___internal___type'
-  | 'mainImage___asset___filename'
-  | 'mainImage___asset___filesize'
-  | 'mainImage___asset___width'
-  | 'mainImage___asset___height'
-  | 'mainImage___asset___publicUrl'
-  | 'mainImage___asset___resize___width'
-  | 'mainImage___asset___resize___height'
-  | 'mainImage___asset___resize___src'
-  | 'mainImage___asset___gatsbyImage'
   | 'mainImage___hotspot____key'
   | 'mainImage___hotspot____type'
   | 'mainImage___hotspot___x'
@@ -6326,15 +6154,6 @@ export type SanityProductFieldsEnum =
   | 'mainImage___asset___internal___mediaType'
   | 'mainImage___asset___internal___owner'
   | 'mainImage___asset___internal___type'
-  | 'mainImage___asset___filename'
-  | 'mainImage___asset___filesize'
-  | 'mainImage___asset___width'
-  | 'mainImage___asset___height'
-  | 'mainImage___asset___publicUrl'
-  | 'mainImage___asset___resize___width'
-  | 'mainImage___asset___resize___height'
-  | 'mainImage___asset___resize___src'
-  | 'mainImage___asset___gatsbyImage'
   | 'mainImage___hotspot____key'
   | 'mainImage___hotspot____type'
   | 'mainImage___hotspot___x'
@@ -6387,12 +6206,6 @@ export type SanityProductFieldsEnum =
   | 'defaultProductVariant___images___asset___gatsbyImageData'
   | 'defaultProductVariant___images___asset___id'
   | 'defaultProductVariant___images___asset___children'
-  | 'defaultProductVariant___images___asset___filename'
-  | 'defaultProductVariant___images___asset___filesize'
-  | 'defaultProductVariant___images___asset___width'
-  | 'defaultProductVariant___images___asset___height'
-  | 'defaultProductVariant___images___asset___publicUrl'
-  | 'defaultProductVariant___images___asset___gatsbyImage'
   | 'defaultProductVariant___images___hotspot____key'
   | 'defaultProductVariant___images___hotspot____type'
   | 'defaultProductVariant___images___hotspot___x'
@@ -6445,12 +6258,6 @@ export type SanityProductFieldsEnum =
   | 'variants___images___asset___gatsbyImageData'
   | 'variants___images___asset___id'
   | 'variants___images___asset___children'
-  | 'variants___images___asset___filename'
-  | 'variants___images___asset___filesize'
-  | 'variants___images___asset___width'
-  | 'variants___images___asset___height'
-  | 'variants___images___asset___publicUrl'
-  | 'variants___images___asset___gatsbyImage'
   | 'variants___images___hotspot____key'
   | 'variants___images___hotspot____type'
   | 'variants___images___hotspot___x'
@@ -6791,12 +6598,6 @@ export type SanityRouteFieldsEnum =
   | 'page___openGraphImage___asset___gatsbyImageData'
   | 'page___openGraphImage___asset___id'
   | 'page___openGraphImage___asset___children'
-  | 'page___openGraphImage___asset___filename'
-  | 'page___openGraphImage___asset___filesize'
-  | 'page___openGraphImage___asset___width'
-  | 'page___openGraphImage___asset___height'
-  | 'page___openGraphImage___asset___publicUrl'
-  | 'page___openGraphImage___asset___gatsbyImage'
   | 'page___openGraphImage___hotspot____key'
   | 'page___openGraphImage___hotspot____type'
   | 'page___openGraphImage___hotspot___x'
@@ -7468,16 +7269,7 @@ export type SanityImageAssetFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type'
-  | 'filename'
-  | 'filesize'
-  | 'width'
-  | 'height'
-  | 'publicUrl'
-  | 'resize___width'
-  | 'resize___height'
-  | 'resize___src'
-  | 'gatsbyImage';
+  | 'internal___type';
 
 export type SanityImageAssetGroupConnection = {
   totalCount: Scalars['Int'];
@@ -7631,12 +7423,6 @@ export type SanitySiteConfigFieldsEnum =
   | 'frontpage___openGraphImage___asset___gatsbyImageData'
   | 'frontpage___openGraphImage___asset___id'
   | 'frontpage___openGraphImage___asset___children'
-  | 'frontpage___openGraphImage___asset___filename'
-  | 'frontpage___openGraphImage___asset___filesize'
-  | 'frontpage___openGraphImage___asset___width'
-  | 'frontpage___openGraphImage___asset___height'
-  | 'frontpage___openGraphImage___asset___publicUrl'
-  | 'frontpage___openGraphImage___asset___gatsbyImage'
   | 'frontpage___openGraphImage___hotspot____key'
   | 'frontpage___openGraphImage___hotspot____type'
   | 'frontpage___openGraphImage___hotspot___x'
@@ -7746,15 +7532,6 @@ export type SanitySiteConfigFieldsEnum =
   | 'logo___asset___internal___mediaType'
   | 'logo___asset___internal___owner'
   | 'logo___asset___internal___type'
-  | 'logo___asset___filename'
-  | 'logo___asset___filesize'
-  | 'logo___asset___width'
-  | 'logo___asset___height'
-  | 'logo___asset___publicUrl'
-  | 'logo___asset___resize___width'
-  | 'logo___asset___resize___height'
-  | 'logo___asset___resize___src'
-  | 'logo___asset___gatsbyImage'
   | 'logo___hotspot____key'
   | 'logo___hotspot____type'
   | 'logo___hotspot___x'
@@ -8235,15 +8012,6 @@ export type SanityTrainingFieldsEnum =
   | 'openGraphImage___asset___internal___mediaType'
   | 'openGraphImage___asset___internal___owner'
   | 'openGraphImage___asset___internal___type'
-  | 'openGraphImage___asset___filename'
-  | 'openGraphImage___asset___filesize'
-  | 'openGraphImage___asset___width'
-  | 'openGraphImage___asset___height'
-  | 'openGraphImage___asset___publicUrl'
-  | 'openGraphImage___asset___resize___width'
-  | 'openGraphImage___asset___resize___height'
-  | 'openGraphImage___asset___resize___src'
-  | 'openGraphImage___asset___gatsbyImage'
   | 'openGraphImage___hotspot____key'
   | 'openGraphImage___hotspot____type'
   | 'openGraphImage___hotspot___x'
