@@ -1,7 +1,115 @@
+import { navigate } from 'gatsby';
 import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { encodeFormData } from '../lib/encodeFormData';
+
+export type FormValues = {
+  [key: string]: string | number | boolean;
+};
 
 function ContactForm() {
-  return <div>ContactForm</div>;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    // async
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeFormData({ 'form-name': 'contact', ...data }),
+    })
+      .then(() => navigate('/success/'))
+      .catch((error) =>
+        alert(
+          `Oops... something went wrong. Please contact us with this error message: ${
+            error as string
+          }`
+        )
+      );
+  };
+  return (
+    <div className="container max-w-xl my-8">
+      <form
+        className=" grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-full max-w-3xl mx-auto"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        action="/success"
+        netlify-honeypot="bot-field"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <p className="hidden">
+          <label>
+            Don’t fill this out if you’re human: <input name="bot-field" />
+          </label>
+        </p>
+        <input type="hidden" name="form-name" value="contact" />
+        <div className="form-group">
+          <label htmlFor="fullName">
+            Full Name
+            <input
+              placeholder="Please enter your name"
+              type="text"
+              {...register('fullName', { required: true })}
+            />
+          </label>
+          {errors.fullName && (
+            <small className="error">Full name is required.</small>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">
+            Email
+            <input
+              type="email"
+              placeholder="Please enter a valid email"
+              {...register('email', { required: true })}
+            />
+          </label>
+          {errors.email && <small className="error">Email is required.</small>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">
+            Phone
+            <input
+              type="tel"
+              placeholder="Please enter a phone number"
+              {...register('phone', { minLength: 7, maxLength: 14 })}
+            />
+          </label>
+          {errors.phone && (
+            <small className="error">
+              Please enter a valid U.S phone number.
+            </small>
+          )}
+        </div>
+        <div className="form-group md:col-span-2 lg:col-span-3">
+          <label htmlFor="message">
+            Message
+            <textarea
+              rows={6}
+              className="resize-none"
+              placeholder="Please enter a brief message!"
+              {...register('message', { required: true, minLength: 20 })}
+            />
+          </label>
+          {errors.message && (
+            <small className="error">
+              Message must be a minimum 20 characters..
+            </small>
+          )}
+        </div>
+        <input
+          className="col-span-full justify-self-end button-sm bg-teal-500 cursor-pointer hover:bg-teal-400 focus:bg-teal-400 hover:text-gray-800 active:bg-teal-600 active:text-black focus:ring-teal-600"
+          type="submit"
+          value="Send"
+        />
+      </form>
+    </div>
+  );
 }
 
 export default ContactForm;

@@ -72,6 +72,10 @@ export const fragments = graphql`
   }
   fragment SanityTextSection on SanityTextSection {
     _key
+    _type
+    heading
+    label
+    _rawText(resolveReferences: { maxDepth: 10 })
   }
 
   fragment CtaRouteFragment on SanityCta {

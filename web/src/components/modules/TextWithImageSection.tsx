@@ -13,7 +13,7 @@ const TextWithImageSection = ({
   const orderClass =
     props?.imagePlacement === 'right' ? 'md:col-start-1' : 'md:col-start-2';
   let bgColor;
-  if (props?.cta?.route?.slug?.current?.includes('/classes/')) {
+  if (props?.cta?.route?.slug?.current?.includes('/training/')) {
     bgColor = 'red';
   } else if (props?.cta?.route?.slug?.current?.includes('/shop/')) {
     bgColor = 'rust';
@@ -26,7 +26,7 @@ const TextWithImageSection = ({
       {props?.vintageBackground && (
         <div className="hidden md:block row-start-1 col-start-1 col-span-full relative  md:h-[140%] md:top-[-180px] lg:h-[125%] md:w-full md:-left-24 w-[125%] h-[60%] ">
           <StaticImage
-            className="-z-10 absolute top-24 -left-12 md:h-[90%] md:w-full md:-left-24 w-[125%] h-[60%] "
+            className="-z-10 absolute top-24 -left-12 md:h-[90%] md:w-full md:-left-24 w-[125%] h-[60%] brightness-125 "
             src="../../images/vintage-bg-2.png"
             layout="fullWidth"
             // objectFit="cover"
@@ -43,7 +43,6 @@ const TextWithImageSection = ({
         alt={props?.image?.alt || props?.image?.asset?.altText || ''}
       />
       <div className={`${orderClass} row-start-1 self-center`}>
-        {/* <PrettyJson data={props} /> */}
         <div className=" self-center">
           <h2
             className={`col-span-full ${

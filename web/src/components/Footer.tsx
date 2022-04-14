@@ -1,3 +1,4 @@
+import { PortableText } from '@portabletext/react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import React from 'react';
@@ -19,9 +20,7 @@ function Footer() {
   const data = useStaticQuery<FooterQuery>(graphql`
     query Footer {
       sanitySiteConfig {
-        footerText {
-          _rawChildren(resolveReferences: { maxDepth: 10 })
-        }
+        _rawFooterText(resolveReferences: { maxDepth: 10 })
         socialLinks {
           platform
           _key
@@ -51,12 +50,17 @@ function Footer() {
         className="col-span-full row-start-1 col-start-1 brightness-50 "
       />
       <div className="py-12 container mx-auto col-start-1 row-start-1 col-span-full flex flex-wrap items-center justify-center lg:justify-between gap-8 z-10">
-        <StaticImage
-          width={200}
-          height={200}
-          src="../images/logo-inverted.svg"
-          alt="logo"
-        />
+        <div>
+          <StaticImage
+            width={200}
+            height={200}
+            src="../images/logo-inverted.svg"
+            alt="logo"
+          />
+          <div className="text-white max-w-prose mt-8 prose-p:text-white prose-p:text-base prose-p:font-serif prose-p:tracking-wide">
+            <PortableText value={sanitySiteConfig?._rawFooterText} />
+          </div>
+        </div>
         <nav className=' text-white'>
           <ul className="flex gap-8 flex-wrap justify-between items-center">
             {sanitySiteConfig?.footerNavigation?.map((item) => (
@@ -81,8 +85,6 @@ function Footer() {
           ))}
         </div>
       </div>
-      {/* <PrettyJson data={data} />
-      this si some test data */}
     </footer>
   );
 }
