@@ -25,6 +25,12 @@ export default {
       to: { type: "page" },
     },
     {
+      name: "blogpage",
+      type: "reference",
+      description: "Choose page to be the blog page",
+      to: { type: "page" },
+    },
+    {
       title: "Brand logo",
       description:
         "Best choice is to use an SVG where the color are set with currentColor",
