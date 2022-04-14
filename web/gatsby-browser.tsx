@@ -1,16 +1,20 @@
 import * as React from 'react';
 import type { GatsbyBrowser } from 'gatsby';
 import { PortableTextComponentsProvider } from '@portabletext/react';
-import Layout from './src/components/Layout';
+import { AnimatePresence } from 'framer-motion';
 import '@fontsource/oswald';
 import '@fontsource/quattrocento';
 import './src/styles/global.css';
 import { portableTextComponents } from './src/lib/portableTextComponents';
+import Header from './src/components/Header';
+import Footer from './src/components/Footer';
 
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
   element,
 }) => (
   <PortableTextComponentsProvider components={portableTextComponents}>
-    <Layout>{element}</Layout>
+    <Header />
+    <AnimatePresence exitBeforeEnter>{element}</AnimatePresence>
+    <Footer />
   </PortableTextComponentsProvider>
 );

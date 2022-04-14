@@ -1,14 +1,21 @@
 import React, { ReactNode } from 'react';
-import Footer from './Footer';
-import Header from './Header';
+import { motion } from 'framer-motion';
 
 function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </div>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{
+        type: 'spring',
+        mass: 0.35,
+        stiffness: 75,
+        duration: 0.3,
+      }}
+    >
+      {children}
+    </motion.main>
   );
 }
 

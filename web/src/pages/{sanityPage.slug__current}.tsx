@@ -3,9 +3,10 @@ import React from 'react';
 import loadable from '@loadable/component';
 import { SanityPageQueryQuery } from '../../graphql-types';
 import PrettyJson from '../components/PrettyJson';
+import Layout from '../components/Layout';
 
-const SanityPage = ({ data, location }: PageProps<SanityPageQueryQuery>) =>
-  data?.sanityPage?.content?.map((element, idx) => {
+const SanityPage = ({ data, location }: PageProps<SanityPageQueryQuery>) => {
+  const modules = data?.sanityPage?.content?.map((element, idx) => {
     const typename = element?.__typename.replace('Sanity', '');
 
     const Component = loadable(
@@ -19,6 +20,9 @@ const SanityPage = ({ data, location }: PageProps<SanityPageQueryQuery>) =>
       />
     );
   });
+
+  return <Layout>{modules}</Layout>;
+};
 
 export default SanityPage;
 

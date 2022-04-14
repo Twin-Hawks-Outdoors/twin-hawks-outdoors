@@ -72,9 +72,9 @@ function Footer() {
           </ul>
         </nav>
         <div className="social-links flex gap-8 justify-center items-center">
-          {sanitySiteConfig?.socialLinks?.map((item) => (
+          {sanitySiteConfig?.socialLinks?.map((item, index) => (
               <a
-                key={item?._key}
+                key={item?._key || index}
                 target="_BLANK"
                 href={item?.url as string}
                 rel="noreferrer"

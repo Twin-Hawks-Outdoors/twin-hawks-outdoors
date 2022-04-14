@@ -1,5 +1,4 @@
 import { graphql } from 'gatsby';
-import { SanityCtaSection, SanityUiComponentRef } from '../../graphql-types';
 
 export const fragments = graphql`
   fragment SanityHero on SanityHero {
