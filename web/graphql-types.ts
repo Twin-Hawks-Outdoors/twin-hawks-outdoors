@@ -809,6 +809,7 @@ export type SanityPost = SanityDocument & Node & {
   _rawMainImage?: Maybe<Scalars['JSON']>;
   _rawCategories?: Maybe<Scalars['JSON']>;
   _rawBody?: Maybe<Scalars['JSON']>;
+  gatsbyPath?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -862,6 +863,11 @@ export type SanityPost_RawCategoriesArgs = {
 
 export type SanityPost_RawBodyArgs = {
   resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityPostGatsbyPathArgs = {
+  filePath?: InputMaybe<Scalars['String']>;
 };
 
 export type SanityProduct = SanityDocument & Node & {
@@ -2265,6 +2271,7 @@ export type QuerySanityPostArgs = {
   _rawMainImage?: InputMaybe<JsonQueryOperatorInput>;
   _rawCategories?: InputMaybe<JsonQueryOperatorInput>;
   _rawBody?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyPath?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -6050,6 +6057,7 @@ export type SanityPostFieldsEnum =
   | '_rawMainImage'
   | '_rawCategories'
   | '_rawBody'
+  | 'gatsbyPath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -6198,6 +6206,7 @@ export type SanityPostFilterInput = {
   _rawMainImage?: InputMaybe<JsonQueryOperatorInput>;
   _rawCategories?: InputMaybe<JsonQueryOperatorInput>;
   _rawBody?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyPath?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -8741,7 +8750,7 @@ export type ImageSharpSortInput = {
 export type BlogListingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogListingsQuery = { allSanityPost: { edges: Array<{ node: { id: string, title?: string | null, publishedAt?: any | null, _createdAt?: any | null, excerpt?: string | null, slug?: { current?: string | null } | null } }> } };
+export type BlogListingsQuery = { allSanityPost: { totalCount: number, edges: Array<{ node: { id: string, title?: string | null, publishedAt?: any | null, _createdAt?: any | null, excerpt?: string | null, slug?: { current?: string | null } | null } }> } };
 
 export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8775,6 +8784,13 @@ export type SanityPageQueryQueryVariables = Exact<{
 
 
 export type SanityPageQueryQuery = { sanitySiteConfig?: { blogpage?: { id: string } | null } | null, sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection', _key?: string | null } | { __typename: 'SanityCtaSection', _key?: string | null, _rawBody?: any | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityGallerySection', _key?: string | null } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection', _key?: string | null, _type?: string | null, heading?: string | null, label?: string | null, _rawText?: any | null } | { __typename: 'SanityTextWithImageSection', _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityUiComponentRef', _key?: string | null, name?: string | null } | null> | null } | null };
+
+export type SinglePostQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type SinglePostQuery = { sanityPost?: { _createdAt?: any | null, publishedAt?: any | null, _updatedAt?: any | null, title?: string | null, _rawBody?: any | null, author?: { name?: string | null, photo?: { alt?: string | null, asset?: { altText?: string | null, gatsbyImageData: any } | null } | null } | null, mainImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, slug?: { current?: string | null } | null } | null };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 

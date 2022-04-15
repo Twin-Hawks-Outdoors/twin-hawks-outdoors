@@ -10,6 +10,7 @@ function BlogList() {
   } = useStaticQuery<BlogListingsQuery>(graphql`
     query BlogListings {
       allSanityPost(sort: { fields: [publishedAt], order: DESC }) {
+        totalCount
         edges {
           node {
             id
