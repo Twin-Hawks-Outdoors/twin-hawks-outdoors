@@ -9,7 +9,6 @@ function TextSection({
 }: {
   props: SanityTextSection & { location: PageProps['location'] };
 }) {
-  console.log(props);
   return (
     <div className="container mx-auto text-center">
       <h2>{props.heading}</h2>

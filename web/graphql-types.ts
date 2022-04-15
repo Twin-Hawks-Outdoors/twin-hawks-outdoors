@@ -1391,12 +1391,14 @@ export type SanitySiteConfig = SanityDocument & Node & {
   title?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
   frontpage?: Maybe<SanityPage>;
+  blogpage?: Maybe<SanityPage>;
   logo?: Maybe<SanityFigure>;
   socialLinks?: Maybe<Array<Maybe<SanitySocialLink>>>;
   mainNavigation?: Maybe<Array<Maybe<SanityRoute>>>;
   footerNavigation?: Maybe<Array<Maybe<SanityRoute>>>;
   footerText?: Maybe<Array<Maybe<SanityBlock>>>;
   _rawFrontpage?: Maybe<Scalars['JSON']>;
+  _rawBlogpage?: Maybe<Scalars['JSON']>;
   _rawLogo?: Maybe<Scalars['JSON']>;
   _rawSocialLinks?: Maybe<Scalars['JSON']>;
   _rawMainNavigation?: Maybe<Scalars['JSON']>;
@@ -1426,6 +1428,11 @@ export type SanitySiteConfig_UpdatedAtArgs = {
 
 
 export type SanitySiteConfig_RawFrontpageArgs = {
+  resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanitySiteConfig_RawBlogpageArgs = {
   resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
 };
 
@@ -2431,12 +2438,14 @@ export type QuerySanitySiteConfigArgs = {
   title?: InputMaybe<StringQueryOperatorInput>;
   url?: InputMaybe<StringQueryOperatorInput>;
   frontpage?: InputMaybe<SanityPageFilterInput>;
+  blogpage?: InputMaybe<SanityPageFilterInput>;
   logo?: InputMaybe<SanityFigureFilterInput>;
   socialLinks?: InputMaybe<SanitySocialLinkFilterListInput>;
   mainNavigation?: InputMaybe<SanityRouteFilterListInput>;
   footerNavigation?: InputMaybe<SanityRouteFilterListInput>;
   footerText?: InputMaybe<SanityBlockFilterListInput>;
   _rawFrontpage?: InputMaybe<JsonQueryOperatorInput>;
+  _rawBlogpage?: InputMaybe<JsonQueryOperatorInput>;
   _rawLogo?: InputMaybe<JsonQueryOperatorInput>;
   _rawSocialLinks?: InputMaybe<JsonQueryOperatorInput>;
   _rawMainNavigation?: InputMaybe<JsonQueryOperatorInput>;
@@ -7694,6 +7703,106 @@ export type SanitySiteConfigFieldsEnum =
   | 'frontpage___internal___mediaType'
   | 'frontpage___internal___owner'
   | 'frontpage___internal___type'
+  | 'blogpage____id'
+  | 'blogpage____type'
+  | 'blogpage____createdAt'
+  | 'blogpage____updatedAt'
+  | 'blogpage____rev'
+  | 'blogpage____key'
+  | 'blogpage___title'
+  | 'blogpage___slug____key'
+  | 'blogpage___slug____type'
+  | 'blogpage___slug___current'
+  | 'blogpage___description'
+  | 'blogpage___openGraphImage____key'
+  | 'blogpage___openGraphImage____type'
+  | 'blogpage___openGraphImage___asset____id'
+  | 'blogpage___openGraphImage___asset____type'
+  | 'blogpage___openGraphImage___asset____createdAt'
+  | 'blogpage___openGraphImage___asset____updatedAt'
+  | 'blogpage___openGraphImage___asset____rev'
+  | 'blogpage___openGraphImage___asset____key'
+  | 'blogpage___openGraphImage___asset___originalFilename'
+  | 'blogpage___openGraphImage___asset___label'
+  | 'blogpage___openGraphImage___asset___title'
+  | 'blogpage___openGraphImage___asset___description'
+  | 'blogpage___openGraphImage___asset___altText'
+  | 'blogpage___openGraphImage___asset___sha1hash'
+  | 'blogpage___openGraphImage___asset___extension'
+  | 'blogpage___openGraphImage___asset___mimeType'
+  | 'blogpage___openGraphImage___asset___size'
+  | 'blogpage___openGraphImage___asset___assetId'
+  | 'blogpage___openGraphImage___asset___uploadId'
+  | 'blogpage___openGraphImage___asset___path'
+  | 'blogpage___openGraphImage___asset___url'
+  | 'blogpage___openGraphImage___asset____rawMetadata'
+  | 'blogpage___openGraphImage___asset____rawSource'
+  | 'blogpage___openGraphImage___asset___gatsbyImageData'
+  | 'blogpage___openGraphImage___asset___id'
+  | 'blogpage___openGraphImage___asset___children'
+  | 'blogpage___openGraphImage___asset___filename'
+  | 'blogpage___openGraphImage___asset___filesize'
+  | 'blogpage___openGraphImage___asset___width'
+  | 'blogpage___openGraphImage___asset___height'
+  | 'blogpage___openGraphImage___asset___publicUrl'
+  | 'blogpage___openGraphImage___asset___gatsbyImage'
+  | 'blogpage___openGraphImage___hotspot____key'
+  | 'blogpage___openGraphImage___hotspot____type'
+  | 'blogpage___openGraphImage___hotspot___x'
+  | 'blogpage___openGraphImage___hotspot___y'
+  | 'blogpage___openGraphImage___hotspot___height'
+  | 'blogpage___openGraphImage___hotspot___width'
+  | 'blogpage___openGraphImage___crop____key'
+  | 'blogpage___openGraphImage___crop____type'
+  | 'blogpage___openGraphImage___crop___top'
+  | 'blogpage___openGraphImage___crop___bottom'
+  | 'blogpage___openGraphImage___crop___left'
+  | 'blogpage___openGraphImage___crop___right'
+  | 'blogpage___openGraphImage____rawAsset'
+  | 'blogpage___openGraphImage____rawHotspot'
+  | 'blogpage___openGraphImage____rawCrop'
+  | 'blogpage____rawSlug'
+  | 'blogpage____rawContent'
+  | 'blogpage____rawOpenGraphImage'
+  | 'blogpage___gatsbyPath'
+  | 'blogpage___id'
+  | 'blogpage___parent___id'
+  | 'blogpage___parent___parent___id'
+  | 'blogpage___parent___parent___children'
+  | 'blogpage___parent___children'
+  | 'blogpage___parent___children___id'
+  | 'blogpage___parent___children___children'
+  | 'blogpage___parent___internal___content'
+  | 'blogpage___parent___internal___contentDigest'
+  | 'blogpage___parent___internal___description'
+  | 'blogpage___parent___internal___fieldOwners'
+  | 'blogpage___parent___internal___ignoreType'
+  | 'blogpage___parent___internal___mediaType'
+  | 'blogpage___parent___internal___owner'
+  | 'blogpage___parent___internal___type'
+  | 'blogpage___children'
+  | 'blogpage___children___id'
+  | 'blogpage___children___parent___id'
+  | 'blogpage___children___parent___children'
+  | 'blogpage___children___children'
+  | 'blogpage___children___children___id'
+  | 'blogpage___children___children___children'
+  | 'blogpage___children___internal___content'
+  | 'blogpage___children___internal___contentDigest'
+  | 'blogpage___children___internal___description'
+  | 'blogpage___children___internal___fieldOwners'
+  | 'blogpage___children___internal___ignoreType'
+  | 'blogpage___children___internal___mediaType'
+  | 'blogpage___children___internal___owner'
+  | 'blogpage___children___internal___type'
+  | 'blogpage___internal___content'
+  | 'blogpage___internal___contentDigest'
+  | 'blogpage___internal___description'
+  | 'blogpage___internal___fieldOwners'
+  | 'blogpage___internal___ignoreType'
+  | 'blogpage___internal___mediaType'
+  | 'blogpage___internal___owner'
+  | 'blogpage___internal___type'
   | 'logo____key'
   | 'logo____type'
   | 'logo___asset____id'
@@ -7961,6 +8070,7 @@ export type SanitySiteConfigFieldsEnum =
   | 'footerText___list'
   | 'footerText____rawChildren'
   | '_rawFrontpage'
+  | '_rawBlogpage'
   | '_rawLogo'
   | '_rawSocialLinks'
   | '_rawMainNavigation'
@@ -8104,12 +8214,14 @@ export type SanitySiteConfigFilterInput = {
   title?: InputMaybe<StringQueryOperatorInput>;
   url?: InputMaybe<StringQueryOperatorInput>;
   frontpage?: InputMaybe<SanityPageFilterInput>;
+  blogpage?: InputMaybe<SanityPageFilterInput>;
   logo?: InputMaybe<SanityFigureFilterInput>;
   socialLinks?: InputMaybe<SanitySocialLinkFilterListInput>;
   mainNavigation?: InputMaybe<SanityRouteFilterListInput>;
   footerNavigation?: InputMaybe<SanityRouteFilterListInput>;
   footerText?: InputMaybe<SanityBlockFilterListInput>;
   _rawFrontpage?: InputMaybe<JsonQueryOperatorInput>;
+  _rawBlogpage?: InputMaybe<JsonQueryOperatorInput>;
   _rawLogo?: InputMaybe<JsonQueryOperatorInput>;
   _rawSocialLinks?: InputMaybe<JsonQueryOperatorInput>;
   _rawMainNavigation?: InputMaybe<JsonQueryOperatorInput>;
@@ -8626,6 +8738,11 @@ export type ImageSharpSortInput = {
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
+export type BlogListingsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BlogListingsQuery = { allSanityPost: { edges: Array<{ node: { id: string, title?: string | null, publishedAt?: any | null, _createdAt?: any | null, excerpt?: string | null, slug?: { current?: string | null } | null } }> } };
+
 export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -8657,7 +8774,7 @@ export type SanityPageQueryQueryVariables = Exact<{
 }>;
 
 
-export type SanityPageQueryQuery = { sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection', _key?: string | null } | { __typename: 'SanityCtaSection', _key?: string | null, _rawBody?: any | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityGallerySection', _key?: string | null } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection', _key?: string | null, _type?: string | null, heading?: string | null, label?: string | null, _rawText?: any | null } | { __typename: 'SanityTextWithImageSection', _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityUiComponentRef', _key?: string | null, name?: string | null } | null> | null } | null };
+export type SanityPageQueryQuery = { sanitySiteConfig?: { blogpage?: { id: string } | null } | null, sanityPage?: { title?: string | null, slug?: { current?: string | null } | null, content?: Array<{ __typename: 'SanityCardSection', _key?: string | null } | { __typename: 'SanityCtaSection', _key?: string | null, _rawBody?: any | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityGallerySection', _key?: string | null } | { __typename: 'SanityHero', _key?: string | null, _type?: string | null, heading?: string | null, _rawTagline?: any | null, backgroundImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, ctas?: Array<{ _type?: string | null, _key?: string | null, link?: string | null, title?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null> | null } | { __typename: 'SanityTextSection', _key?: string | null, _type?: string | null, heading?: string | null, label?: string | null, _rawText?: any | null } | { __typename: 'SanityTextWithImageSection', _key?: string | null, _type?: string | null, heading?: string | null, vintageBackground?: boolean | null, imagePlacement?: string | null, label?: string | null, _rawText?: any | null, image?: { alt?: string | null, asset?: { gatsbyImageData: any } | null } | null, cta?: { title?: string | null, link?: string | null, route?: { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | { id: string, slug?: { current?: string | null } | null } | null } | null } | { __typename: 'SanityUiComponentRef', _key?: string | null, name?: string | null } | null> | null } | null };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 

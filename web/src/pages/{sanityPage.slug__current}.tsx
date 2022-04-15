@@ -1,17 +1,26 @@
-import { graphql, PageProps, StaticQueryDocument } from 'gatsby';
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { graphql } from 'gatsby';
+import type { PageProps, StaticQueryDocument } from 'gatsby';
 import React from 'react';
-import loadable from '@loadable/component';
 import { SanityPageQueryQuery } from '../../graphql-types';
-import PrettyJson from '../components/PrettyJson';
 import Layout from '../components/Layout';
 
-const SanityPage = ({ data, location }: PageProps<SanityPageQueryQuery>) => {
+const LazyBlogList = React.lazy(() => import('../components/BlogList'));
+
+const SanityPage = ({
+  data,
+  location,
+  pageContext,
+}: PageProps<SanityPageQueryQuery, { id: string }>) => {
   const modules = data?.sanityPage?.content?.map((element, idx) => {
     const typename = element?.__typename.replace('Sanity', '');
 
-    const Component = loadable(
+    const Component = React.lazy(
       () => import(`../components/modules/${typename as string}`)
     );
+
+    console.log(Component);
 
     return (
       <Component
@@ -21,13 +30,27 @@ const SanityPage = ({ data, location }: PageProps<SanityPageQueryQuery>) => {
     );
   });
 
-  return <Layout>{modules}</Layout>;
+  return (
+    <React.Suspense fallback="Loading...">
+      <Layout>
+        {modules}
+        {data?.sanitySiteConfig?.blogpage?.id === pageContext?.id && (
+          <LazyBlogList />
+        )}
+      </Layout>
+    </React.Suspense>
+  );
 };
 
 export default SanityPage;
 
 export const query: StaticQueryDocument = graphql`
   query SanityPageQuery($id: String) {
+    sanitySiteConfig {
+      blogpage {
+        id
+      }
+    }
     sanityPage(id: { eq: $id }) {
       title
 

@@ -1,18 +1,16 @@
-import loadable from '@loadable/component';
-import pascalCase from 'just-pascal-case';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { SanityUiComponentRef } from '../../../graphql-types';
 
+const ContactForm = React.lazy(() => import('../ContactForm'));
+const EventList = React.lazy(() => import('../EventList'));
 
-const getUiComponent = (type: string) => {
-  const formattedType = pascalCase(type);
-
-  const Component = loadable(() => import(`../${formattedType}`));
-  return <Component type={type} />;
+const ComponentMap = {
+  contactForm: <ContactForm />,
+  eventList: <EventList />,
 };
 
-function UIComponent({ props }: { props: SanityUiComponentRef }) {
-  return <>{getUiComponent(props.name as string)} </>;
+function UIComponent({ props }: { props: SanityUiComponentRef }): ReactNode {
+  return ComponentMap[props?.name as keyof typeof ComponentMap];
 }
 
 export default UIComponent;
