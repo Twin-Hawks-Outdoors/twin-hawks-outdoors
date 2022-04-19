@@ -16,7 +16,7 @@ function CtaSection({ props }: { props: SanityCtaSection }) {
   return (
     <section className="grid place-items-center ">
       <StaticImage
-        className="filter sepia brightness-[.25] row-start-1 col-span-full col-start-1 md:aspect-[21/9] max-h-full lg:aspect-[30/9]"
+        className="filter sepia brightness-[.25] row-start-1 col-span-full col-start-1 md:aspect-[21/9] h-max lg:aspect-[30/9] xl:aspect-auto xl:max-h-80"
         src="../../images/foggy-mountain.jpg"
         quality={65}
         alt="foggy mountain with trees"

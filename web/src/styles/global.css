@@ -107,6 +107,8 @@
   .error {
     @apply text-red-300;
   }
+
+  .card {@apply max-w-prose bg-cream-50/5 p-4 rounded-md hover:bg-cream-50/60 focus-within:bg-cream-50/60 hover:shadow-lg focus-within:shadow-lg transition-all grid gap-4 ;}
 }
   /*
 

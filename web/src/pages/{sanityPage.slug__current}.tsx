@@ -20,7 +20,6 @@ const SanityPage = ({
       () => import(`../components/modules/${typename as string}`)
     );
 
-    console.log(Component);
 
     return (
       <Component

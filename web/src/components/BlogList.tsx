@@ -1,8 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { BlogListingsQuery, SanityPost } from '../../graphql-types';
-import PostExcerpt from './PostExcerpt';
-import PrettyJson from './PrettyJson';
+import PostExcerpt from './modules/PostExcerpt';
 
 function BlogList() {
   const {

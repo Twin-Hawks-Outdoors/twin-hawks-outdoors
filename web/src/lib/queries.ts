@@ -24,6 +24,15 @@ export const fragments = graphql`
 
   fragment SanityCardSection on SanityCardSection {
     _key
+    _type
+    cards {
+      __typename
+      ...SanityTraining
+      ...SanityPopup
+      ...SanityPost
+      ...SanityProduct
+    }
+    heading
   }
 
   fragment SanityUiComponentRef on SanityUiComponentRef {
@@ -110,5 +119,60 @@ export const fragments = graphql`
         }
       }
     }
+  }
+
+  fragment SanityTraining on SanityTraining {
+    _id
+    _key
+    slug {
+      current
+    }
+    title
+    description
+  }
+  fragment SanityPopup on SanityPopup {
+    _id
+    _key
+    streetAddress
+    city
+    state
+    zipcode
+    name
+    openingHours {
+      from
+      to
+    }
+  }
+
+  fragment SanityPost on SanityPost {
+    id
+    title
+    publishedAt
+    _createdAt(fromNow: true, locale: "en-US")
+    excerpt
+    slug {
+      current
+    }
+  }
+
+  fragment SanityProduct on SanityProduct {
+    id
+    title
+    slug {
+      current
+    }
+    mainImage {
+      asset {
+        gatsbyImageData(
+          aspectRatio: 1
+          formats: AUTO
+          fit: CROP
+          height: 300
+          width: 300
+        )
+      }
+    }
+    tags
+    blurb
   }
 `;
