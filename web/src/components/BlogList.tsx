@@ -30,10 +30,7 @@ function BlogList() {
   return (
     <section className="my-32  container grid md:grid-cols-2 gap-8 place-items-center place-content-center">
       {edges?.map(({ node }) => (
-        <>
-          <PostExcerpt post={node as SanityPost} key={node.id} />
-          <PostExcerpt post={node as SanityPost} key={node.id} />
-        </>
+        <PostExcerpt post={node as SanityPost} key={node.id} />
       ))}
     </section>
   );

@@ -6,6 +6,7 @@ import {
   IGatsbyImageData,
 } from 'gatsby-plugin-image';
 import React from 'react';
+import { BsQuestion } from 'react-icons/bs';
 import { SinglePostQuery } from '../../graphql-types';
 import PrettyJson from '../components/PrettyJson';
 
@@ -27,17 +28,23 @@ function BlogPostSingle({ data }: PageProps<SinglePostQuery>) {
       </header>
       <section className="container  prose-p:max-w-prose prose-p:mx-auto">
         <div className=" my-16 flex items-center gap-4 max-w-prose mr-auto">
-          <GatsbyImage
-            className="rounded-full"
-            image={
-              sanityPost?.author?.photo?.asset
-                ?.gatsbyImageData as IGatsbyImageData
-            }
-            alt={
-              sanityPost?.author?.photo?.alt ||
-              (sanityPost?.author?.photo?.asset?.altText as string)
-            }
-          />
+          {sanityPost?.author?.photo ? (
+            <GatsbyImage
+              className="rounded-full"
+              image={
+                sanityPost?.author?.photo?.asset
+                  ?.gatsbyImageData as IGatsbyImageData
+              }
+              alt={
+                sanityPost?.author?.photo?.alt ||
+                (sanityPost?.author?.photo?.asset?.altText as string)
+              }
+            />
+          ) : (
+            <span className="block  bg-gradient-to-br from-cream-100 to-cream-50  rounded-full overflow-clip ">
+              <BsQuestion className="w-16 h-16" />
+            </span>
+          )}
           <div>
             <h6 className="m-0">{sanityPost?.author?.name}</h6>
             <small className="text-red-500">
