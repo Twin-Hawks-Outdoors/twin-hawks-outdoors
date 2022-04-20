@@ -130,6 +130,7 @@ export const fragments = graphql`
     title
     description
   }
+
   fragment SanityPopup on SanityPopup {
     _id
     _key
@@ -174,5 +175,19 @@ export const fragments = graphql`
     }
     tags
     blurb
+  }
+
+  fragment SanityImageGallery on SanityImageGallery {
+    _type
+    gallery {
+      _type
+      __typename
+      asset {
+        _id
+        title
+        altText
+        gatsbyImageData(layout: FULL_WIDTH, width: 800, height: 800)
+      }
+    }
   }
 `;
