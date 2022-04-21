@@ -1,17 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { graphql } from 'gatsby';
 import type { PageProps, StaticQueryDocument } from 'gatsby';
 import React from 'react';
+import { nodeGroup } from 'framer-motion/types/projection/node/group';
 import { SanityTrainingQueryQuery } from '../../graphql-types';
 import Layout from '../components/Layout';
 import PrettyJson from '../components/PrettyJson';
 import Button from '../components/Button';
+import { formatDate } from '../lib/formatDate';
 
 const SanityPage = ({
   data,
   location,
-  pageContext,
+  serverData,
 }: PageProps<SanityTrainingQueryQuery, { id: string }>) => {
   const modules = data?.sanityTraining?.content?.map((element, idx) => {
     const typename = element?.__typename.replace('Sanity', '');
@@ -31,44 +35,47 @@ const SanityPage = ({
   const heroModule = modules && modules?.[0];
   const otherModules = modules && modules?.slice(1, modules.length);
 
+  const events = serverData?.events?.data.filter(
+    ({ name }: { name: string }) => name === data?.sanityTraining?.title
+  );
+
+  console.log(events);
   return (
     <React.Suspense fallback="Loading...">
       <Layout>
         {heroModule}
         <section className="container flex justify-between gap-8 flex-wrap">
           <article className="md:w-1/2 ">{otherModules}</article>
-          <aside className="md:w-1/3 md:py-24">
+          <aside className="md:w-1/3 md:py-24 mx-auto">
             <h3 className="mt-0">
               Upcoming {data?.sanityTraining?.title} Training
             </h3>
             <ul>
-              <li className="flex items-center justify-between border-b-2 border-teal-500 py-4">
-                <div>
-                  <p className="m-0">Location</p>
-                  <small className="m-0">May 1, 2022</small>
-                </div>
-                <Button bgColor="rust" className="button-sm mt-0">
-                  Register
-                </Button>
-              </li>
-              <li className="flex items-center justify-between border-b-2 border-teal-500 py-4">
-                <div>
-                  <p className="m-0">Location</p>
-                  <small className="m-0">May 1, 2022</small>
-                </div>
-                <Button bgColor="rust" className="button-sm mt-0">
-                  Register
-                </Button>
-              </li>
-              <li className="flex items-center justify-between border-b-2 border-teal-500 py-4">
-                <div>
-                  <p className="m-0">Location</p>
-                  <small className="m-0">May 1, 2022</small>
-                </div>
-                <Button bgColor="rust" className="button-sm mt-0">
-                  Register
-                </Button>
-              </li>
+              {events?.map((node) => (
+                <li
+                  key={node.id}
+                  className="flex items-center justify-between border-b-2 border-teal-500 py-4"
+                >
+                  <div>
+                    <p className="m-0">{node.venue.name}</p>
+                    <small className="m-0 text-red-500 font-sans ">
+                      {formatDate(node.start.iso as string)} -{' '}
+                      {formatDate(node.end.iso as string)}
+                    </small>
+                  </div>
+                  <a
+                    rel="noopener noreferrer"
+                    className="button-sm mt-0 bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400"
+                    target="_blank"
+                    href={node.url}
+                  >
+                    {node.call_to_action}
+                  </a>
+                </li>
+              ))}
+              {events?.length < 1 && (
+                <p className="text-center">No events currently scheduled.</p>
+              )}
             </ul>
           </aside>
         </section>
@@ -95,3 +102,31 @@ export const query: StaticQueryDocument = graphql`
     }
   }
 `;
+
+export async function getServerData() {
+  const now = Math.floor(Date.now() / 1000);
+  const user = Buffer.from(process.env.TICKET_TAILOR_FRONTEND).toString(
+    'base64'
+  );
+  console.log(user);
+  const headersList = {
+    Accept: 'application/json',
+    Authorization: `Basic ${user}`,
+  };
+  console.log(now);
+  const res = await fetch(
+    `${process.env.TT_BASE_URL}/v1/events?start_at.gte=${now}`,
+    {
+      headers: headersList,
+      method: 'GET',
+    }
+  );
+
+  const data = await res.json();
+
+  return {
+    props: {
+      events: data,
+    },
+  };
+}
