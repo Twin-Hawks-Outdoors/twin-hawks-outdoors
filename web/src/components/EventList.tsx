@@ -31,8 +31,6 @@ function EventList() {
     getUpcomingEvents();
   }, []);
 
-  console.log(events);
-
   return (
     <section className=" bg-gradient-to-br from-teal-900  to-teal-400 grid py-24">
       <h3 className="container mx-auto col-span-full mt-0 mb-16 text-white">
