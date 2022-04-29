@@ -1,5 +1,6 @@
 import { GatsbyLinkProps, Link } from 'gatsby';
 import React, { ReactNode } from 'react';
+import UniversalLink from './UniversalLink';
 
 const BG_COLORS = {
   red: 'bg-red-500/90 hover:bg-red-400 focus:bg-red-400',
@@ -18,14 +19,14 @@ const Button = ({
   bgColor?: string;
   className?: string;
 }) => (
-  <Link
+  <UniversalLink
     className={`inline-block mt-8 button cursor-pointer ${
       BG_COLORS[bgColor as keyof typeof BG_COLORS]
     } ${className}`}
     to={to}
   >
     {children}
-  </Link>
+  </UniversalLink>
 );
 
 export default Button;

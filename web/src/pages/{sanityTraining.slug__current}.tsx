@@ -5,11 +5,8 @@
 import { graphql } from 'gatsby';
 import type { PageProps, StaticQueryDocument } from 'gatsby';
 import React from 'react';
-import { nodeGroup } from 'framer-motion/types/projection/node/group';
 import { SanityTrainingQueryQuery } from '../../graphql-types';
 import Layout from '../components/Layout';
-import PrettyJson from '../components/PrettyJson';
-import Button from '../components/Button';
 import { formatDate } from '../lib/formatDate';
 
 const SanityPage = ({
@@ -33,51 +30,57 @@ const SanityPage = ({
   });
 
   const heroModule = modules && modules?.[0];
-  const otherModules = modules && modules?.slice(1, modules.length);
-
+  const otherModules = modules && modules?.slice(1, modules.length - 1);
+  const imageGallery = modules && modules?.[modules.length - 1];
   const events = serverData?.events?.data.filter(
     ({ name }: { name: string }) => name === data?.sanityTraining?.title
   );
 
-  console.log(events);
+  console.log(imageGallery);
   return (
     <React.Suspense fallback="Loading...">
       <Layout>
         {heroModule}
-        <section className="container flex justify-between gap-8 flex-wrap">
-          <article className="md:w-1/2 ">{otherModules}</article>
-          <aside className="md:w-1/3 md:py-24 mx-auto">
-            <h3 className="mt-0">
-              Upcoming {data?.sanityTraining?.title} Training
-            </h3>
-            <ul>
-              {events?.map((node) => (
-                <li
-                  key={node.id}
-                  className="flex items-center justify-between border-b-2 border-teal-500 py-4"
-                >
-                  <div>
-                    <p className="m-0">{node.venue.name}</p>
-                    <small className="m-0 text-red-500 font-sans ">
-                      {formatDate(node.start.iso as string)} -{' '}
-                      {formatDate(node.end.iso as string)}
-                    </small>
-                  </div>
-                  <a
-                    rel="noopener noreferrer"
-                    className="button-sm mt-0 bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400"
-                    target="_blank"
-                    href={node.url}
+        <section className="container ">
+          <div className="flex justify-center md:justify-between gap-8 flex-wrap">
+            <article className="md:w-1/2 ">{otherModules}</article>
+            <aside className="md:w-1/3 pb-24 md:py-24 mx-auto">
+              <h3 className="mt-0">
+                Upcoming {data?.sanityTraining?.title} Training
+              </h3>
+              <ul>
+                {events?.map((node) => (
+                  <li
+                    key={node.id}
+                    className="flex items-center justify-between border-b-2 border-teal-500 py-4"
                   >
-                    {node.call_to_action}
-                  </a>
-                </li>
-              ))}
-              {events?.length < 1 && (
-                <p className="text-center">No events currently scheduled.</p>
-              )}
-            </ul>
-          </aside>
+                    <div>
+                      <p className="m-0">{node.venue.name}</p>
+                      <small className="m-0 text-red-500 font-sans ">
+                        {formatDate(node.start.iso as string)} -{' '}
+                        {formatDate(node.end.iso as string)}
+                      </small>
+                    </div>
+                    <a
+                      rel="noopener noreferrer"
+                      className="button-sm mt-0 bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400"
+                      target="_blank"
+                      href={node.url}
+                    >
+                      {node.call_to_action}
+                    </a>
+                  </li>
+                ))}
+                {events?.length < 1 && (
+                  <p className="text-center">No events currently scheduled.</p>
+                )}
+              </ul>
+            </aside>
+          </div>
+          <section className="w-full group pb-24">
+            <h3 className="">Class Photos</h3>
+            {imageGallery}
+          </section>
         </section>
       </Layout>
     </React.Suspense>
@@ -113,7 +116,6 @@ export async function getServerData() {
     Accept: 'application/json',
     Authorization: `Basic ${user}`,
   };
-  console.log(now);
   const res = await fetch(
     `${process.env.TT_BASE_URL}/v1/events?start_at.gte=${now}`,
     {

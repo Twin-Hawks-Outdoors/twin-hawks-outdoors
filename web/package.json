@@ -34,6 +34,7 @@
     "gatsby-transformer-sharp": "^4.12.1",
     "just-capitalize": "^3.0.1",
     "just-pascal-case": "^3.0.1",
+    "node-fetch": "^2.6.7",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-helmet": "^6.1.0",
