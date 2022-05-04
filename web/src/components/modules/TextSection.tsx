@@ -15,10 +15,10 @@ function TextSection({
     <div
       className={`container py-24 mx-auto ${
         location.pathname.includes('contact') ? 'text-center' : ''
-      }`}
+      } first:py-12`}
     >
       {props?.heading && <h2>{props.heading}</h2>}
-      <div className="prose mx-auto">
+      <div className="mx-auto">
         <PortableText value={props?._rawText} />
       </div>
     </div>
