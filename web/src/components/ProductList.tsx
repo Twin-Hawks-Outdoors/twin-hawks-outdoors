@@ -54,7 +54,7 @@ function ProductList() {
   return (
     <section className="container pb-24">
       <h2>All {allSanityProduct?.totalCount} Products</h2>
-      <div>
+      <div className="grid gap-8 sm:[grid-template-columns:repeat(auto-fill,minmax(400px,1fr))] mx-auto">
         {allSanityProduct?.edges.map(({ node }) => (
           <ProductCard product={node as SanityProduct} key={node.id} />
         ))}

@@ -3,6 +3,7 @@
 import { graphql } from 'gatsby';
 import type { PageProps, StaticQueryDocument } from 'gatsby';
 import React from 'react';
+import { DebugCart } from 'use-shopping-cart';
 import { SanityPageQueryQuery } from '../../graphql-types';
 import Layout from '../components/Layout';
 
@@ -35,6 +36,7 @@ const SanityPage = ({
         {data?.sanitySiteConfig?.blogpage?.id === pageContext?.id && (
           <LazyBlogList />
         )}
+        <DebugCart />
       </Layout>
     </React.Suspense>
   );
