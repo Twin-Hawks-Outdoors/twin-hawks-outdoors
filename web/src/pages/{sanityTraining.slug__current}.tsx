@@ -111,7 +111,6 @@ export async function getServerData() {
   const user = Buffer.from(process.env.TICKET_TAILOR_FRONTEND).toString(
     'base64'
   );
-  console.log(user);
   const headersList = {
     Accept: 'application/json',
     Authorization: `Basic ${user}`,

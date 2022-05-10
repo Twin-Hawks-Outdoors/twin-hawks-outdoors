@@ -36,7 +36,7 @@ const SanityPage = ({
         {data?.sanitySiteConfig?.blogpage?.id === pageContext?.id && (
           <LazyBlogList />
         )}
-        <DebugCart />
+
       </Layout>
     </React.Suspense>
   );

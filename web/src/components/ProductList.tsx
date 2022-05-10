@@ -10,7 +10,9 @@ import ProductCard from './ProductCard';
 function ProductList() {
   const { allSanityProduct } = useStaticQuery<AllProductsQuery>(graphql`
     query AllProducts {
-      allSanityProduct(sort: { fields: title, order: ASC }) {
+      allSanityProduct(
+        sort: { fields: [categories___title, title], order: ASC }
+      ) {
         totalCount
         edges {
           node {

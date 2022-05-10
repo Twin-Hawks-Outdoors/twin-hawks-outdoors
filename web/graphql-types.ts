@@ -892,6 +892,7 @@ export type SanityProduct = SanityDocument & Node & {
   _rawVariants?: Maybe<Scalars['JSON']>;
   _rawCategories?: Maybe<Scalars['JSON']>;
   _rawSlug?: Maybe<Scalars['JSON']>;
+  gatsbyPath?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -942,6 +943,11 @@ export type SanityProduct_RawCategoriesArgs = {
 
 export type SanityProduct_RawSlugArgs = {
   resolveReferences?: InputMaybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityProductGatsbyPathArgs = {
+  filePath?: InputMaybe<Scalars['String']>;
 };
 
 export type SanityProductVariant = {
@@ -2420,6 +2426,7 @@ export type QuerySanityProductArgs = {
   _rawVariants?: InputMaybe<JsonQueryOperatorInput>;
   _rawCategories?: InputMaybe<JsonQueryOperatorInput>;
   _rawSlug?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyPath?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -6716,6 +6723,7 @@ export type SanityProductFieldsEnum =
   | '_rawVariants'
   | '_rawCategories'
   | '_rawSlug'
+  | 'gatsbyPath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -6866,6 +6874,7 @@ export type SanityProductFilterInput = {
   _rawVariants?: InputMaybe<JsonQueryOperatorInput>;
   _rawCategories?: InputMaybe<JsonQueryOperatorInput>;
   _rawSlug?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyPath?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -9218,6 +9227,15 @@ export type SinglePostQueryVariables = Exact<{
 
 
 export type SinglePostQuery = { sanityPost?: { _createdAt?: any | null, publishedAt?: any | null, _updatedAt?: any | null, title?: string | null, _rawBody?: any | null, author?: { name?: string | null, photo?: { alt?: string | null, asset?: { altText?: string | null, gatsbyImageData: any } | null } | null } | null, mainImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, slug?: { current?: string | null } | null } | null };
+
+export type ProductVariantFragment = { title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null };
+
+export type SanityProductQueryQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type SanityProductQueryQuery = { sanityProduct?: { title?: string | null, id: string, _rawBody?: any | null, mainImage?: { asset?: { altText?: string | null, gatsbyImageData: any } | null } | null, variants?: Array<{ title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null } | null> | null, categories?: Array<{ title?: string | null, slug?: { current?: string | null } | null } | null> | null, defaultProductVariant?: { title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null } | null } | null };
 
 export type SanityTrainingQueryQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']>;

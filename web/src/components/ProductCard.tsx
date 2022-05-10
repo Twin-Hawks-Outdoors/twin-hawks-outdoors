@@ -41,6 +41,7 @@ function ProductCard({ product }: { product: SanityProduct }) {
               currency: 'USD',
             })}
           </p>
+          {/* <p>{product?.blurb}</p> */}
           {product?.variants?.length > 0 ? (
             <Button
               to={product?.slug?.current as string}
