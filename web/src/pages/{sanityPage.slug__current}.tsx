@@ -31,12 +31,11 @@ const SanityPage = ({
 
   return (
     <React.Suspense fallback="Loading...">
-      <Layout>
+      <Layout location={location}>
         {modules}
         {data?.sanitySiteConfig?.blogpage?.id === pageContext?.id && (
           <LazyBlogList />
         )}
-
       </Layout>
     </React.Suspense>
   );

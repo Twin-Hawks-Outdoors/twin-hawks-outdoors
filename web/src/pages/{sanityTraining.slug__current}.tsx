@@ -39,7 +39,7 @@ const SanityPage = ({
   console.log(imageGallery);
   return (
     <React.Suspense fallback="Loading...">
-      <Layout>
+      <Layout location={location}>
         {heroModule}
         <section className="container ">
           <div className="flex justify-center md:justify-between gap-8 flex-wrap">
@@ -108,7 +108,7 @@ export const query: StaticQueryDocument = graphql`
 
 export async function getServerData() {
   const now = Math.floor(Date.now() / 1000);
-  const user = Buffer.from(process.env.TICKET_TAILOR_FRONTEND).toString(
+  const user = Buffer.from(process.env.TICKET_TAILOR_FRONTEND || '').toString(
     'base64'
   );
   const headersList = {
@@ -116,7 +116,7 @@ export async function getServerData() {
     Authorization: `Basic ${user}`,
   };
   const res = await fetch(
-    `${process.env.TT_BASE_URL}/v1/events?start_at.gte=${now}`,
+    `${process.env.TT_BASE_URL || ''}/v1/events?start_at.gte=${now}`,
     {
       headers: headersList,
       method: 'GET',

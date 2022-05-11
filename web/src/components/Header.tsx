@@ -1,9 +1,17 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import React, { ReactElement } from 'react';
+import { BsCart4 } from 'react-icons/bs';
+import { useShoppingCart } from 'use-shopping-cart';
+import { CartActions } from 'use-shopping-cart/core';
 import { SiteConfigQuery } from '../../graphql-types';
 
 const Header = (): ReactElement => {
+  const {
+    cartCount,
+    handleCartClick,
+  }: { handleCartClick: CartActions['handleCartClick']; cartCount: number } =
+    useShoppingCart();
   const { sanitySiteConfig } = useStaticQuery<SiteConfigQuery>(graphql`
     query SiteConfig {
       sanitySiteConfig {
@@ -50,7 +58,7 @@ const Header = (): ReactElement => {
           alt="logo"
         />
       </Link>
-      <nav className="flex gap-4 justify-end flex-wrap ">
+      <nav className="flex gap-4 justify-end flex-wrap items-center ">
         {sanitySiteConfig?.mainNavigation?.map((item) => (
           <Link
             key={item?.slug?.current}
@@ -61,6 +69,20 @@ const Header = (): ReactElement => {
             {item?.page?.title}
           </Link>
         ))}
+        {cartCount > 0 && (
+          <button
+            aria-label="Show Cart"
+            title="Show Cart"
+            className="p-2 relative"
+            type="button"
+            onClick={() => handleCartClick()}
+          >
+            <small className="absolute rounded-full -right-0 -top-0 bg-red-400 flex items-center justify-center w-5 h-5 text-[12px] text-white">
+              {cartCount}
+            </small>
+            <BsCart4 className="w-6 h-6 text-red-400 font-bold" />
+          </button>
+        )}
       </nav>
     </header>
   );
