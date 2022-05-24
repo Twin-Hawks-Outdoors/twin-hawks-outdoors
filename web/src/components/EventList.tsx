@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useEffect, useState } from 'react';
-import { EventData } from '../types';
+import { EventData } from '../../global';
 import EventListing from './EventListing';
 
 type EventDataType = Record<string, string | number | boolean | null | any>;
@@ -40,6 +40,9 @@ function EventList() {
         {events?.map((event: EventData) => (
           <EventListing key={event?.id} {...event} />
         ))}
+        {!events?.length > 0 && (
+          <p className="text-white">No upcoming events scheduled yet..</p>
+        )}
       </div>
     </section>
   );

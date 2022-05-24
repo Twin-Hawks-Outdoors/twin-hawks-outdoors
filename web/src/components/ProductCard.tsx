@@ -34,32 +34,31 @@ function ProductCard({ product }: { product: SanityProduct }) {
             {product?.title}
           </h4>
         </div>
-        <div className="p-4 text-center">
-          <p className="mb-2">
-            {formatCurrencyString({
-              value: product?.defaultProductVariant?.price || 0,
-              currency: 'USD',
-            })}
-          </p>
-          {/* <p>{product?.blurb}</p> */}
-          {product?.variants?.length > 0 ? (
-            <Button
-              to={product?.slug?.current as string}
-              bgColor="red"
-              className="button-sm mt-0"
-            >
-              Select Options
-            </Button>
-          ) : (
-            <button
-              type="button"
-              className="border-2 rounded-md px-2 py-2 font-serif"
-            >
-              See Details
-            </button>
-          )}
-        </div>{' '}
       </UniversalLink>
+      <div className="p-4 text-center">
+        <p className="mb-2">
+          {formatCurrencyString({
+            value: product?.defaultProductVariant?.price || 0,
+            currency: 'USD',
+          })}
+        </p>
+        {product?.variants?.length > 0 ? (
+          <Button
+            to={product?.slug?.current as string}
+            bgColor="red"
+            className="button-sm mt-0"
+          >
+            Select Options
+          </Button>
+        ) : (
+          <button
+            type="button"
+            className="border-2 rounded-md px-2 py-2 font-serif"
+          >
+            See Details
+          </button>
+        )}
+      </div>{' '}
     </div>
   );
 }

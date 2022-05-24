@@ -3,15 +3,11 @@ import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import React, { ReactElement } from 'react';
 import { BsCart4 } from 'react-icons/bs';
 import { useShoppingCart } from 'use-shopping-cart';
-import { CartActions } from 'use-shopping-cart/core';
 import { SiteConfigQuery } from '../../graphql-types';
 
 const Header = (): ReactElement => {
-  const {
-    cartCount,
-    handleCartClick,
-  }: { handleCartClick: CartActions['handleCartClick']; cartCount: number } =
-    useShoppingCart();
+  const cart = useShoppingCart();
+  const { cartCount, handleCartClick } = cart;
   const { sanitySiteConfig } = useStaticQuery<SiteConfigQuery>(graphql`
     query SiteConfig {
       sanitySiteConfig {
@@ -69,7 +65,7 @@ const Header = (): ReactElement => {
             {item?.page?.title}
           </Link>
         ))}
-        {cartCount > 0 && (
+        {cartCount && cartCount > 0 ? (
           <button
             aria-label="Show Cart"
             title="Show Cart"
@@ -82,7 +78,7 @@ const Header = (): ReactElement => {
             </small>
             <BsCart4 className="w-6 h-6 text-red-400 font-bold" />
           </button>
-        )}
+        ) : null}
       </nav>
     </header>
   );

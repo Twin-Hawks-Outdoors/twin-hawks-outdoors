@@ -18,6 +18,7 @@
   "dependencies": {
     "@fontsource/oswald": "^4.5.7",
     "@fontsource/quattrocento": "^4.5.5",
+    "@netlify/functions": "^1.0.0",
     "@portabletext/react": "^1.0.6",
     "@sanity/client": "^3.3.0",
     "@sanity/image-url": "^1.0.1",
@@ -33,6 +34,7 @@
     "gatsby-source-filesystem": "^4.12.1",
     "gatsby-source-sanity": "^7.4.2",
     "gatsby-transformer-sharp": "^4.12.1",
+    "groq": "^2.29.3",
     "just-capitalize": "^3.0.1",
     "just-pascal-case": "^3.0.1",
     "node-fetch": "^2.6.7",
@@ -41,6 +43,7 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.29.0",
     "react-icons": "^4.3.1",
+    "stripe": "^9.1.0",
     "use-shopping-cart": "^3.1.1"
   },
   "devDependencies": {

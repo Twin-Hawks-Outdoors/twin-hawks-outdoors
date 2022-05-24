@@ -9,7 +9,6 @@ import {
   SanityProductQueryQuery,
   SanityProductVariant,
 } from '../../graphql-types';
-import CartOverview from '../components/CartOverview';
 import Layout from '../components/Layout';
 
 export default function SanityProduct({
@@ -19,8 +18,7 @@ export default function SanityProduct({
   const { sanityProduct } = data;
   const initialVariant = {
     ...sanityProduct?.defaultProductVariant,
-    _key: sanityProduct?.id,
-    id: sanityProduct?.id,
+    quantity: 1,
   };
   const [product, setProduct] = React.useState<SanityProductVariant>(
     initialVariant as SanityProductVariant
@@ -34,7 +32,6 @@ export default function SanityProduct({
     initialVariant as SanityProductVariant,
     ...(sanityProduct?.variants as SanityProductVariant[]),
   ];
-  console.log(allVariants);
   return (
     <Layout location={location}>
       <section className="container py-24 grid md:grid-cols-2 gap-8">
@@ -103,15 +100,20 @@ export default function SanityProduct({
             onClick={() => {
               addItem(
                 {
-                  name: `${product?.title as string} ${
-                    sanityProduct?.title as string
-                  }`,
+                  // name: `${product?.title as string} ${
+                  //   sanityProduct?.title as string
+                  // }`,
                   description: sanityProduct?.blurb as string,
-                  id: product?._key || '',
+                  id: product?.sku || '',
                   price: product?.price as number,
-                  currency: 'USD',
                   image: sanityProduct?.mainImage?.asset?.gatsbyImageData
                     ?.images?.fallback?.src as string,
+                  sku: product?.sku as string,
+                  product_data: {
+                    type: `${product?.title as string} ${
+                      sanityProduct?.title as string
+                    }`,
+                  },
                 },
                 { count: quantity }
               );

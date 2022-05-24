@@ -6,3 +6,5 @@ export type EventData = {
   url: string;
   start: string;
 };
+
+declare module 'use-shopping-cart/utilities';

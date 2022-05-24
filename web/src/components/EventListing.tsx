@@ -1,5 +1,5 @@
 import React from 'react';
-import { EventData } from '../types';
+import { EventData } from '../../global';
 import Button from './Button';
 
 const EventListing = ({ title, cta, url, start, description }: EventData) => (

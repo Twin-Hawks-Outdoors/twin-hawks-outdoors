@@ -24,14 +24,10 @@ export const wrapRootElement: GatsbyBrowser['wrapRootElement'] = ({
   element,
 }) => (
   <CartProvider
-    mode="payment"
-    cartMode="client-only"
+    cartMode="checkout-session"
     stripe={process.env.STRIPE_PUBLIC_KEY || ''}
-    successUrl="https://www.stripe.com"
-    cancelUrl="https://www.facebook.com/skthsb94"
     currency="USD"
-    allowedCountries={['US']}
-    billingAddressCollection
+    language="en-US"
   >
     {element}
   </CartProvider>

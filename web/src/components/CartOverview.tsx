@@ -1,7 +1,7 @@
 import React from 'react';
 import { HiOutlinePlusSm, HiOutlineMinusSm } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useShoppingCart } from 'use-shopping-cart';
+import { DebugCart, useShoppingCart } from 'use-shopping-cart';
 import { CartEntry } from 'use-shopping-cart/core';
 
 interface CartItem {
@@ -49,7 +49,30 @@ export default function CartOverview() {
     shouldDisplayCart,
     handleCloseCart,
     redirectToCheckout,
+    formattedTotalPrice,
   } = cart;
+
+
+  const cartItems = Object.values(cartDetails);
+
+  console.log(cartItems);
+
+  // async function to handle checkout click
+  const handleCheckoutClick = () => {
+    // basic fetch to get api sessionId
+    fetch('/api/session', {
+      method: 'POST',
+      body: JSON.stringify(Object.values(cartDetails)),
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((resBody) => {
+        console.log(resBody);
+        // redirectToCheckout(body);
+      });
+  };
 
   if (!shouldDisplayCart) return null;
   return (
@@ -75,11 +98,11 @@ export default function CartOverview() {
       </ul>
       <footer className="">
         <button
-          onClick={() => redirectToCheckout()}
+          onClick={handleCheckoutClick}
           type="button"
           className="bg-teal-500 text-white w-full py-2 text-md font-serif   shadow-md hover:shadow-lg transition-all duration-200 link-focus"
         >
-          Checkout
+          Checkout {formattedTotalPrice}
         </button>
       </footer>
     </div>
