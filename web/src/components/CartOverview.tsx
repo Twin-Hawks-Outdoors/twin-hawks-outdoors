@@ -52,25 +52,21 @@ export default function CartOverview() {
     formattedTotalPrice,
   } = cart;
 
-
-  const cartItems = Object.values(cartDetails);
-
-  console.log(cartItems);
+  console.log(cartDetails);
 
   // async function to handle checkout click
   const handleCheckoutClick = () => {
     // basic fetch to get api sessionId
     fetch('/api/session', {
       method: 'POST',
-      body: JSON.stringify(Object.values(cartDetails)),
+      body: JSON.stringify(cartDetails),
       headers: {
         'content-type': 'application/json',
       },
     })
       .then((res) => res.json())
       .then((resBody) => {
-        console.log(resBody);
-        // redirectToCheckout(body);
+        redirectToCheckout(resBody);
       });
   };
 

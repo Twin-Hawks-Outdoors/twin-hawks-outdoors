@@ -100,9 +100,10 @@ export default function SanityProduct({
             onClick={() => {
               addItem(
                 {
-                  // name: `${product?.title as string} ${
-                  //   sanityProduct?.title as string
-                  // }`,
+                  currency: 'USD',
+                  name: `${
+                    allVariants.length > 1 ? (product?.title as string) : ''
+                  } ${sanityProduct?.title as string}`,
                   description: sanityProduct?.blurb as string,
                   id: product?.sku || '',
                   price: product?.price as number,
