@@ -1,7 +1,7 @@
 import console from 'console';
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from 'gatsby';
-import { CartEntry, CartDetails } from 'use-shopping-cart/core';
 import { Stripe } from 'stripe';
+import { CartDetails } from 'use-shopping-cart/core';
 import { validateCartItems } from '../lib/validateCartItems';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
@@ -83,7 +83,9 @@ export default async function handler(
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.GATSBY_DOMAIN || ''}/success`,
+      success_url: `${
+        process.env.GATSBY_DOMAIN || ''
+      }/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: process.env.GATSBY_DOMAIN || '',
       line_items: lineItems as Stripe.Checkout.SessionCreateParams.LineItem[],
     });
@@ -95,43 +97,3 @@ export default async function handler(
     res.status(500).json({ message: 'There was an error', error });
   }
 }
-
-// let line_items;
-// try {
-//   // line_items = validateCartItems(inventory, product);
-// } catch (error) {
-//   return {
-//     statusCode: 422,
-//     body: JSON.stringify({
-//       message: 'Some of the items in your cart are invalid.',
-//       error: error.message,
-//     }),
-//   };
-// }
-
-// let session;
-// try {
-//   session = await stripe.checkout.sessions.create({
-//     billing_address_collection: 'auto',
-//     shipping_address_collection: {
-//       allowed_countries: ['US'],
-//     },
-//     mode: 'payment',
-//     success_url: `${process.env.URL}/success.html`,
-//     cancel_url: process.env.URL,
-//     line_items,
-//   });
-// } catch (error) {
-//   return {
-//     statusCode: 500,
-//     body: JSON.stringify({
-//       message: 'While communicating with Stripe, we encountered an error.',
-//       error: error.message,
-//     }),
-//   };
-// }
-
-// return {
-//   statusCode: 200,
-//   body: JSON.stringify({ sessionId: session.id }),
-// };
