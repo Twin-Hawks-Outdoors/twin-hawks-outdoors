@@ -85,8 +85,8 @@ export default async function handler(
       mode: 'payment',
       success_url: `${
         process.env.GATSBY_DOMAIN || ''
-      }/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: process.env.GATSBY_DOMAIN || '',
+      }/order/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.GATSBY_DOMAIN || ''}/shop`,
       line_items: lineItems as Stripe.Checkout.SessionCreateParams.LineItem[],
     });
     const sessionId = session.id;
