@@ -81,6 +81,11 @@ interface Customer {
   test_clock: null | number | string;
 }
 
+interface ServerDataProps {
+  customer: Customer;
+  lineItems: LineItems;
+}
+
 export default function Success({ location, serverData }: PageProps) {
   const { clearCart } = useShoppingCart();
 
@@ -89,30 +94,34 @@ export default function Success({ location, serverData }: PageProps) {
   }, []);
   return (
     <Layout location={location}>
-      <section className="container mx-auto">
+      <section className="container mx-auto min-h-[80vh] flex flex-col items-center justify-center">
         <h1 className="text-xl">
           Thanks for your purchase {serverData?.customer.name}
         </h1>
-        <div>
-          <h6 className="mb-0">Ship To:</h6>
-          <p className="flex">
-            {serverData?.customer?.shipping?.address?.line1}
-            <br />
-            {serverData?.customer?.shipping?.address?.line2}
-            {serverData?.customer?.shipping?.address?.line2 && <br />}
-            {serverData?.customer?.shipping?.address?.city},{' '}
-            {serverData?.customer?.shipping?.address?.state}{' '}
-            {serverData?.customer?.shipping?.address?.postal_code}
-          </p>
+        <div className="grid gap-8 mb-8 md:grid-cols-2">
+          <div>
+            <h6 className="mb-0">Ship To:</h6>
+            <p className="flex">
+              {serverData?.customer?.shipping?.address?.line1}
+              <br />
+              {serverData?.customer?.shipping?.address?.line2}
+              {serverData?.customer?.shipping?.address?.line2 && <br />}
+              {serverData?.customer?.shipping?.address?.city},{' '}
+              {serverData?.customer?.shipping?.address?.state}{' '}
+              {serverData?.customer?.shipping?.address?.postal_code}
+            </p>
+          </div>
+          <div className="">
+            <h6>Items to ship:</h6>
+            <ul>
+              {serverData?.lineItems?.data?.map((item) => (
+                <li key={item.id}>
+                  {item?.quantity} - {item?.description}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <h6>Items to ship:</h6>
-        <ul>
-          {serverData?.lineItems?.data?.map((item) => (
-            <li key={item.id}>
-              {item?.quantity} - {item?.description}
-            </li>
-          ))}
-        </ul>
         <p>
           Keep an eye out in your inbox ({serverData?.customer?.email}) for
           updates regarding shipping, receipts, etc.
@@ -124,10 +133,7 @@ export default function Success({ location, serverData }: PageProps) {
 
 export async function getServerData({
   query,
-}: GetServerDataProps): GetServerDataReturn<null | {
-  customer: Customer;
-  lineItems: LineItems;
-}> {
+}: GetServerDataProps): GetServerDataReturn<ServerDataProps> {
   const res = await fetch(
     `${process.env.GATSBY_DOMAIN || ''}/api/getCustomer`,
     {
