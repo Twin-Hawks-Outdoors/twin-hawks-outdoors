@@ -1,5 +1,5 @@
 {
-  "extends": ["wesbos/typescript"],
+  "extends": [],
   "rules": {
     "react/prop-types":0
   }
