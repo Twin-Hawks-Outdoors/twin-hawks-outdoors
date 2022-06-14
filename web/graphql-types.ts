@@ -19,6 +19,7 @@ export type Scalars = {
   Date: any;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
+  GatsbyImageData: any;
 };
 
 export type File = Node & {
@@ -247,6 +248,7 @@ export type Site = Node & {
   pathPrefix?: Maybe<Scalars['String']>;
   jsxRuntime?: Maybe<Scalars['String']>;
   trailingSlash?: Maybe<Scalars['String']>;
+  graphqlTypegen?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -1091,7 +1093,7 @@ export type SanityImageAsset = SanityDocument & Node & RemoteFile & {
   source?: Maybe<SanityAssetSourceData>;
   _rawMetadata?: Maybe<Scalars['JSON']>;
   _rawSource?: Maybe<Scalars['JSON']>;
-  gatsbyImageData: Scalars['JSON'];
+  gatsbyImageData: Scalars['GatsbyImageData'];
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -1103,7 +1105,7 @@ export type SanityImageAsset = SanityDocument & Node & RemoteFile & {
   publicUrl: Scalars['String'];
   resize?: Maybe<RemoteFileResize>;
   /** Data used in the <GatsbyImage /> component. See https://gatsby.dev/img for more info. */
-  gatsbyImage?: Maybe<Scalars['JSON']>;
+  gatsbyImage?: Maybe<Scalars['GatsbyImageData']>;
 };
 
 
@@ -1186,7 +1188,7 @@ export type RemoteFile = {
   publicUrl: Scalars['String'];
   resize?: Maybe<RemoteFileResize>;
   /** Data used in the <GatsbyImage /> component. See https://gatsby.dev/img for more info. */
-  gatsbyImage?: Maybe<Scalars['JSON']>;
+  gatsbyImage?: Maybe<Scalars['GatsbyImageData']>;
 };
 
 
@@ -1256,6 +1258,7 @@ export type RemoteFileLayout =
 export type RemoteFilePlaceholder =
   | 'DOMINANT_COLOR'
   | 'BLURRED'
+  | 'TRACED_SVG'
   | 'NONE';
 
 export type SanityGatsbyImagePlaceholder =
@@ -1685,7 +1688,7 @@ export type Potrace = {
 export type ImageSharp = Node & {
   fixed?: Maybe<ImageSharpFixed>;
   fluid?: Maybe<ImageSharpFluid>;
-  gatsbyImageData: Scalars['JSON'];
+  gatsbyImageData: Scalars['GatsbyImageData'];
   original?: Maybe<ImageSharpOriginal>;
   resize?: Maybe<ImageSharpResize>;
   id: Scalars['ID'];
@@ -2022,6 +2025,7 @@ export type QuerySiteArgs = {
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   trailingSlash?: InputMaybe<StringQueryOperatorInput>;
+  graphqlTypegen?: InputMaybe<BooleanQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -2421,7 +2425,7 @@ export type QuerySanityImageAssetArgs = {
   source?: InputMaybe<SanityAssetSourceDataFilterInput>;
   _rawMetadata?: InputMaybe<JsonQueryOperatorInput>;
   _rawSource?: InputMaybe<JsonQueryOperatorInput>;
-  gatsbyImageData?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImageData?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -2432,7 +2436,7 @@ export type QuerySanityImageAssetArgs = {
   height?: InputMaybe<IntQueryOperatorInput>;
   publicUrl?: InputMaybe<StringQueryOperatorInput>;
   resize?: InputMaybe<RemoteFileResizeFilterInput>;
-  gatsbyImage?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImage?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
 };
 
 
@@ -2515,7 +2519,7 @@ export type QueryAllSanityTrainingArgs = {
 export type QueryImageSharpArgs = {
   fixed?: InputMaybe<ImageSharpFixedFilterInput>;
   fluid?: InputMaybe<ImageSharpFluidFilterInput>;
-  gatsbyImageData?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImageData?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
   original?: InputMaybe<ImageSharpOriginalFilterInput>;
   resize?: InputMaybe<ImageSharpResizeFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -2581,7 +2585,7 @@ export type ImageSharpFilterListInput = {
 export type ImageSharpFilterInput = {
   fixed?: InputMaybe<ImageSharpFixedFilterInput>;
   fluid?: InputMaybe<ImageSharpFluidFilterInput>;
-  gatsbyImageData?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImageData?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
   original?: InputMaybe<ImageSharpOriginalFilterInput>;
   resize?: InputMaybe<ImageSharpResizeFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -2618,13 +2622,11 @@ export type ImageSharpFluidFilterInput = {
   presentationHeight?: InputMaybe<IntQueryOperatorInput>;
 };
 
-export type JsonQueryOperatorInput = {
-  eq?: InputMaybe<Scalars['JSON']>;
-  ne?: InputMaybe<Scalars['JSON']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
-  nin?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
-  regex?: InputMaybe<Scalars['JSON']>;
-  glob?: InputMaybe<Scalars['JSON']>;
+export type GatsbyImageDataQueryOperatorInput = {
+  eq?: InputMaybe<Scalars['GatsbyImageData']>;
+  ne?: InputMaybe<Scalars['GatsbyImageData']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['GatsbyImageData']>>>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['GatsbyImageData']>>>;
 };
 
 export type ImageSharpOriginalFilterInput = {
@@ -3390,6 +3392,7 @@ export type SiteFieldsEnum =
   | 'pathPrefix'
   | 'jsxRuntime'
   | 'trailingSlash'
+  | 'graphqlTypegen'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -3525,6 +3528,7 @@ export type SiteFilterInput = {
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   trailingSlash?: InputMaybe<StringQueryOperatorInput>;
+  graphqlTypegen?: InputMaybe<BooleanQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -3734,6 +3738,15 @@ export type SiteFunctionFilterInput = {
 export type SiteFunctionSortInput = {
   fields?: InputMaybe<Array<InputMaybe<SiteFunctionFieldsEnum>>>;
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
+};
+
+export type JsonQueryOperatorInput = {
+  eq?: InputMaybe<Scalars['JSON']>;
+  ne?: InputMaybe<Scalars['JSON']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
+  regex?: InputMaybe<Scalars['JSON']>;
+  glob?: InputMaybe<Scalars['JSON']>;
 };
 
 export type SitePluginFilterInput = {
@@ -4827,7 +4840,7 @@ export type SanityImageAssetFilterInput = {
   source?: InputMaybe<SanityAssetSourceDataFilterInput>;
   _rawMetadata?: InputMaybe<JsonQueryOperatorInput>;
   _rawSource?: InputMaybe<JsonQueryOperatorInput>;
-  gatsbyImageData?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImageData?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -4838,7 +4851,7 @@ export type SanityImageAssetFilterInput = {
   height?: InputMaybe<IntQueryOperatorInput>;
   publicUrl?: InputMaybe<StringQueryOperatorInput>;
   resize?: InputMaybe<RemoteFileResizeFilterInput>;
-  gatsbyImage?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImage?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
 };
 
 export type SanityImageMetadataFilterInput = {

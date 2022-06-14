@@ -11,6 +11,7 @@ const config: GatsbyConfig = {
     siteUrl: 'https://www.twinhawksoutdoors.com',
   },
   plugins: [
+    'gatsby-plugin-netlify',
     {
       resolve: `gatsby-plugin-graphql-codegen`,
 
