@@ -65,7 +65,7 @@ export default function CartOverview() {
     })
       .then((res) => res.json())
       .then((resBody) => {
-        redirectToCheckout(resBody.sessionId);
+        redirectToCheckout(resBody);
       });
   };
 
