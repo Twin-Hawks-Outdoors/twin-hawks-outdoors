@@ -5,6 +5,7 @@ import Header from "./src/components/Header";
 import { portableTextComponents } from "./src/lib/portableTextComponents";
 import React from 'react'
 import { GatsbySSR } from "gatsby";
+import Footer from "./src/components/Footer";
 export const wrapPageElement: GatsbySSR["wrapPageElement"] = ({
   element,
 }) => (
