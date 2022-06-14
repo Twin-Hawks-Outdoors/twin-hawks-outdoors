@@ -20,12 +20,10 @@ export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
   </PortableTextComponentsProvider>
 );
 
-export const wrapRootElement: GatsbyBrowser['wrapRootElement'] = ({
-  element,
-}) => (
+export const wrapRootElement: GatsbyBrowser["wrapRootElement"] = ({ element }) => (
   <CartProvider
     cartMode="checkout-session"
-    stripe={process.env.STRIPE_PUBLIC_KEY || ''}
+    stripe="pk_test_51KqkieG4U9OV224r5p1xjwPLZvuK5Y1FF070zEHBNhQI6xaEK72qLaacYnguYl1sFSmh1ZBLocOnyzh6iuMxOGxr00mOaVYXmi"
     currency="USD"
     language="en-US"
   >
