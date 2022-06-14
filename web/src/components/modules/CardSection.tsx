@@ -25,7 +25,6 @@ const CardSection = ({
     const typename = `${
       card?.__typename.replace('Sanity', '') as string
     }Excerpt`;
-    console.log(typename);
 
     const ExcerptComponent = React.lazy(() => import(`./${typename}`));
 

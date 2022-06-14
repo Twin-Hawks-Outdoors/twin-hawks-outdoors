@@ -9,7 +9,6 @@ export default async function handler(
   res: GatsbyFunctionResponse
 ) {
   const seshId = JSON.parse(req.body) as string;
-  console.log(seshId.length);
   try {
     const session = await stripe.checkout.sessions.retrieve(seshId);
 

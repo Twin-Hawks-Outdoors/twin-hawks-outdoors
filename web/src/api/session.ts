@@ -1,4 +1,3 @@
-import console from 'console';
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from 'gatsby';
 import { Stripe } from 'stripe';
 import { CartDetails } from 'use-shopping-cart/core';
@@ -90,7 +89,6 @@ export default async function handler(
       line_items: lineItems as Stripe.Checkout.SessionCreateParams.LineItem[],
     });
     const sessionId = session.id;
-    console.log(sessionId);
     return res.status(200).json({ sessionId });
   } catch (error) {
     console.error(error);

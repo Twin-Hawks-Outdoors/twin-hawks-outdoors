@@ -52,7 +52,6 @@ export default function CartOverview() {
     formattedTotalPrice,
   } = cart;
 
-  console.log(cartDetails);
 
   // async function to handle checkout click
   const handleCheckoutClick = () => {

@@ -36,7 +36,6 @@ const SanityPage = ({
     ({ name }: { name: string }) => name === data?.sanityTraining?.title
   );
 
-  console.log(imageGallery);
   return (
     <React.Suspense fallback="Loading...">
       <Layout location={location}>
