@@ -7,7 +7,7 @@ import EventListing from './EventListing';
 type EventDataType = Record<string, string | number | boolean | null | any>;
 
 function EventList() {
-  const [events, setEvents] = useState<EventData[]>();
+  const [events, setEvents] = useState<EventData[]>([]);
 
   useEffect(() => {
     const getUpcomingEvents = async () => {
@@ -17,7 +17,7 @@ function EventList() {
 
       const { data }: { data: Record<string, any>[] } = await response.json();
 
-      const truncatedData = data?.map((node: EventDataType) => ({
+      const truncatedData = data.map((node: EventDataType) => ({
         id: node?.id,
         cta: node?.call_to_action,
         description: node?.description,
@@ -31,6 +31,15 @@ function EventList() {
     getUpcomingEvents();
   }, []);
 
+  const sortedEvents = events.sort((a, b) => {
+    if (a.start < b.start) {
+      return -1;
+    }
+    return 1;
+  });
+
+  console.log(sortedEvents);
+
   return (
     <section className=" bg-gradient-to-br from-teal-900  to-teal-400 grid py-24">
       <h3 className="container mx-auto col-span-full mt-0 mb-16 text-white">
@@ -40,7 +49,7 @@ function EventList() {
         {events?.map((event: EventData) => (
           <EventListing key={event?.id} {...event} />
         ))}
-        {!events?.length > 0 && (
+        {events?.length < 1 && (
           <p className="text-white">No upcoming events scheduled yet..</p>
         )}
       </div>

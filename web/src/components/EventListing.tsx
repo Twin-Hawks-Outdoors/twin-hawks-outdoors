@@ -11,7 +11,7 @@ const EventListing = ({ title, cta, url, start, description }: EventData) => (
       dangerouslySetInnerHTML={{ __html: description }}
       className="m-0 text-black max-w-prose"
     />
-    <footer className="flex justify-between items-center mt-4">
+    <footer className="flex justify-between gap-4 items-center mt-4">
       <h6 className="m-0">
         Date: <time dateTime="2020-01-01">{start}</time>
       </h6>
