@@ -16,19 +16,13 @@ function ContactForm() {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     // async
-    fetch('/', {
+    fetch('/api/form', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encodeFormData({ 'form-name': 'contact', ...data }),
     })
       .then(() => navigate('/success/'))
-      .catch((error) =>
-        alert(
-          `Oops... something went wrong. Please contact us with this error message: ${
-            error as string
-          }`
-        )
-      );
+      .catch((error) => console.log(error));
   };
   return (
     <div className="container max-w-xl my-8">
@@ -41,9 +35,10 @@ function ContactForm() {
         netlify-honeypot="bot-field"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <p className="hidden">
-          <label>
-            Don’t fill this out if you’re human: <input name="bot-field" />
+        <p className="absolute overflow-hidden [clip:rect(0 0 0 0)] h-[1px] w-[1px] -m-[1px] p-0 border-0">
+          <label htmlFor="got-ya">
+            Don’t fill this out if you’re human:{' '}
+            <input tabIndex={-1} {...register('got-ya')} autoComplete="false" />
           </label>
         </p>
         <input type="hidden" name="form-name" value="contact" />

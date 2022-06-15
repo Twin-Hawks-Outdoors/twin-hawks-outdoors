@@ -1,4 +1,4 @@
-import { GatsbyLinkProps, Link } from 'gatsby';
+
 import React, { ReactNode } from 'react';
 import UniversalLink from './UniversalLink';
 

@@ -31,6 +31,7 @@ import gallerySection from './objects/gallerySection'
 import cardSection from './objects/cardSection'
 import ctaSection from './objects/ctaSection'
 import uiComponent from './objects/uiComponent'
+import formSubmission from './documents/formSubmission'
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -49,7 +50,7 @@ export default createSchema({
     siteConfig,
     post,
     training,
-
+    formSubmission,
     // object types
     cta,
     figure,
