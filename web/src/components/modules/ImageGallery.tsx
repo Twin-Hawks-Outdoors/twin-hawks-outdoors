@@ -1,7 +1,6 @@
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import React from 'react';
-import { SanityImageAsset, SanityImageGallery } from '../../../graphql-types';
-import PrettyJson from '../PrettyJson';
+import { SanityImageGallery } from '../../../graphql-types';
 
 function ImageGallery({ props }: { props: SanityImageGallery }) {
   return (

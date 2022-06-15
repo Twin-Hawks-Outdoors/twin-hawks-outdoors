@@ -2,19 +2,27 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { graphql } from 'gatsby';
+import {
+  GetServerData,
+  GetServerDataProps,
+  GetServerDataReturn,
+  graphql,
+} from 'gatsby';
 import type { PageProps, StaticQueryDocument } from 'gatsby';
 import React from 'react';
-import { SanityTrainingQueryQuery } from '../../graphql-types';
 import Layout from '../components/Layout';
 import { formatDate } from '../lib/formatDate';
+import { Skeleton } from '../components/Skeleton';
+import { Seo } from '../components/Seo';
+import { EventData } from '../../global';
+import { SanityTrainingQueryQuery } from '../../graphql-types';
 
 const SanityPage = ({
-  data,
+  data: { sanityTraining },
   location,
   serverData,
-}: PageProps<SanityTrainingQueryQuery, { id: string }>) => {
-  const modules = data?.sanityTraining?.content?.map((element, idx) => {
+}: PageProps<SanityTrainingQueryQuery & { id: string }>) => {
+  const modules = sanityTraining?.content?.map((element, idx) => {
     const typename = element?.__typename.replace('Sanity', '');
 
     const Component = React.lazy(
@@ -33,11 +41,17 @@ const SanityPage = ({
   const otherModules = modules && modules?.slice(1, modules.length - 1);
   const imageGallery = modules && modules?.[modules.length - 1];
   const events = serverData?.events?.data.filter(
-    ({ name }: { name: string }) => name === data?.sanityTraining?.title
+    ({ name }: { name: string }) => name === sanityTraining?.title
   );
 
   return (
-    <React.Suspense fallback="Loading...">
+    <React.Suspense fallback={<Skeleton />}>
+      <Seo
+        title={sanityTraining?.title as string}
+        description={sanityTraining?.description as string}
+        ogImage={sanityTraining?.openGraphImage?.asset?.url as string}
+        pathname={location.pathname}
+      />
       <Layout location={location}>
         {heroModule}
         <section className="container ">
@@ -45,31 +59,40 @@ const SanityPage = ({
             <article className="md:w-1/2 ">{otherModules}</article>
             <aside className="md:w-1/3 pb-24 md:py-24 mx-auto">
               <h3 className="mt-0">
-                Upcoming {data?.sanityTraining?.title} Training
+                Upcoming {sanityTraining?.title} Training
               </h3>
               <ul>
-                {events?.map((node) => (
-                  <li
-                    key={node.id}
-                    className="flex items-center justify-between border-b-2 border-teal-500 py-4"
-                  >
-                    <div>
-                      <p className="m-0">{node.venue.name}</p>
-                      <small className="m-0 text-red-500 font-sans ">
-                        {formatDate(node.start.iso as string)} -{' '}
-                        {formatDate(node.end.iso as string)}
-                      </small>
-                    </div>
-                    <a
-                      rel="noopener noreferrer"
-                      className="button-sm mt-0 bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400"
-                      target="_blank"
-                      href={node.url}
+                {events?.map(
+                  (node: {
+                    id: string;
+                    venue: { name: string };
+                    start: { iso: string };
+                    end: { iso: string };
+                    call_to_action: string;
+                    url: string;
+                  }) => (
+                    <li
+                      key={node.id}
+                      className="flex items-center justify-between border-b-2 border-teal-500 py-4"
                     >
-                      {node.call_to_action}
-                    </a>
-                  </li>
-                ))}
+                      <div>
+                        <p className="m-0">{node.venue.name}</p>
+                        <small className="m-0 text-red-500 font-sans ">
+                          {formatDate(node.start.iso)} -{' '}
+                          {formatDate(node.end.iso)}
+                        </small>
+                      </div>
+                      <a
+                        rel="noopener noreferrer"
+                        className="button-sm mt-0 bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400"
+                        target="_blank"
+                        href={node.url}
+                      >
+                        {node.call_to_action}
+                      </a>
+                    </li>
+                  )
+                )}
                 {events?.length < 1 && (
                   <p className="text-center">No events currently scheduled.</p>
                 )}
@@ -91,6 +114,12 @@ export const query: StaticQueryDocument = graphql`
   query SanityTrainingQuery($id: String) {
     sanityTraining(id: { eq: $id }) {
       title
+      description
+      openGraphImage {
+        asset {
+          url
+        }
+      }
       slug {
         current
       }
@@ -105,7 +134,9 @@ export const query: StaticQueryDocument = graphql`
   }
 `;
 
-export async function getServerData() {
+export async function getServerData(): GetServerDataReturn<{
+  events: EventData;
+}> {
   const now = Math.floor(Date.now() / 1000);
   const user = Buffer.from(process.env.TICKET_TAILOR_FRONTEND || '').toString(
     'base64'
@@ -122,7 +153,7 @@ export async function getServerData() {
     }
   );
 
-  const data = await res.json();
+  const data: EventData = await res.json();
 
   return {
     props: {

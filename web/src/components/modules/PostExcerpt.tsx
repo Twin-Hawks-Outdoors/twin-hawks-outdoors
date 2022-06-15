@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Link } from 'gatsby';
 import React from 'react';
 import { SanityPost } from '../../../graphql-types';
 import Button from '../Button';
 
 function PostExcerpt({ post }: { post: SanityPost }) {
-  const { title, excerpt, slug, _createdAt } = post;
+  const { title, excerpt, slug } = post;
   return (
     <article className="card">
       <Link className="  outline-none group" to={slug?.current as string}>
@@ -13,7 +14,7 @@ function PostExcerpt({ post }: { post: SanityPost }) {
         </h4>
       </Link>
       <small className="text-red-500 mb-2 inline-block">
-        Posted {_createdAt}
+        Posted {post._createdAt}
       </small>
       <hr />
       {excerpt && <p className="mt-2 mb-0">{excerpt}</p>}

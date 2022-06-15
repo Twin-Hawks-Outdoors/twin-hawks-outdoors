@@ -6,7 +6,6 @@ import {
   SanityCardSection,
   SanityPopupOrPostOrProductOrTraining,
 } from '../../../graphql-types';
-import PrettyJson from '../PrettyJson';
 
 interface ExtendedCardSection extends SanityCardSection {
   cards?:
@@ -21,7 +20,7 @@ const CardSection = ({
 }: {
   props: ExtendedCardSection & { location: PageProps['location'] };
 }) => {
-  const cardModules = props?.cards?.map((card, idx) => {
+  const cardModules = props?.cards?.map((card) => {
     const typename = `${
       card?.__typename.replace('Sanity', '') as string
     }Excerpt`;

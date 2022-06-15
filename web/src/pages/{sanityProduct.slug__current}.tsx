@@ -1,15 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { PortableText } from '@portabletext/react';
 import { graphql, PageProps, StaticQueryDocument } from 'gatsby';
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import React from 'react';
-import { DebugCart, useShoppingCart } from 'use-shopping-cart';
+import { useShoppingCart } from 'use-shopping-cart';
 import { HiOutlineMinus, HiOutlinePlus } from 'react-icons/hi';
 import {
   SanityProductQueryQuery,
   SanityProductVariant,
 } from '../../graphql-types';
 import Layout from '../components/Layout';
+import { Seo } from '../components/Seo';
 
 export default function SanityProduct({
   data,
@@ -34,6 +36,12 @@ export default function SanityProduct({
   ];
   return (
     <Layout location={location}>
+      <Seo
+        title={sanityProduct?.title || ''}
+        description={sanityProduct?.blurb || sanityProduct?.title || ''}
+        ogImage={sanityProduct?.mainImage?.asset?.url as string}
+        pathname={location.pathname}
+      />
       <section className="container py-24 grid md:grid-cols-2 gap-8">
         <GatsbyImage
           className="w-full max-w-full aspect-square max-h-full"
@@ -153,6 +161,7 @@ export const query: StaticQueryDocument = graphql`
       id
       mainImage {
         asset {
+          url
           altText
           gatsbyImageData(layout: CONSTRAINED, width: 1000, aspectRatio: 1)
         }

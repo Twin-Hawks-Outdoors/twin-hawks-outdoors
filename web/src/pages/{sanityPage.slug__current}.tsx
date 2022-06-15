@@ -3,9 +3,10 @@
 import { graphql } from 'gatsby';
 import type { PageProps, StaticQueryDocument } from 'gatsby';
 import React from 'react';
-import { DebugCart } from 'use-shopping-cart';
 import { SanityPageQueryQuery } from '../../graphql-types';
 import Layout from '../components/Layout';
+import { Skeleton } from '../components/Skeleton';
+import { Seo } from '../components/Seo';
 
 const LazyBlogList = React.lazy(() => import('../components/BlogList'));
 
@@ -30,7 +31,13 @@ const SanityPage = ({
   });
 
   return (
-    <React.Suspense fallback="Loading...">
+    <React.Suspense fallback={<Skeleton />}>
+      <Seo
+        title={data?.sanityPage?.title || ''}
+        description={data?.sanityPage?.description || ''}
+        ogImage={data?.sanityPage?.openGraphImage?.asset?.url || ''}
+        pathname={location.pathname}
+      />
       <Layout location={location}>
         {modules}
         {data?.sanitySiteConfig?.blogpage?.id === pageContext?.id && (
@@ -51,8 +58,13 @@ export const query: StaticQueryDocument = graphql`
       }
     }
     sanityPage(id: { eq: $id }) {
+      openGraphImage {
+        asset {
+          url
+        }
+      }
       title
-
+      description
       slug {
         current
       }

@@ -2,7 +2,6 @@ import { Link } from 'gatsby';
 import React from 'react';
 import { SanityTraining } from '../../../graphql-types';
 import Button from '../Button';
-import PrettyJson from '../PrettyJson';
 
 export default function TrainingExcerpt({ props }: { props: SanityTraining }) {
   return (

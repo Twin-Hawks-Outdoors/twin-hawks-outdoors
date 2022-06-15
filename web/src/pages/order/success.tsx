@@ -3,6 +3,7 @@ import { GetServerDataProps, GetServerDataReturn, PageProps } from 'gatsby';
 import React, { useEffect } from 'react';
 import { useShoppingCart } from 'use-shopping-cart';
 import Layout from '../../components/Layout';
+import { Seo } from '../../components/Seo';
 
 interface Address {
   city: string;
@@ -94,6 +95,7 @@ export default function Success({ location, serverData }: PageProps) {
   }, []);
   return (
     <Layout location={location}>
+      <Seo title="Order Confirmation" />
       <section className="container mx-auto min-h-[80vh] flex flex-col items-center justify-center">
         <h1 className="text-xl">
           Thanks for your purchase {serverData?.customer.name}

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import sanityClient from '@sanity/client';
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from 'gatsby';
+import sgMail from '@sendgrid/mail';
 
 interface FormSubmission {
   fullName: string;
@@ -23,6 +24,27 @@ export default async function handler(
     useCdn: false,
   });
 
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+
+  const template = `
+    <div>
+      <h1>New Form Submission</h1>
+      <p><strong>Name: </strong>${data?.fullName}</p>
+      <p><strong>Email: </strong><a href="mailto:${data?.email}">${data?.email}</a></p>
+      <p><strong>Phone: </strong><a href="tel:+1${data?.phone}">${data?.phone}</a></p>
+      <p><strong>message: </strong>${data?.message}</p>
+    </div>
+  `;
+
+  const msg = {
+    to: 'sam@twinhawksoutdoors.com',
+    from: 'sam@twinhawksoutdoors.com',
+    replyTo: data?.email,
+    subject: `New contact from submission from ${data.fullName}`,
+    text: `${data.message}`,
+    html: template,
+  };
+
   try {
     if (data['got-ya']?.length) {
       res.status(500).json({ message: `We don't take kindly to spammers.` });
@@ -35,6 +57,17 @@ export default async function handler(
       phone: data.phone,
       message: data.message,
     });
+
+    sgMail
+      .send(msg)
+      .then((response) => {
+        console.log(response[0].statusCode);
+        console.log(response[0].headers);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({ message: `Error sending email.` });
+      });
 
     return res.status(200).json({ message: 'Thanks for your message!' });
   } catch (error) {
