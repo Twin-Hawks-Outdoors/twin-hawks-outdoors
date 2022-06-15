@@ -52,7 +52,6 @@ export default function CartOverview() {
     formattedTotalPrice,
   } = cart;
 
-
   // async function to handle checkout click
   const handleCheckoutClick = () => {
     // basic fetch to get api sessionId
@@ -71,7 +70,7 @@ export default function CartOverview() {
 
   if (!shouldDisplayCart) return null;
   return (
-    <div className="h-screen  fixed top-0 right-0 bg-cream-100 p-8 z-40 shadow-lg flex flex-col">
+    <div className="h-screen  fixed top-0 right-0 bg-cream-100 p-8 z-40 shadow-lg flex flex-col overflow-y-scroll">
       <header className="mb-8 flex justify-between items-center gap-4">
         <h4 className="m-0">My Cart</h4>
         <button
@@ -82,7 +81,7 @@ export default function CartOverview() {
           <AiOutlineClose /> Close Cart
         </button>
       </header>
-      <ul className="max-w-sm flex-auto">
+      <ul className="max-w-sm  mb-16">
         {Object.values(cartDetails).length > 0 ? (
           Object.values(cartDetails).map((cartItem) => (
             <CartItem cartItem={cartItem} key={cartItem?.id} />
