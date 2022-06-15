@@ -44,6 +44,9 @@ const CartItem = ({ cartItem }: { cartItem: CartEntry }) => {
 
 export default function CartOverview() {
   const cart = useShoppingCart();
+  const [checkoutStatus, setCheckoutStatus] = React.useState<
+    'idle' | 'submitting' | 'error'
+  >('idle');
   const {
     cartDetails,
     shouldDisplayCart,
@@ -54,6 +57,7 @@ export default function CartOverview() {
 
   // async function to handle checkout click
   const handleCheckoutClick = () => {
+    setCheckoutStatus('submitting');
     // basic fetch to get api sessionId
     fetch('/api/session', {
       method: 'POST',
@@ -65,6 +69,7 @@ export default function CartOverview() {
       .then((res) => res.json())
       .then((resBody) => {
         redirectToCheckout(resBody.sessionId);
+        setCheckoutStatus('idle');
       });
   };
 
@@ -94,9 +99,14 @@ export default function CartOverview() {
         <button
           onClick={handleCheckoutClick}
           type="button"
+          disabled={checkoutStatus === 'submitting'}
           className="bg-teal-500 text-white w-full py-2 text-md font-serif   shadow-md hover:shadow-lg transition-all duration-200 link-focus"
         >
-          Checkout {formattedTotalPrice}
+          {checkoutStatus === 'submitting' ? (
+            <span className="animate-pulse">Please wait...</span>
+          ) : (
+            `Checkout ${formattedTotalPrice || ''}`
+          )}
         </button>
       </footer>
     </div>
