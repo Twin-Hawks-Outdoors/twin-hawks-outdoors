@@ -25,7 +25,6 @@ function ContactForm() {
       .catch((error) => console.log(error));
   };
 
-  console.log({ isSubmitting, hasError: Object.keys(errors).length > 0 });
   return (
     <div className="container max-w-xl my-8">
       <form

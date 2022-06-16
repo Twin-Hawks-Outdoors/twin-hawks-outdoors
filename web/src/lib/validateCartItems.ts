@@ -54,7 +54,6 @@ export const validateCartItems = async (products: CartDetails) => {
       throw new Error(`Invalid cart: Product with sku ${id} is not available`);
     }
 
-    console.log(inventoryItem.shippingRate);
 
     const item = {
       price_data: {

@@ -25,19 +25,12 @@ export default async function handler(
 
   // reduce the line items array and add all shippingRates together
   const shippingRate = lineItems?.reduce((prev, curr) => {
-    console.log({ prev, curr });
 
     const shippingTotal: number =
       curr?.price_data?.product_data?.metadata.shippingTotal;
     return prev + shippingTotal;
-    // const prevShippingRate: number =
-    //   prev?.product_data?.metadata?.shippingTotal;
-    // const currShippingRate: number =
-    //   curr?.product_data?.metadata?.shippingTotal;
-    // return prevShippingRate + currShippingRate;
   }, 0);
 
-  console.log(shippingRate);
   try {
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: 'auto',
