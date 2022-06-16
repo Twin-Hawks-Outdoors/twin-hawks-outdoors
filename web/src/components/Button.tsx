@@ -1,4 +1,3 @@
-
 import React, { ReactNode } from 'react';
 import UniversalLink from './UniversalLink';
 
@@ -7,6 +6,8 @@ const BG_COLORS = {
   rust: 'bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400',
   teal: 'bg-teal-500/90 hover:bg-teal-400 focus:bg-teal-400',
   default: 'bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400',
+  transparent:
+    'bg-transparent text-black border-2 hover:bg-black hover:text-white',
 };
 const Button = ({
   to,

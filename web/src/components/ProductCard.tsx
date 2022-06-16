@@ -51,12 +51,13 @@ function ProductCard({ product }: { product: SanityProduct }) {
             Select Options
           </Button>
         ) : (
-          <button
-            type="button"
-            className="border-2 rounded-md px-2 py-2 font-serif"
+          <Button
+            to={product?.slug?.current as string}
+            className="button-sm mt-0"
+            bgColor="transparent"
           >
             See Details
-          </button>
+          </Button>
         )}
       </div>{' '}
     </div>
