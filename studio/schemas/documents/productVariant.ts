@@ -36,6 +36,13 @@ export default {
       type: "boolean",
     },
     {
+      title: 'Shipping Rate',
+      name: 'shippingRate',
+      description: 'The shipping rate for this variant in cents.',
+      type:'number',
+      initialValue: (product) => product.price * 0.1,
+    },
+    {
       name: "images",
       title: "Images",
       type: "array",

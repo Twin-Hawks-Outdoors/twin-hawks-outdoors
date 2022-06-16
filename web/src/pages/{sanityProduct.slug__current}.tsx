@@ -122,6 +122,7 @@ export default function SanityProduct({
                     type: `${product?.title as string} ${
                       sanityProduct?.title as string
                     }`,
+
                   },
                 },
                 { count: quantity }
@@ -147,6 +148,7 @@ export const query: StaticQueryDocument = graphql`
     price
     sku
     taxable
+    shippingRate
     images {
       asset {
         altText

@@ -505,6 +505,7 @@ export type SanityFormSubmission = SanityDocument & Node & {
   _updatedAt?: Maybe<Scalars['Date']>;
   _rev?: Maybe<Scalars['String']>;
   _key?: Maybe<Scalars['String']>;
+  isResolved?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
@@ -994,6 +995,7 @@ export type SanityProductVariant = {
   price?: Maybe<Scalars['Float']>;
   sku?: Maybe<Scalars['String']>;
   taxable?: Maybe<Scalars['Boolean']>;
+  shippingRate?: Maybe<Scalars['Float']>;
   images?: Maybe<Array<Maybe<SanityImage>>>;
   _rawImages?: Maybe<Scalars['JSON']>;
 };
@@ -2306,6 +2308,7 @@ export type QuerySanityFormSubmissionArgs = {
   _updatedAt?: InputMaybe<DateQueryOperatorInput>;
   _rev?: InputMaybe<StringQueryOperatorInput>;
   _key?: InputMaybe<StringQueryOperatorInput>;
+  isResolved?: InputMaybe<BooleanQueryOperatorInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
   email?: InputMaybe<StringQueryOperatorInput>;
   phone?: InputMaybe<StringQueryOperatorInput>;
@@ -4875,6 +4878,7 @@ export type SanityFormSubmissionFieldsEnum =
   | '_updatedAt'
   | '_rev'
   | '_key'
+  | 'isResolved'
   | 'name'
   | 'email'
   | 'phone'
@@ -5014,6 +5018,7 @@ export type SanityFormSubmissionFilterInput = {
   _updatedAt?: InputMaybe<DateQueryOperatorInput>;
   _rev?: InputMaybe<StringQueryOperatorInput>;
   _key?: InputMaybe<StringQueryOperatorInput>;
+  isResolved?: InputMaybe<BooleanQueryOperatorInput>;
   name?: InputMaybe<StringQueryOperatorInput>;
   email?: InputMaybe<StringQueryOperatorInput>;
   phone?: InputMaybe<StringQueryOperatorInput>;
@@ -6674,6 +6679,7 @@ export type SanityProductVariantFilterInput = {
   price?: InputMaybe<FloatQueryOperatorInput>;
   sku?: InputMaybe<StringQueryOperatorInput>;
   taxable?: InputMaybe<BooleanQueryOperatorInput>;
+  shippingRate?: InputMaybe<FloatQueryOperatorInput>;
   images?: InputMaybe<SanityImageFilterListInput>;
   _rawImages?: InputMaybe<JsonQueryOperatorInput>;
 };
@@ -6825,6 +6831,7 @@ export type SanityProductFieldsEnum =
   | 'defaultProductVariant___price'
   | 'defaultProductVariant___sku'
   | 'defaultProductVariant___taxable'
+  | 'defaultProductVariant___shippingRate'
   | 'defaultProductVariant___images'
   | 'defaultProductVariant___images____key'
   | 'defaultProductVariant___images____type'
@@ -6883,6 +6890,7 @@ export type SanityProductFieldsEnum =
   | 'variants___price'
   | 'variants___sku'
   | 'variants___taxable'
+  | 'variants___shippingRate'
   | 'variants___images'
   | 'variants___images____key'
   | 'variants___images____type'
@@ -9513,14 +9521,14 @@ export type SinglePostQueryVariables = Exact<{
 
 export type SinglePostQuery = { sanityPost?: { excerpt?: string | null, _createdAt?: any | null, publishedAt?: any | null, _updatedAt?: any | null, title?: string | null, _rawBody?: any | null, author?: { name?: string | null, photo?: { alt?: string | null, asset?: { altText?: string | null, gatsbyImageData: any } | null } | null } | null, mainImage?: { asset?: { url?: string | null, altText?: string | null, gatsbyImageData: any } | null } | null, slug?: { current?: string | null } | null } | null };
 
-export type ProductVariantFragment = { title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null };
+export type ProductVariantFragment = { title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, shippingRate?: number | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null };
 
 export type SanityProductQueryQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type SanityProductQueryQuery = { sanityProduct?: { title?: string | null, id: string, blurb?: string | null, _rawBody?: any | null, mainImage?: { asset?: { url?: string | null, altText?: string | null, gatsbyImageData: any } | null } | null, variants?: Array<{ title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null } | null> | null, categories?: Array<{ title?: string | null, slug?: { current?: string | null } | null } | null> | null, defaultProductVariant?: { title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null } | null } | null };
+export type SanityProductQueryQuery = { sanityProduct?: { title?: string | null, id: string, blurb?: string | null, _rawBody?: any | null, mainImage?: { asset?: { url?: string | null, altText?: string | null, gatsbyImageData: any } | null } | null, variants?: Array<{ title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, shippingRate?: number | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null } | null> | null, categories?: Array<{ title?: string | null, slug?: { current?: string | null } | null } | null> | null, defaultProductVariant?: { title?: string | null, _key?: string | null, grams?: number | null, isAvailable?: boolean | null, price?: number | null, sku?: string | null, taxable?: boolean | null, shippingRate?: number | null, _type?: string | null, images?: Array<{ asset?: { altText?: string | null, gatsbyImageData: any } | null } | null> | null } | null } | null };
 
 export type SanityTrainingQueryQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']>;

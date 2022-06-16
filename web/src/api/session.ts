@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from 'gatsby';
 import { Stripe } from 'stripe';
 import { CartDetails } from 'use-shopping-cart/core';
@@ -21,6 +23,21 @@ export default async function handler(
     console.log(error);
   }
 
+  // reduce the line items array and add all shippingRates together
+  const shippingRate = lineItems?.reduce((prev, curr) => {
+    console.log({ prev, curr });
+
+    const shippingTotal: number =
+      curr?.price_data?.product_data?.metadata.shippingTotal;
+    return prev + shippingTotal;
+    // const prevShippingRate: number =
+    //   prev?.product_data?.metadata?.shippingTotal;
+    // const currShippingRate: number =
+    //   curr?.product_data?.metadata?.shippingTotal;
+    // return prevShippingRate + currShippingRate;
+  }, 0);
+
+  console.log(shippingRate);
   try {
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: 'auto',
@@ -53,29 +70,7 @@ export default async function handler(
               },
             },
             fixed_amount: {
-              amount: 5000,
-              currency: 'USD',
-            },
-          },
-        },
-        {
-          shipping_rate_data: {
-            tax_behavior: 'exclusive',
-            tax_code: 'txcd_92010001',
-            display_name: 'Expedited Shipping',
-            type: 'fixed_amount',
-            delivery_estimate: {
-              maximum: {
-                unit: 'business_day',
-                value: 7,
-              },
-              minimum: {
-                unit: 'business_day',
-                value: 3,
-              },
-            },
-            fixed_amount: {
-              amount: 10000,
+              amount: shippingRate || 0,
               currency: 'USD',
             },
           },

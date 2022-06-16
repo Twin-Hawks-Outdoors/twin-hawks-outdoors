@@ -33,6 +33,7 @@ export const validateCartItems = async (products: CartDetails) => {
           isAvailable,
           price,
           title,
+          shippingRate
         },
       blurb
       }`);
@@ -53,6 +54,8 @@ export const validateCartItems = async (products: CartDetails) => {
       throw new Error(`Invalid cart: Product with sku ${id} is not available`);
     }
 
+    console.log(inventoryItem.shippingRate);
+
     const item = {
       price_data: {
         currency: 'USD',
@@ -62,6 +65,10 @@ export const validateCartItems = async (products: CartDetails) => {
           name: products[id].name || '',
           description: products[id].description || '',
           images: [products[id].image],
+          metadata: {
+            shippingTotal:
+              (inventoryItem?.shippingRate || 0) * products[id].quantity,
+          },
         },
         ...products[id].price_data,
       },
