@@ -33,7 +33,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        icon: path.resolve('src/images/icon.png'),
+        icon: path.resolve('src/images/favicon.png'),
       },
     },
     'gatsby-plugin-sharp',

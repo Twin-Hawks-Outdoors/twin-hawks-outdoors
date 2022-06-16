@@ -11,7 +11,7 @@ function ContactForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting, submitCount },
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -24,6 +24,8 @@ function ContactForm() {
       .then(() => navigate('/success/'))
       .catch((error) => console.log(error));
   };
+
+  console.log({ isSubmitting, hasError: Object.keys(errors).length > 0 });
   return (
     <div className="container max-w-xl my-8">
       <form
@@ -98,7 +100,8 @@ function ContactForm() {
           )}
         </div>
         <input
-          className="col-span-full justify-self-end button-sm bg-teal-500 cursor-pointer hover:bg-teal-400 focus:bg-teal-400 hover:text-gray-800 active:bg-teal-600 active:text-black focus:ring-teal-600"
+          disabled={isSubmitting || (submitCount > 0 && submitCount < 2)}
+          className="col-span-full justify-self-end button-sm bg-teal-500 cursor-pointer hover:bg-teal-400 focus:bg-teal-400 hover:text-gray-800 active:bg-teal-600  active:text-black focus:ring-teal-600 disabled:opacity-50 disabled:hover:bg-teal-500 disabled:cursor-not-allowed disabled:active:bg-teal-500 disabled:active:text-white"
           type="submit"
           value="Send"
         />
