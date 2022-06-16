@@ -20,6 +20,8 @@ export default async function handler(
       session?.customer as string
     );
 
+    console.log(lineItems);
+
     return res.status(200).json({ customer, lineItems });
   } catch (error) {
     return res.status(500).json({ message: 'There was an error', error });
