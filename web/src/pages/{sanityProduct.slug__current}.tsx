@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { PortableText } from '@portabletext/react';
@@ -12,6 +13,10 @@ import {
 } from '../../graphql-types';
 import Layout from '../components/Layout';
 import { Seo } from '../components/Seo';
+import {
+  ExtendedSanityImage,
+  ProductGallery,
+} from '../components/ProductGallery';
 
 export default function SanityProduct({
   data,
@@ -34,6 +39,7 @@ export default function SanityProduct({
     initialVariant as SanityProductVariant,
     ...(sanityProduct?.variants as SanityProductVariant[]),
   ];
+  console.log({ product });
   return (
     <Layout location={location}>
       <Seo
@@ -43,21 +49,26 @@ export default function SanityProduct({
         pathname={location.pathname}
       />
       <section className="container py-24 grid md:grid-cols-2 gap-8">
-        <GatsbyImage
-          className="w-full max-w-full aspect-square max-h-full"
-          alt={
-            (product?.images?.[0]?.asset?.altText as string) ||
-            (sanityProduct?.mainImage?.asset?.altText as string) ||
-            sanityProduct?.title ||
-            ''
-          }
-          image={
-            (product?.images?.[0]?.asset
-              ?.gatsbyImageData as IGatsbyImageData) ||
-            (sanityProduct?.mainImage?.asset
-              ?.gatsbyImageData as IGatsbyImageData)
-          }
-        />
+        {product?.images && product?.images?.length > 0 ? (
+          <ProductGallery images={product?.images as ExtendedSanityImage[]} />
+        ) : allVariants?.[0]?.images && allVariants?.[0]?.images.length > 0 ? (
+          <ProductGallery
+            images={allVariants?.[0]?.images as ExtendedSanityImage[]}
+          />
+        ) : (
+          <GatsbyImage
+            className="w-full max-w-full aspect-square max-h-full"
+            alt={
+              (sanityProduct?.mainImage?.asset?.altText as string) ||
+              sanityProduct?.title ||
+              ''
+            }
+            image={
+              sanityProduct?.mainImage?.asset
+                ?.gatsbyImageData as IGatsbyImageData
+            }
+          />
+        )}
         <div className="prose-headings:font-sans prose-p:max-w-prose  justify-self-center">
           <h1 className="mt-0 text-xl">{sanityProduct?.title}</h1>
           <PortableText value={sanityProduct?._rawBody} />
@@ -99,8 +110,8 @@ export default function SanityProduct({
             </button>
           </div>
           <button
-            disabled={quantity < 1}
-            className=" font-serif border-2 border-rust-500/90 rounded-md outline-none px-4 py-2 focus:border-rust-600 bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400 active:bg-rust-800 text-white shadow-md hover:shadow-lg transition-all duration-200"
+            disabled={quantity < 1 || !product?.isAvailable}
+            className=" font-serif border-2 border-rust-500/90 rounded-md outline-none px-4 py-2 focus:border-rust-600 bg-rust-500/90 hover:bg-rust-400 focus:bg-rust-400 active:bg-rust-800 text-white shadow-md hover:shadow-lg transition-all duration-200 disabled:cursor-not-allowed disabled:hover:bg-rust-500/90 disabled:opacity-25"
             type="button"
             aria-label={`Add ${product?.title || ''} ${
               sanityProduct?.title || ''
@@ -122,7 +133,6 @@ export default function SanityProduct({
                     type: `${product?.title as string} ${
                       sanityProduct?.title as string
                     }`,
-
                   },
                 },
                 { count: quantity }
@@ -153,6 +163,7 @@ export const query: StaticQueryDocument = graphql`
       asset {
         altText
         gatsbyImageData(layout: CONSTRAINED, width: 1000, aspectRatio: 1)
+        thumbnail: gatsbyImageData(layout: FIXED, width: 100, aspectRatio: 1)
       }
     }
     _type

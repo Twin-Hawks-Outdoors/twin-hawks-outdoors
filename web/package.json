@@ -19,6 +19,7 @@
     "@fontsource/oswald": "^4.5.9",
     "@fontsource/quattrocento": "^4.5.8",
     "@netlify/functions": "^1.0.0",
+    "@popmotion/popcorn": "^0.4.4",
     "@portabletext/react": "^1.0.6",
     "@sanity/client": "^3.3.2",
     "@sanity/image-url": "^1.0.1",
