@@ -21,7 +21,7 @@ const iconMap = {
   snapchat: <BsSnapchat className="icon hover:text-[#FFFC00]" />,
   instagram: <BsInstagram className="icon hover:text-[#c13584]" />,
   linkedin: <BsLinkedin className="icon hover:text-[#2867b2]" />,
-  youtube: <BsYoutube />,
+  youtube: <BsYoutube className="icon hover:text-[#FF0000]" />,
   default: <BsQuestionCircle className="icon hover:text-gray-100" />,
 };
 
