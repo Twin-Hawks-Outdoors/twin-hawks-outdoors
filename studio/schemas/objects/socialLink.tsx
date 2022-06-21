@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import * as React from "react";
 import { AiFillInstagram, AiFillTwitterCircle } from "react-icons/ai";
-import { FaLinkedin, FaRegQuestionCircle, FaSnapchat } from "react-icons/fa";
+import { FaLinkedin, FaRegQuestionCircle, FaSnapchat, FaYoutube } from "react-icons/fa";
 import { GrFacebook } from "react-icons/gr";
 
 interface IconArrayProps {
@@ -24,6 +24,7 @@ export default {
           { title: "LinkedIn", value: "linkedin" },
           { title: "Instagram", value: "instagram" },
           { title: "SnapChat", value: "snapchat" },
+          { title: "Youtube", value: "youtube" },
         ],
         layout: "radio",
         direction: "horizontal",
@@ -50,6 +51,7 @@ export default {
         linkedin: <FaLinkedin />,
         instagram: <AiFillInstagram />,
         snapchat: <FaSnapchat />,
+        youtube: <FaYoutube />
       };
 
       return {
