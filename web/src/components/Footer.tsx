@@ -102,6 +102,17 @@ function Footer() {
             </a>
           ))}
         </div>
+        <small className="w-full text-center text-white ">
+          &copy; Twin Hawks Outdoors, All Rights Reserved | Developed by{' '}
+          <a
+            className="font-sans text-white text-sm text-teal-400 underline-offset-2"
+            href="https://www.dauntlesspursuitmedia.com"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Dauntless Pursuit Media
+          </a>
+        </small>
       </div>
     </footer>
   );
