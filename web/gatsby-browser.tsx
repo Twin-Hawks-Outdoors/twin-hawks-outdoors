@@ -23,7 +23,7 @@ export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
 export const wrapRootElement: GatsbyBrowser["wrapRootElement"] = ({ element }) => (
   <CartProvider
     cartMode="checkout-session"
-    stripe={process.env.STRIPE_PUBLIC_KEY}
+    stripe={"pk_live_51KqkieG4U9OV224rlqfjAPWSZpMZkzwMIE3zxRMHdNwvDrBoXSVxn5M0anMKPOcbJrZwbVNgpro9cVoi3FxTr4O800fmqMcNuG"}
     currency="USD"
     language="en-US"
   >
