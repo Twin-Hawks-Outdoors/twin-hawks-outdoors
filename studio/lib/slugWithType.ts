@@ -1,5 +1,4 @@
 import slugify from "slugify";
-import { isUniqueAcrossAllDocuments } from "./isUniqueAcrossAllDocuments";
 
 function formatSlug(input, slugStart) {
   const slug = slugify(input, { lower: true });
