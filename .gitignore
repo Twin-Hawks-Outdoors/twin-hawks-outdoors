@@ -1,1 +1,4 @@
 **/node_modules/
+studio/.sanity/
+# ignore the dist directory in sanity
+studio/dist/
