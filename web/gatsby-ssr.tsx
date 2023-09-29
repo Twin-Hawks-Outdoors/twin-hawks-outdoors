@@ -19,7 +19,7 @@ export const wrapPageElement: GatsbySSR["wrapPageElement"] = ({
 export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => (
   <CartProvider
     cartMode="checkout-session"
-    stripe="pk_test_51KqkieG4U9OV224r5p1xjwPLZvuK5Y1FF070zEHBNhQI6xaEK72qLaacYnguYl1sFSmh1ZBLocOnyzh6iuMxOGxr00mOaVYXmi"
+    stripe="pk_live_51KqkieG4U9OV224rlqfjAPWSZpMZkzwMIE3zxRMHdNwvDrBoXSVxn5M0anMKPOcbJrZwbVNgpro9cVoi3FxTr4O800fmqMcNuG"
     currency="USD"
     language="en-US"
   >
