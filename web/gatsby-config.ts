@@ -5,7 +5,9 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
+
 const config: GatsbyConfig = {
+	trailingSlash: 'always',
   siteMetadata: {
     title: 'Twin Hawks Outdoors',
     siteUrl: 'https://www.twinhawksoutdoors.com',

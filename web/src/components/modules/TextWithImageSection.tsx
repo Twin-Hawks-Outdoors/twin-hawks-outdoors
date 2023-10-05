@@ -4,6 +4,7 @@ import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import React from 'react';
 import { SanityTextWithImageSection } from '../../../graphql-types';
 import Button from '../Button';
+import { portableTextComponents } from '../../lib/portableTextComponents';
 
 const TextWithImageSection = ({
   props,
@@ -52,7 +53,7 @@ const TextWithImageSection = ({
             {props?.heading || props?.label}
           </h2>
           <div className={`prose `}>
-            <PortableText value={props?._rawText} />
+            <PortableText value={props?._rawText} components={portableTextComponents}/>
           </div>
           {props?.cta && (
             <Button

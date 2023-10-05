@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import sanityClient from '@sanity/client';
+import {createClient} from '@sanity/client';
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from 'gatsby';
 import sgMail from '@sendgrid/mail';
 
@@ -16,7 +16,7 @@ export default async function handler(
 ) {
   const data: FormSubmission = req.body as FormSubmission;
 
-  const client = sanityClient({
+  const client = createClient({
     projectId: 'rur2issm',
     dataset: 'development',
     apiVersion: '2022-04-19',

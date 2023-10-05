@@ -3,6 +3,7 @@ import { PortableText } from '@portabletext/react';
 import { PageProps } from 'gatsby';
 import React from 'react';
 import { SanityTextSection } from '../../../graphql-types';
+import { portableTextComponents } from '../../lib/portableTextComponents';
 
 function TextSection({
   props,
@@ -19,7 +20,7 @@ function TextSection({
     >
       {props?.heading && <h2>{props.heading}</h2>}
       <div className="mx-auto">
-        <PortableText value={props?._rawText} />
+        <PortableText value={props?._rawText} components={portableTextComponents} />
       </div>
     </div>
   );

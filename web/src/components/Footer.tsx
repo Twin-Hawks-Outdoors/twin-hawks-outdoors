@@ -12,6 +12,7 @@ import {
   BsYoutube,
 } from 'react-icons/bs';
 import { FooterQuery } from '../../graphql-types';
+import { portableTextComponents } from '../lib/portableTextComponents';
 
 const iconMap = {
   facebook: (
@@ -67,7 +68,7 @@ function Footer() {
             alt="logo"
           />
           <div className="text-white max-w-prose mt-8 prose-p:text-white prose-p:text-base prose-p:font-serif prose-p:tracking-wide">
-            <PortableText value={sanitySiteConfig?._rawFooterText} />
+            <PortableText components={portableTextComponents} value={sanitySiteConfig?._rawFooterText} />
           </div>
         </div>
         <nav className=" text-white">

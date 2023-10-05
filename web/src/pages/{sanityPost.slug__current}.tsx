@@ -6,6 +6,7 @@ import { BsQuestion } from 'react-icons/bs';
 import { SinglePostQuery } from '../../graphql-types';
 import Layout from '../components/Layout';
 import { Seo } from '../components/Seo';
+import { portableTextComponents } from '../lib/portableTextComponents';
 
 function BlogPostSingle({ data, location }: PageProps<SinglePostQuery>) {
   const { sanityPost } = data;
@@ -60,7 +61,7 @@ function BlogPostSingle({ data, location }: PageProps<SinglePostQuery>) {
               </div>
             </div>
 
-            <PortableText value={sanityPost?._rawBody} />
+            <PortableText value={sanityPost?._rawBody} components={portableTextComponents} />
           </section>
         </article>
       </Layout>

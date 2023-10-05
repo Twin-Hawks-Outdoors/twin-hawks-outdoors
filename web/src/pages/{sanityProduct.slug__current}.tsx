@@ -17,6 +17,7 @@ import {
   ExtendedSanityImage,
   ProductGallery,
 } from '../components/ProductGallery';
+import { portableTextComponents } from '../lib/portableTextComponents';
 
 export default function SanityProduct({
   data,
@@ -71,7 +72,7 @@ export default function SanityProduct({
         )}
         <div className="prose-headings:font-sans prose-p:max-w-prose  justify-self-center">
           <h1 className="mt-0 text-xl">{sanityProduct?.title}</h1>
-          <PortableText value={sanityProduct?._rawBody} />
+          <PortableText value={sanityProduct?._rawBody} components={portableTextComponents} />
           <div className="flex gap-4 my-4">
             {allVariants?.map((variant) => (
               <button

@@ -1,8 +1,8 @@
-import sanityClient from '@sanity/client';
+import {createClient} from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
-export const client = sanityClient({
+export const client =createClient({
   projectId: 'rur2issm',
   dataset: 'development',
   apiVersion: '2022-04-19',

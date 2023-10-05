@@ -1,4 +1,4 @@
-import sanityClient from '@sanity/client';
+import  { createClient } from '@sanity/client';
 import groq from 'groq';
 import { CartDetails, CartEntry } from 'use-shopping-cart/core';
 import {
@@ -65,7 +65,7 @@ export const validateCartItems = async (products: CartDetails) => {
     }
 
     if (inventoryItem?.sku?.includes('bow')) {
-      const mutationClient = sanityClient({
+      const mutationClient = createClient({
         projectId: 'rur2issm',
         dataset: 'development',
         apiVersion: '2022-04-19',
