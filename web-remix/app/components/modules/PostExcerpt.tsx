@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Link } from 'gatsby';
-import React from 'react';
-import { SanityPost } from '../../../graphql-types';
-import Button from '../Button';
 
-function PostExcerpt({ post }: { post: SanityPost }) {
-  const { title, excerpt, slug } = post;
+import React from 'react';
+import Button from '../Button';
+import type { PostExcerpt as PostExcerptDoc } from 'types/post';
+import { Link } from '@remix-run/react';
+
+export function PostExcerpt({ title,_id,publishedDate, slug,author, excerpt }: PostExcerptDoc) {
   return (
     <article className="card">
-      <Link className="  outline-none group" to={slug?.current as string}>
+      <Link prefetch='intent' className="  outline-none group" to={slug}>
         <h4 className="m-0 group-hover:underline group-focus:underline ">
           {title}
         </h4>
       </Link>
       <small className="text-red-500 mb-2 inline-block">
-        Posted {post._createdAt}
+        Posted {publishedDate}
       </small>
       <hr />
       {excerpt && <p className="mt-2 mb-0">{excerpt}</p>}
       <Button
         className="button-sm my-0 justify-self-start"
         bgColor="teal"
-        to={slug?.current as string}
+        to={slug}
       >
         Read more
       </Button>

@@ -5,6 +5,7 @@ import { CardSectionQuery } from "~/components/modules/CardSection";
 import type { PageDocument } from "types/page";
 import { UiComponentQuery, UIComponent } from "./modules/UiComponentRef";
 import { CtaSectionQuery } from "./modules/CtaSection";
+import { HeroSectionQuery } from "~/components/modules/Hero";
 
 export const PageQuery = groq`
 	_id,
@@ -17,6 +18,7 @@ export const PageQuery = groq`
 	},
 	content[]{
 		_type,
+		${HeroSectionQuery},
 		${CardSectionQuery},
 		${UiComponentQuery},
 		${CtaSectionQuery},

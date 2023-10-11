@@ -23,6 +23,7 @@ interface ImageProps {
   alt?: string;
   className?: string;
   sizes?: string;
+	loading?: "lazy" | "eager";
 }
 
 const baseUrl = `https://cdn.sanity.io/images/rur2issm/development/`;
@@ -36,6 +37,7 @@ export const MainImage = ({
   alt,
   className,
   sizes,
+	loading="lazy",
 }: ImageProps) => {
   const {
     hotspot,

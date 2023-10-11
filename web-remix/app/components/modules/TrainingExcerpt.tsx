@@ -1,24 +1,25 @@
-import { Link } from 'gatsby';
-import React from 'react';
-import { SanityTraining } from '../../../graphql-types';
-import Button from '../Button';
 
-export default function TrainingExcerpt({ props }: { props: SanityTraining }) {
+import Button from '../Button';
+import type { z } from 'zod';
+import type { trainingExcerptZ } from 'types/training';
+import { Link } from '@remix-run/react';
+
+export  function TrainingExcerpt({slug, title, description}: z.infer<typeof trainingExcerptZ>) {
   return (
     <div className="card">
       <Link
         className="  outline-none group"
-        to={props?.slug?.current as string}
+        to={slug}
       >
         <h4 className="m-0 group-hover:underline group-focus:underline ">
-          {props?.title}
+          {title}
         </h4>
       </Link>
-      <p className="max-w-prose mb-0">{props?.description}</p>
+      <p className="max-w-prose mb-0">{description}</p>
       <Button
         className="justify-self-end self-end"
         bgColor="teal"
-        to={props?.slug?.current as string}
+        to={slug}
       >
         Learn More
       </Button>

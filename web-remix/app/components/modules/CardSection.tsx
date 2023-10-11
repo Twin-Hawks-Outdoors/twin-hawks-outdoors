@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
 import groq from "groq";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { popupZ } from "types/popup";
 import { postExcerptZ } from "types/post";
 import { productExcerptZ } from "types/product";
@@ -10,13 +10,20 @@ import { trainingExcerptZ } from "types/training";
 import { z } from "zod";
 
 export const cardSectionZ = z.object({
-	_type: z.literal("cardSection"),
-	_key: z.string().nullish(),
-	heading: z.string().nullish(),
-	tagline: z.string().nullish(),
-	cards: z.array(z.discriminatedUnion("_type", [productExcerptZ, postExcerptZ, trainingExcerptZ, popupZ])),
-	ctas: z.array(ctaZ).nullish(),
-})
+  _type: z.literal("cardSection"),
+  _key: z.string().nullish(),
+  heading: z.string().nullish(),
+  tagline: z.string().nullish(),
+  cards: z.array(
+    z.discriminatedUnion("_type", [
+      productExcerptZ,
+      postExcerptZ,
+      trainingExcerptZ,
+      popupZ,
+    ])
+  ),
+  ctas: z.array(ctaZ).nullish(),
+});
 
 export const CardSectionQuery = groq`
 	_type =="cardSection" => {
@@ -31,19 +38,40 @@ export const CardSectionQuery = groq`
 			...
 		}
 	}
-`
+`;
+
+const excerptLookup = {
+  postExcerpt: React.lazy(async () => {
+    const { PostExcerpt: Component } = await import("./PostExcerpt");
+    return {
+      default: Component,
+    };
+  }),
+  trainingExcerpt: React.lazy(async () => {
+    const { TrainingExcerpt: Component } = await import("./TrainingExcerpt");
+
+    return {
+      default: Component,
+    };
+  }),
+  popup: React.lazy(async () => {
+    const { PopupExcerpt: Component } = await import("./PopupExcerpt");
+
+    return {
+      default: Component,
+    };
+  }),
+} as const;
 
 export const CardSection = ({
-	cards, heading
+  cards,
+  heading,
 }: z.infer<typeof cardSectionZ>) => {
   const cardModules = cards?.map((card) => {
-    const typename = `${
-      card?._type.replace('Sanity', '') as string
-    }Excerpt`;
 
-    const ExcerptComponent = React.lazy(() => import(`./${typename}`));
+    const ExcerptComponent = excerptLookup[card?._type as keyof typeof excerptLookup ]
 
-    return <ExcerptComponent props={card} key={card?._id} />;
+    return <ExcerptComponent {...card} key={card?._id} />;
   });
 
   return (

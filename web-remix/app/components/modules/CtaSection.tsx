@@ -18,32 +18,44 @@ export const ctaSectionZ = z.object({
   _key: z.string().nullish(),
   heading: z.string().nullish(),
   cta: ctaZ,
-	body: z.any()
+  body: z.any(),
 });
 
-export const CtaSectionQuery = groq`
-	_type == "ctaSection" => {
-		_type,
-		_key,
-		heading,
-		cta {
-			title,
+export const CtaQuery = groq`title,
 			route->{
 				_id,
 				title,
 				"slug": slug.current,
 			},
 			link,
-
+		`;
+export const CtaSectionQuery = groq`
+	_type == "ctaSection" => {
+		_type,
+		_key,
+		heading,
+		cta {
+			${CtaQuery}
 		},
-		body,
+		body
 	}
-`
+`;
 
-export function CtaSection({ cta, heading, _key, body }: z.infer<typeof ctaSectionZ>) {
+
+export function CtaSection({
+  cta,
+  heading,
+  _key,
+  body,
+}: z.infer<typeof ctaSectionZ>) {
   return (
     <section className="grid place-items-center ">
-			<img src="/images/foggy-mountain.jpg" alt="foggy mountain" width={600} className="filter sepia brightness-[.25] row-start-1 col-span-full col-start-1 md:aspect-[21/9] h-max lg:aspect-[30/9] object-cover object-center w-full" />
+      <img
+        src="/images/foggy-mountain.jpg"
+        alt="foggy mountain"
+        width={600}
+        className="filter sepia brightness-[.25] row-start-1 col-span-full col-start-1 md:aspect-[21/9] h-max lg:aspect-[30/9] object-cover object-center w-full"
+      />
       {/* <StaticImage
         className="filter sepia brightness-[.25] row-start-1 col-span-full col-start-1 md:aspect-[21/9] h-max lg:aspect-[30/9] xl:aspect-auto xl:max-h-80"
         src="../../images/foggy-mountain.jpg"
@@ -54,11 +66,7 @@ export function CtaSection({ cta, heading, _key, body }: z.infer<typeof ctaSecti
       /> */}
       <div className="row-start-1 col-start-1 z-10 flex flex-wrap items-center justify-center  gap-8">
         <div className="max-w-prose">
-          <PortableText
-            components={components}
-            key={_key}
-            value={body}
-          />
+          <PortableText components={components} key={_key} value={body} />
         </div>
         <Button
           to={(cta?.route?.slug || cta?.link) as string}
