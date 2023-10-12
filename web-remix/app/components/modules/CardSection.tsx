@@ -8,6 +8,7 @@ import { productExcerptZ } from "types/product";
 import { ctaZ } from "types/shared";
 import { trainingExcerptZ } from "types/training";
 import { z } from "zod";
+import { TrainingExcerptQuery } from "./TrainingExcerpt";
 
 export const cardSectionZ = z.object({
   _type: z.literal("cardSection"),
@@ -20,7 +21,7 @@ export const cardSectionZ = z.object({
       postExcerptZ,
       trainingExcerptZ,
       popupZ,
-    ])
+    ]).nullish()
   ),
   ctas: z.array(ctaZ).nullish(),
 });
@@ -32,7 +33,9 @@ export const CardSectionQuery = groq`
 		heading,
 		tagline,
 		cards[]->{
-			_type
+			_id,
+			_type,
+			${TrainingExcerptQuery}
 		},
 		ctas[]{
 			...
@@ -41,13 +44,13 @@ export const CardSectionQuery = groq`
 `;
 
 const excerptLookup = {
-  postExcerpt: React.lazy(async () => {
+  post: React.lazy(async () => {
     const { PostExcerpt: Component } = await import("./PostExcerpt");
     return {
       default: Component,
     };
   }),
-  trainingExcerpt: React.lazy(async () => {
+  training: React.lazy(async () => {
     const { TrainingExcerpt: Component } = await import("./TrainingExcerpt");
 
     return {
@@ -67,16 +70,17 @@ export const CardSection = ({
   cards,
   heading,
 }: z.infer<typeof cardSectionZ>) => {
-  const cardModules = cards?.map((card) => {
+  const cardModules = cards?.map((card, index) => {
 
     const ExcerptComponent = excerptLookup[card?._type as keyof typeof excerptLookup ]
 
-    return <ExcerptComponent {...card} key={card?._id} />;
+    return <ExcerptComponent {...card} key={card?._id ?? index} />;
   });
 
   return (
     <section className="container py-12 md:py-24 grid md:grid-cols-2 gap-16">
       <h2 className="m-0 col-span-full">{heading}</h2>
+			{/* {cardModules} */}
       <Suspense fallback="Loading data...">{cardModules}</Suspense>
     </section>
   );

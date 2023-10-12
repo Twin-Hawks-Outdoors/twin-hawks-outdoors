@@ -2,6 +2,7 @@
 // import { SanityUiComponentRef } from '../../../graphql-types';
 
 import groq from "groq";
+import React, { Suspense } from "react";
 import { z } from "zod";
 
 // const ContactForm = React.lazy(() => import('../ContactForm'));
@@ -12,6 +13,27 @@ import { z } from "zod";
 //   eventList: <EventList />,
 //   productList: <ProductList />,
 // };
+
+const ComponentMap = {
+  contactForm: React.lazy(async () => {
+    const { ContactForm: Component } = await import("../ContactForm");
+    return {
+      default: Component,
+    };
+  }),
+  eventList: React.lazy(async () => {
+    const { EventList: Component } = await import("../EventList");
+    return {
+      default: Component,
+    };
+  }),
+  productList: React.lazy(async () => {
+    const { ProductList: Component } = await import("../ProductList");
+    return {
+      default: Component,
+    };
+  }),
+} as const;
 
 export const UiComponentQuery = groq`
 	_type == "uiComponentRef" => {
@@ -27,7 +49,8 @@ export const uiComponentRefZ = z.object({
 	name: z.string(),
 })
 export function UIComponent({name }: z.infer<typeof uiComponentRefZ>) {
-  return <div>{name}</div>
+	const Component = ComponentMap[name as keyof typeof ComponentMap];
+  return <Suspense fallback={<div>Loading component...</div>}><Component  key={name} /></Suspense>
 }
 
 export default UIComponent;

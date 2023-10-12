@@ -1,8 +1,8 @@
-import React from 'react';
-import { EventData } from '../../global';
+
 import Button from './Button';
 
-const EventListing = ({ title, cta, url, start, description }: EventData) => (
+type EventDataType = Record<string, string | number | boolean | null | any>;
+const EventListing = ({ title, cta, url, start, description }: EventDataType) => (
   <article className="bg-cream-500 rounded p-8 shadow-lg max-w-sm">
     <header>
       <h5 className="mt-0">{title}</h5>

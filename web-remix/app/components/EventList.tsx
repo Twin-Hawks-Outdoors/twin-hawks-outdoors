@@ -1,42 +1,44 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { useEffect, useState } from 'react';
-import { EventData } from '../../global';
+import { useFetcher } from '@remix-run/react';
+import React, { useEffect } from 'react';
+import type { Event } from '~/routes/resources.getEvents';
 import EventListing from './EventListing';
 
-type EventDataType = Record<string, string | number | boolean | null | any>;
+// type EventDataType = Record<string, string | number | boolean | null | any>;
 
-function EventList() {
-  const [events, setEvents] = useState<EventData[]>([]);
+export function EventList() {
+	const eventFetcher = useFetcher<Promise<{events: Event[]}>>()
 
+	const events = eventFetcher.data?.events ?? []
   useEffect(() => {
-    const getUpcomingEvents = async () => {
-      const response = await fetch('../api/get-upcoming-events', {
-        method: 'GET',
-      });
+		if(eventFetcher.state === "idle" && eventFetcher.data == null) {
+			eventFetcher.load('/resources/getEvents')
+		}
+      // const response = await fetch('../api/get-upcoming-events', {
+      //   method: 'GET',
+      // });
 
-      const { data }: { data: Record<string, any>[] } = await response.json();
+      // const { data }: { data: Record<string, any>[] } = await response.json();
 
-      const truncatedData = data.map((node: EventDataType) => ({
-        id: node?.id,
-        cta: node?.call_to_action,
-        description: node?.description,
-        start: node?.start?.date,
-        title: node?.name,
-        url: node?.url,
-      }));
+      // const truncatedData = data.map((node: EventDataType) => ({
+      //   id: node?.id,
+      //   cta: node?.call_to_action,
+      //   description: node?.description,
+      //   start: node?.start?.date,
+      //   title: node?.name,
+      //   url: node?.url,
+      // }));
 
-      setEvents(truncatedData);
-    };
-    getUpcomingEvents();
-  }, []);
 
-  const sortedEvents = events.sort((a, b) => {
-    if (a.start < b.start) {
-      return -1;
-    }
-    return 1;
-  });
+  }, [eventFetcher]);
+
+  // const sortedEvents = events.sort((a, b) => {
+  //   if (a.start < b.start) {
+  //     return -1;
+  //   }
+  //   return 1;
+  // });
 
   return (
     <section className=" bg-gradient-to-br from-teal-900  to-teal-400 grid py-24">
@@ -44,7 +46,7 @@ function EventList() {
         Upcoming Events
       </h3>
       <div className="container mx-auto  col-span-full flex gap-8 flex-wrap justify-center">
-        {events?.map((event: EventData) => (
+        {events?.map((event) => (
           <EventListing key={event?.id} {...event} />
         ))}
         {events?.length < 1 && (

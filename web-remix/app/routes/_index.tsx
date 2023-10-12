@@ -4,7 +4,6 @@ import groq from "groq";
 import { siteConfigZ } from "types/siteConfig";
 import Layout from "~/components/Layout";
 import { Page, PageQuery } from "~/components/Page";
-import PrettyJson from "~/components/PrettyJson";
 import { client } from "~/sanity.server";
 
 export const meta: MetaFunction = () => {
@@ -48,7 +47,6 @@ export default function Index() {
   return (
     <Layout>
       <Page content={page.content} />
-      <PrettyJson props={page} />
     </Layout>
   );
 }

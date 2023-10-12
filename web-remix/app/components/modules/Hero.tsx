@@ -54,7 +54,7 @@ export const Hero = ({
         alt={backgroundImage?.asset?.altText || ""}
         mode="cover"
         width={1200}
-        className="row-start-1 col-span-full filter brightness-50 md:aspect-video xl:aspect-[21/9] w-full"
+        className="row-start-1 col-span-full filter brightness-50 md:aspect-video xl:aspect-[21/9] w-full h-full object-cover"
         loading="eager"
       />
     )}

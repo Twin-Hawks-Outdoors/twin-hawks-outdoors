@@ -1,33 +1,35 @@
-import { navigate } from 'gatsby';
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { encodeFormData } from '../lib/encodeFormData';
+// import { navigate } from 'gatsby';
+// import React from 'react';
+// import type { SubmitHandler} from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
+// import { encodeFormData } from '../lib/encodeFormData';
 
 export type FormValues = {
   [key: string]: string | number | boolean;
 };
 
-function ContactForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting, submitCount },
-  } = useForm<FormValues>();
+export function ContactForm() {
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors, isSubmitting, submitCount },
+  // } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    // async
-    fetch('/api/form', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encodeFormData({ 'form-name': 'contact', ...data }),
-    })
-      .then(() => navigate('/success/'))
-      .catch((error) => console.log(error));
-  };
+  // const onSubmit: SubmitHandler<FormValues> = (data) => {
+  //   // async
+  //   fetch('/api/form', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //     body: encodeFormData({ 'form-name': 'contact', ...data }),
+  //   })
+  //     .then(() => navigate('/success/'))
+  //     .catch((error) => console.log(error));
+  // };
 
   return (
     <div className="container max-w-xl my-8">
-      <form
+			contact form
+      {/* <form
         className=" grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-full max-w-3xl mx-auto"
         name="contact"
         method="POST"
@@ -104,7 +106,7 @@ function ContactForm() {
           type="submit"
           value="Send"
         />
-      </form>
+      </form> */}
     </div>
   );
 }

@@ -6,6 +6,8 @@ import type { PageDocument } from "types/page";
 import { UiComponentQuery, UIComponent } from "./modules/UiComponentRef";
 import { CtaSectionQuery } from "./modules/CtaSection";
 import { HeroSectionQuery } from "~/components/modules/Hero";
+import  { TextWithImageQuery } from "~/components/modules/TextWithImageSection";
+import { TextSectionQuery } from "./modules/TextSection";
 
 export const PageQuery = groq`
 	_id,
@@ -17,11 +19,14 @@ export const PageQuery = groq`
 		${ImageQuery}
 	},
 	content[]{
+		_key,
 		_type,
 		${HeroSectionQuery},
 		${CardSectionQuery},
 		${UiComponentQuery},
 		${CtaSectionQuery},
+		${TextWithImageQuery},
+		${TextSectionQuery}
 	}
 `;
 
@@ -57,14 +62,14 @@ const lookup = {
       default: Component,
     };
   }),
-  // richText: React.lazy(async () => {
-  //   const { RichText: Component } = await import(
-  //     "~/components/modules/RichText"
-  //   );
-  //   return {
-  //     default: Component,
-  //   };
-  // }),
+  textSection: React.lazy(async () => {
+    const { TextSection: Component } = await import(
+      "~/components/modules/TextSection"
+    );
+    return {
+      default: Component,
+    };
+  }),
   textWithImageSection: React.lazy(async () => {
     const { TextWithImageSection: Component } = await import(
       "~/components/modules/TextWithImageSection"

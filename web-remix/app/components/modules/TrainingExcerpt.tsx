@@ -3,6 +3,18 @@ import Button from '../Button';
 import type { z } from 'zod';
 import type { trainingExcerptZ } from 'types/training';
 import { Link } from '@remix-run/react';
+import groq from 'groq';
+
+export const TrainingExcerptQuery = groq`
+	_type == "training" => {
+		_type,
+		_key,
+		"slug": slug.current,
+		title,
+		description,
+		_id
+	}
+`
 
 export  function TrainingExcerpt({slug, title, description}: z.infer<typeof trainingExcerptZ>) {
   return (

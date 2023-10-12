@@ -4,8 +4,9 @@ import React from 'react';
 import Button from '../Button';
 import type { PostExcerpt as PostExcerptDoc } from 'types/post';
 import { Link } from '@remix-run/react';
+import { formatDate } from '~/lib/formatDate';
 
-export function PostExcerpt({ title,_id,publishedDate, slug,author, excerpt }: PostExcerptDoc) {
+export function PostExcerpt({ title,_id,_createdAt, slug,author, excerpt }: PostExcerptDoc) {
   return (
     <article className="card">
       <Link prefetch='intent' className="  outline-none group" to={slug}>
@@ -14,7 +15,7 @@ export function PostExcerpt({ title,_id,publishedDate, slug,author, excerpt }: P
         </h4>
       </Link>
       <small className="text-red-500 mb-2 inline-block">
-        Posted {publishedDate}
+        Posted {formatDate(_createdAt)}
       </small>
       <hr />
       {excerpt && <p className="mt-2 mb-0">{excerpt}</p>}

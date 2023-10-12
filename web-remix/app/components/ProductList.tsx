@@ -1,21 +1,7 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
-import {
-  AllProductsQuery,
-  SanityProduct,
-  SanityProductEdge,
-} from '../../graphql-types';
-import ProductCard from './ProductCard';
 
-function ProductList() {
-	const data = useStaticQuery(graphql`
-		query AllProducts {
-			allSanityProduct {
-				totalCount
-			}
 
-		}
-	`)
+export function ProductList() {
+
 //   const { allSanityProduct } = useStaticQuery<AllProductsQuery>(graphql`query AllProducts {
 //   allSanityProduct {
 //     totalCount

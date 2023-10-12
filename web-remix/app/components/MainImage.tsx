@@ -8,6 +8,7 @@ export const ImageQuery = groq`
 	asset->{
 			_ref,
 			_id,
+			altText,
 			assetId,
 			metadata {
 				lqip,
