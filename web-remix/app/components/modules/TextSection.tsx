@@ -18,7 +18,7 @@ export const TextSectionQuery = groq`
 		_type,
 		label,
 		heading,
-		tetx
+		text
 	}`
 export function TextSection({
   _key,
@@ -33,8 +33,9 @@ export function TextSection({
       } first:py-12`}
     >
       {heading && <h2>{heading}</h2>}
+
       <div className="mx-auto">
-        <PortableText value={text} components={portableTextComponents} />
+        <PortableText value={text || []} components={portableTextComponents} />
       </div>
     </div>
   );
