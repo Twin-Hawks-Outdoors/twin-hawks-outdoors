@@ -1,11 +1,13 @@
 
+import type { Event } from '~/routes/resources.getEvents';
 import Button from './Button';
+import { formatDate } from '~/lib/formatDate';
 
-type EventDataType = Record<string, string | number | boolean | null | any>;
-const EventListing = ({ title, cta, url, start, description }: EventDataType) => (
+// type EventDataType = Record<string, string | number | boolean | null | any>;
+const EventListing = ({ name,  cta, url, start, description }: Omit<Event, 'call_to_action'> & {cta: string}) => (
   <article className="bg-cream-500 rounded p-8 shadow-lg max-w-sm">
     <header>
-      <h5 className="mt-0">{title}</h5>
+      <h5 className="mt-0">{name}</h5>
     </header>
     <div
       dangerouslySetInnerHTML={{ __html: description }}
@@ -13,7 +15,7 @@ const EventListing = ({ title, cta, url, start, description }: EventDataType) =>
     />
     <footer className="flex justify-between gap-4 items-center mt-4">
       <h6 className="m-0">
-        Date: <time dateTime="2020-01-01">{start}</time>
+        Date: <time dateTime={start?.date}>{formatDate(start.date, {includeTime: false})}</time>
       </h6>
       <Button to={url} bgColor="teal" className="mt-0">
         {cta}

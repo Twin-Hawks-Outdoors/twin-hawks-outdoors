@@ -15,30 +15,11 @@ export function EventList() {
 		if(eventFetcher.state === "idle" && eventFetcher.data == null) {
 			eventFetcher.load('/resources/getEvents')
 		}
-      // const response = await fetch('../api/get-upcoming-events', {
-      //   method: 'GET',
-      // });
-
-      // const { data }: { data: Record<string, any>[] } = await response.json();
-
-      // const truncatedData = data.map((node: EventDataType) => ({
-      //   id: node?.id,
-      //   cta: node?.call_to_action,
-      //   description: node?.description,
-      //   start: node?.start?.date,
-      //   title: node?.name,
-      //   url: node?.url,
-      // }));
 
 
   }, [eventFetcher]);
 
-  // const sortedEvents = events.sort((a, b) => {
-  //   if (a.start < b.start) {
-  //     return -1;
-  //   }
-  //   return 1;
-  // });
+
 
   return (
     <section className=" bg-gradient-to-br from-teal-900  to-teal-400 grid py-24">

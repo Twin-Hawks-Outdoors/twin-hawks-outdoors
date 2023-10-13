@@ -114,8 +114,10 @@ export const loader = async ({}) => {
 			id: node?.id,
 			cta: node?.call_to_action,
 			description: node?.description,
-			start: node?.start?.date,
-			title: node?.name,
+			start: node?.start,
+			end: node?.end,
+			venue: node?.venue,
+			name: node?.name,
 			url: node?.url
 		}))
 

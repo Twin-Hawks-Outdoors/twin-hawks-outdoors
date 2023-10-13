@@ -15,7 +15,7 @@ export function PostExcerpt({ title,_id,_createdAt, slug,author, excerpt }: Post
         </h4>
       </Link>
       <small className="text-red-500 mb-2 inline-block">
-        Posted {formatDate(_createdAt)}
+        Posted {formatDate(_createdAt, {includeTime: false})}
       </small>
       <hr />
       {excerpt && <p className="mt-2 mb-0">{excerpt}</p>}

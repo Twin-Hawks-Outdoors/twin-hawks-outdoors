@@ -78,6 +78,8 @@ export default {
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("tailwind-scrollbar"),
+		require("@tailwindcss/aspect-ratio"),
+		require("@tailwindcss/container-queries")
   ],
 } satisfies Config;
 

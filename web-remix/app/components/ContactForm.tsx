@@ -1,18 +1,10 @@
-// import { navigate } from 'gatsby';
-// import React from 'react';
-// import type { SubmitHandler} from 'react-hook-form';
-// import { useForm } from 'react-hook-form';
-// import { encodeFormData } from '../lib/encodeFormData';
+
 import { conform, useForm } from "@conform-to/react";
 import { Form, useActionData } from "@remix-run/react";
 import { z } from "zod";
 import { parse } from "@conform-to/zod";
 import { useId } from "react";
 import type { action } from "~/routes/$slug";
-
-// export type FormValues = {
-//   [key: string]: string | number | boolean;
-// };
 
 export const contactSchema = z.object({
   email: z
