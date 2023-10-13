@@ -43,6 +43,7 @@ export const imagePropsZ = z.object({
       _ref: z.string().nullish(),
       _id: z.string().nullish(),
       assetId: z.string().nullish(),
+			altText: z.string().nullish(),
       metadata: z
         .object({
           lqip: z.string().nullish(),

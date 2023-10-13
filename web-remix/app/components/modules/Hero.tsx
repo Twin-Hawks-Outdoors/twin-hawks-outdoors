@@ -21,6 +21,7 @@ export const HeroSectionQuery = groq`
 		_type,
 		_key,
 		heading,
+		tagline,
 		backgroundImage {
 			${ImageQuery}
 		},
@@ -32,7 +33,7 @@ export const HeroSectionQuery = groq`
 
 export const heroPropsZ = z.object({
   _type: z.literal("hero"),
-  _key: z.string().nullish(),
+  _key: z.string(),
   heading: z.string().nullish(),
   tagline: portableTextZ.nullish(),
   backgroundImage: imagePropsZ.nullish(),

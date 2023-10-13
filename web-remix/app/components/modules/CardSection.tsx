@@ -12,7 +12,7 @@ import { TrainingExcerptQuery } from "./TrainingExcerpt";
 
 export const cardSectionZ = z.object({
   _type: z.literal("cardSection"),
-  _key: z.string().nullish(),
+  _key: z.string(),
   heading: z.string().nullish(),
   tagline: z.string().nullish(),
   cards: z.array(

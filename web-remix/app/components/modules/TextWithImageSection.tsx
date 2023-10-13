@@ -18,7 +18,7 @@ export const textWithImagePropsZ = z.object({
   vintageBackground: z.boolean().default(false),
   image: extendedImageZ.nullish(),
   cta: ctaZ.nullish(),
-	_key:z.string().nullish(),
+	_key:z.string(),
   text: portableTextZ.nullish(),
 });
 

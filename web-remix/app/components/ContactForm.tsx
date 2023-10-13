@@ -42,7 +42,6 @@ export function ContactForm() {
     },
   });
 
-	console.log({form, lastSubmission})
   return (
     <div className="container max-w-xl my-8">
       <Form

@@ -15,7 +15,7 @@ export const components: PortableTextComponents = {
 
 export const ctaSectionZ = z.object({
   _type: z.literal("ctaSection"),
-  _key: z.string().nullish(),
+  _key: z.string(),
   heading: z.string().nullish(),
   cta: ctaZ,
   body: z.any(),

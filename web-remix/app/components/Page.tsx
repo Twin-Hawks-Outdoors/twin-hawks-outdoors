@@ -8,6 +8,7 @@ import { CtaSectionQuery } from "./modules/CtaSection";
 import { HeroSectionQuery } from "~/components/modules/Hero";
 import  { TextWithImageQuery } from "~/components/modules/TextWithImageSection";
 import { TextSectionQuery } from "./modules/TextSection";
+import { ImageGalleryQuery } from "~/components/modules/ImageGallery";
 
 export const PageQuery = groq`
 	_id,
@@ -26,11 +27,12 @@ export const PageQuery = groq`
 		${UiComponentQuery},
 		${CtaSectionQuery},
 		${TextWithImageQuery},
-		${TextSectionQuery}
+		${TextSectionQuery},
+		${ImageGalleryQuery}
 	}
 `;
 
-const lookup = {
+export const moduleLookup = {
   hero: React.lazy(async () => {
     const { Hero: Component } = await import("~/components/modules/Hero");
     return {
@@ -46,14 +48,6 @@ const lookup = {
     };
   }),
 
-  // columns: React.lazy(async () => {
-  //   const { ColumnsSection: Component } = await import(
-  //     "~/components/modules/Columns"
-  //   );
-  //   return {
-  //     default: Component,
-  //   };
-  // }),
   ctaSection: React.lazy(async () => {
     const { CtaSection: Component } = await import(
       "~/components/modules/CtaSection"
@@ -78,6 +72,14 @@ const lookup = {
       default: Component,
     };
   }),
+  imageGallery: React.lazy(async () => {
+    const { ImageGallery: Component } = await import(
+      "~/components/modules/ImageGallery"
+    );
+    return {
+      default: Component,
+    };
+  }),
   uiComponentRef: UIComponent,
 } as const;
 
@@ -93,8 +95,7 @@ function hasKey(module: unknown): module is PageDocument["content"][0] {
 
 export const Page = ({ content }: { content: PageDocument["content"] }) => {
   const modules = content.map((module, idx) => {
-    console.log(module._type);
-    const Component = lookup[module._type];
+    const Component = moduleLookup[module._type];
 
     if (hasKey(module)) {
       return <Component key={module._key} {...module} />;

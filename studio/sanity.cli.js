@@ -10,6 +10,8 @@ export default defineCliConfig({
       playground: true,
       tag: "experiment",
       id: "schema-development",
+
     },
   ],
 });
+

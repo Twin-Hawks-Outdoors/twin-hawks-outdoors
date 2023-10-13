@@ -9,7 +9,6 @@ import { z } from "zod";
 import { contactSchema } from "~/components/ContactForm";
 import Layout from "~/components/Layout";
 import { Page, PageQuery } from "~/components/Page";
-import PrettyJson from "~/components/PrettyJson";
 import { Skeleton } from "~/components/Skeleton";
 import { sendMessage } from "~/lib/sendMessage.server";
 import { client } from "~/sanity.server";

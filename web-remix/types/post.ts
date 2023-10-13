@@ -9,7 +9,7 @@ export const postZ = z.object({
 	mainImage: imagePropsZ.nullish(),
 	categories: z.array(categoryZ),
 	slug: z.string(),
-	publishedDate: z.string().datetime(),
+	_createdAt: z.string().datetime(),
 	excerpt: z.string().nullish(),
 	body: z.array(z.any()).nullish(),
 })
@@ -19,8 +19,11 @@ export const postExcerptZ = postZ.pick({
 	title: true,
 	slug: true,
 	_type: true,
-	publishedDate: true,
+	_createdAt: true,
 	excerpt: true,
 	author: true,
 	mainImage: true,
 })
+
+export type PostExcerpt = z.infer<typeof postExcerptZ>
+export type PostDocument = z.infer<typeof postZ>

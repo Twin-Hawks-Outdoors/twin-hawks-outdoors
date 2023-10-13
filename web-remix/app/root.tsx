@@ -19,7 +19,6 @@ import Footer from "./components/Footer";
 import { CartProvider } from "use-shopping-cart";
 import { client } from "./sanity.server";
 import groq from 'groq'
-import PrettyJson from "./components/PrettyJson";
 import { ImageQuery } from "./components/MainImage";
 import { siteConfigZ } from "types/siteConfig";
 export const links: LinksFunction = () => [

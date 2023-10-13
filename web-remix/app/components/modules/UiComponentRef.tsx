@@ -1,18 +1,7 @@
-// import React, { ReactNode } from 'react';
-// import { SanityUiComponentRef } from '../../../graphql-types';
-
 import groq from "groq";
 import React, { Suspense } from "react";
 import { z } from "zod";
 
-// const ContactForm = React.lazy(() => import('../ContactForm'));
-// const EventList = React.lazy(() => import('../EventList'));
-// const ProductList = React.lazy(() => import('../ProductList'));
-// const ComponentMap = {
-//   contactForm: <ContactForm />,
-//   eventList: <EventList />,
-//   productList: <ProductList />,
-// };
 
 const ComponentMap = {
   contactForm: React.lazy(async () => {

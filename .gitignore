@@ -2,3 +2,9 @@
 studio/.sanity/
 # ignore the dist directory in sanity
 studio/dist/
+studio/.env
+.env.production
+**/.env.production
+
+# Ignore all .env files
+**/.env*

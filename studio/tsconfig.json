@@ -4,6 +4,7 @@
   // here will be ignored.
   "include": ["./node_modules/@sanity/base/types/**/*.ts", "./**/*.ts", "./**/*.tsx", "lib/Logo.tsx"],
   "compilerOptions": {
-    "jsx": "react"
+    "jsx": "react",
+		"target": "ES2020"
   }
 }
