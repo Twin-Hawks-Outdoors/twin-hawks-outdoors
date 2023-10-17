@@ -30,7 +30,7 @@ export const links: LinksFunction = () => [
 
 export const loader = async ({request}) => {
   const stripePublic = process.env.STRIPE_PUBLIC_KEY!;
-
+	// const
 	const data = await client
     .fetch(
       groq`*[_type == "siteConfig"][0]{

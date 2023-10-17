@@ -21,7 +21,7 @@ export const extendedImageZ = z.object({
         lqip: z.string().nullish(),
       })
       .nullish(),
-  }),
+  }).nullish(),
   crop: z
     .object({
       bottom: z.number(),

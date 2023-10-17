@@ -86,7 +86,7 @@ export default function ArticleRoute() {
             <div>
               <h6 className="m-0">{post?.author?.name}</h6>
               <small className="text-red-500">
-                Posted {formatDate(post?._createdAt)}
+                Posted {formatDate(post?._createdAt, {includeTime: false})}
               </small>
             </div>
           </div>

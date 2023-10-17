@@ -36,10 +36,12 @@ export const loader = async ({ params }: DataFunctionArgs) => {
       }
     )
     .then((res) =>
-      res ? z.object({ page: pageZ, blogPageId: z.string() }).parse(res) : null
+      res
+        ? z.object({ page: pageZ, blogPageId: z.string() }).parse(res)
+        : null
     );
 
-  if (!pageData?.page) {
+  if (!pageData?.page || !pageData) {
     throw new Response("No page found", { status: 404 });
   }
   return json({ pageData });

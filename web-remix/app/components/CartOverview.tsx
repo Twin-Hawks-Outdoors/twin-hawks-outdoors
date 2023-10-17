@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DebugCart, useShoppingCart } from 'use-shopping-cart';
+import {  DebugCart, useShoppingCart } from 'use-shopping-cart';
 import type { CartEntry } from 'use-shopping-cart/core';
 import { Icon } from './ui/Icon';
 
@@ -18,10 +18,11 @@ interface CartItem {
   product_data?: Record<string, any>;
 }
 const CartItem = ({ cartItem }: { cartItem: CartEntry }) => {
-  const { decrementItem, incrementItem } = useShoppingCart();
+	const { decrementItem, incrementItem } = useShoppingCart();
   return (
-    <li className="py-2 border-b-2 flex gap-4 items-center justify-between">
-      <img src={cartItem?.image} alt={cartItem?.name} width={100} />
+
+		<li className="py-2 border-b-2 flex gap-4 items-center justify-between">
+      <img className='object-cover object-center rounded-sm shadow-md' src={cartItem?.image} alt={cartItem?.name} width={100} />
       <div className="justify-self-start">
         <h6>{cartItem?.name}</h6>
         <p className="mb-0">

@@ -1,10 +1,8 @@
-import { wrap } from '@popmotion/popcorn';
-import { AnimatePresence, motion } from 'framer-motion';
-import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
-import { GatsbyImageDataArgs } from 'gatsby-source-sanity';
-import React, { useCallback, useEffect, useState } from 'react';
-import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
-import { SanityImage, SanityImageAsset } from '../../graphql-types';
+import { AnimatePresence, motion, wrap } from "framer-motion";
+import React, { useCallback, useEffect, useState } from "react";
+import type { ProductDoc } from "types/product";
+import { Icon } from "./ui/Icon";
+import { MainImage } from "./MainImage";
 
 const directionOffset = 100;
 const variants = {
@@ -28,18 +26,10 @@ const swipeConfidenceThreshold = 10000;
 const swipePower = (offset: number, velocity: number) =>
   Math.abs(offset) * velocity;
 
-interface ExtendedSanityImageAsset extends SanityImageAsset {
-  thumbnail: IGatsbyImageData;
-}
-
-export interface ExtendedSanityImage extends SanityImage {
-  asset: ExtendedSanityImageAsset;
-}
-
 export const ProductGallery = ({
   images,
 }: {
-  images: ExtendedSanityImage[];
+  images: ProductDoc["defaultProductVariant"]["images"];
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
@@ -72,7 +62,7 @@ export const ProductGallery = ({
     e: React.KeyboardEvent<HTMLSpanElement>,
     index: number
   ) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       setPage([index, index < activeIndex ? 1 : -1]);
       setActiveIndex(index);
     }
@@ -82,18 +72,18 @@ export const ProductGallery = ({
    * auto cycle through slides every 6 seconds
    * */
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      paginate(1);
-    }, 6000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [paginate]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     paginate(1);
+  //   }, 6000);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [paginate]);
   return (
     <div className="flex flex-col gap-4">
       <div
-        className={`  w-full flex relative justify-between  overflow-hidden aspect-square `}
+        className={`  w-full flex relative justify-between  overflow-hidden aspect-1 h-full `}
       >
         {images && images?.length > 1 && (
           <button
@@ -101,12 +91,12 @@ export const ProductGallery = ({
             type="button"
             onClick={() => paginate(-1)}
           >
-            <GoChevronLeft />
+            <Icon name="chevron-left" />
           </button>
         )}
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
-            className="absolute top-0 left-0 w-full"
+            className="absolute top-0 left-0 h-full w-full"
             key={page}
             variants={variants}
             initial="enter"
@@ -114,7 +104,7 @@ export const ProductGallery = ({
             exit="exit"
             transition={{
               x: {
-                type: 'spring',
+                type: "spring",
                 stiffness: 800,
                 damping: 100,
                 duration: 0.01,
@@ -132,13 +122,14 @@ export const ProductGallery = ({
               }
             }}
           >
-            <GatsbyImage
-              className="h-full w-full"
+            <MainImage
+              className="w-full h-full object-cover"
+              alt={(images && images?.[imageIndex].asset?.altText) || ""}
               key={page}
-              image={
-                images?.[imageIndex]?.asset?.gatsbyImageData as IGatsbyImageData
-              }
-              alt={(images && images?.[imageIndex].asset?.altText) || ''}
+							mode="contain"
+              width={800}
+							height={800}
+              image={images?.[imageIndex]}
             />
           </motion.div>
         </AnimatePresence>
@@ -148,7 +139,7 @@ export const ProductGallery = ({
             type="button"
             onClick={() => paginate(1)}
           >
-            <GoChevronRight />
+            <Icon name="chevron-right" />
           </button>
         )}
         {images && images?.length > 1 && (
@@ -156,23 +147,23 @@ export const ProductGallery = ({
             {images?.map((image, index) => (
               <span
                 className={`cursor-pointer block  z-30 h-3 w-3 rounded-full ${
-                  activeIndex === index ? 'bg-red-500' : 'bg-cream-500/80'
+                  activeIndex === index ? "bg-red-500" : "bg-cream-500/80"
                 }`}
                 role="presentation"
                 onKeyPress={(e) => handleKeyPress(e, index)}
                 onClick={() => handleClick(index)}
-                key={image?.asset?.id}
+                key={image?.asset?._id}
               />
             ))}
           </span>
         )}
-      </div>{' '}
+      </div>{" "}
       <div className="thumbnails flex justify-start items-center flex-wrap flex-row gap-4 bottom-0 relative">
         {images?.map((imageNode, index) => (
           <div
-            key={imageNode?.asset?.id}
+            key={imageNode?.asset?._id}
             className={`thumbnail rounded-sm object-cover object-center outline-none overflow-hidden h-20 w-20  scale-90 transition-all duration-200 ease-in sepia hover:sepia-0 focus:sepia-0 hover:cursor-pointer focus:ring focus:ring-offset-2 focus:ring-red-500  ${
-              activeIndex === index ? 'sepia-0 scale-100' : ''
+              activeIndex === index ? "sepia-0 scale-100" : ""
             }`}
             tabIndex={0}
             role="button"
@@ -181,13 +172,15 @@ export const ProductGallery = ({
             }}
             onKeyPress={(e) => handleKeyPress(e, index)}
           >
-            <GatsbyImage
-              className="h-full w-full"
-              image={imageNode?.asset?.thumbnail}
-              alt={imageNode?.asset?.altText as string}
+            <MainImage
+              width={100}
+              height={100}
+              className="h-full w-full object-cover object-center"
+              image={imageNode}
+              alt={imageNode?.asset?.altText ?? ""}
             />
           </div>
-        ))}{' '}
+        ))}{" "}
       </div>
     </div>
   );
