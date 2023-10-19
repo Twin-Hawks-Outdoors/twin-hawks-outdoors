@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+	--font-size-sm: clamp(0.9rem, -0.07vw + 0.91rem, 0.84rem);
+	--font-size-base: clamp(1.13rem, 0.07vw + 1.11rem, 1.19rem);
+	--font-size-md: clamp(1.41rem, 0.32vw + 1.34rem, 1.68rem);
+	--font-size-lg: clamp(1.76rem, 0.73vw + 1.61rem, 2.37rem);
+	--font-size-xl: clamp(2.2rem, 1.36vw + 1.92rem, 3.36rem);
+	--font-size-xxl: clamp(2.75rem, 2.35vw + 2.28rem, 4.75rem);
+	--font-size-xxxl: clamp(3.43rem, 3.86vw + 2.66rem, 6.71rem);
+}
+
+@layer base {
+	body {
+		@apply leading-7 scrollbar scrollbar-thumb-teal-800 scrollbar-track-teal-300 hover:scrollbar-thumb-teal-800 selection:bg-teal-500 selection:text-white bg-cream-300;
+	}
+
+	/* Scrollbar styles */
+	body::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	html {
+		@apply scrollbar-thin hover:scrollbar-track-teal-800 hover:scrollbar-thumb-teal-300;
+		/* scrollbar-color: var(--yellow) var(--dark); */
+	}
+
+	body::-webkit-scrollbar-track {
+		@apply bg-teal-800;
+	}
+
+	body::-webkit-scrollbar-thumb {
+		@apply bg-teal-300 rounded-md border-2 border-solid border-teal-300;
+	}
+
+	p,
+	a,
+	ul,
+	li {
+		@apply font-serif text-base text-black;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5 {
+		margin: 3rem 0 1.38rem;
+		@apply font-sans leading-snug;
+	}
+
+	h1 {
+		@apply text-xxxl;
+	}
+
+	h2 {
+		@apply text-xxl;
+	}
+
+	h3 {
+		@apply text-xl;
+	}
+
+	h4 {
+		@apply text-lg;
+	}
+
+	h5 {
+		@apply text-md;
+	}
+
+	h6 {
+		@apply text-base font-sans;
+	}
+
+	p {
+		@apply mb-8;
+	}
+}
+
+@layer components {
+	.button {
+		@apply py-4 px-8 space-x-4 text-white inline-flex justify-center items-center rounded drop-shadow-lg shadow-current transition-all hover:scale-[1.02] focus:scale-[1.02] active:scale-100 hover:drop-shadow-xl active:drop-shadow-sm focus:ring-2 outline-none focus:ring-current;
+	}
+
+	.button-sm {
+		@apply button py-2 px-4 tracking-wide text-sm;
+	}
+
+	.container {
+		@apply w-11/12 mx-auto max-w-screen-2xl;
+	}
+}
+
+@layer utilities {
+	.icon {
+		@apply w-8 h-8 hover:scale-105 transition-all duration-200 hover:shadow-md cursor-pointer;
+	}
+
+	.form-group {
+		@apply flex flex-col gap-2;
+	}
+
+	.form-group label {
+		@apply flex flex-col gap-2 font-normal;
+	}
+
+	.form-group input,
+	.form-group textarea {
+		@apply outline-none focus:border-teal-400 focus:ring-teal-300 placeholder:text-sm;
+	}
+
+	.error {
+		@apply text-red-300;
+	}
+
+	.card {
+		@apply max-w-prose bg-cream-50/5 p-4 rounded-md hover:bg-cream-50/60 focus-within:bg-cream-50/60 hover:shadow-lg focus-within:shadow-lg transition-all grid gap-4;
+	}
+
+	.gallery-arrow {
+		@apply transition-all duration-200 ease-linear absolute max-w-[10rem] z-30 bg-none border-0 bg-cream-500/10 text-cream-500 outline-none text-md cursor-pointer hover:bg-cream-400/40 focus:bg-cream-500/40 focus:ring-1 focus:ring-red-500 h-full;
+	}
+
+	.gallery-arrow:first-of-type {
+		top: 0;
+		left: 0;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+
+	.gallery-arrow:last-of-type {
+		top: 0;
+		right: 0;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+}

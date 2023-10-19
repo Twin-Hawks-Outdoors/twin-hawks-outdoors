@@ -1,53 +1,94 @@
-export function headers({
-  loaderHeaders,
-  parentHeaders,
-}: {
-  loaderHeaders: Headers;
-  parentHeaders: Headers;
-}) {
-  console.log(
-    "This is an example of how to set caching headers for a route, feel free to change the value of 60 seconds or remove the header"
+import { json, type MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import groq from "groq";
+import {  siteConfigZ } from "types/siteConfig";
+import Layout from "~/components/Layout";
+import { Page, PageQuery } from "~/components/Page";
+import { builder, client } from "~/sanity.server";
+
+export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
+  return [
+    { title: `${data?.page?.title || ""} | ${matches[0]?.data?.data?.title}` },
+    {
+      name: "description",
+      content:
+        (data?.page?.description || matches[0]?.data?.data?.description) ?? "",
+    },
+    {
+      name: "og:image",
+      content: data?.ogImage || "",
+    },
+    {
+      property: `og:type`,
+      content: `website`,
+    },
+    {
+      name: `twitter:card`,
+      content: `summary`,
+    },
+    {
+      name: `twitter:title`,
+      content: `${data?.page?.title || ""} | ${matches[0]?.data?.data?.title}`,
+    },
+    {
+      name: `twitter:description`,
+      content:
+        (data?.page?.description || matches[0]?.data?.data?.description) ?? "",
+    },
+  ];
+};
+
+export const loader = async () => {
+  const data = await client
+    .fetch(
+      groq`
+		*[ _type == "siteConfig"][0] {
+			_type,
+			_id,
+			frontpage->{
+				_type,
+				${PageQuery}
+			}
+		}
+	`
+    )
+    .then((res) =>
+      res
+        ? siteConfigZ
+            .pick({ _id: true, _type: true, frontpage: true })
+            .parse(res)
+        : null
+    );
+
+  if (!data) {
+    throw new Response("Page not found", { status: 404 });
+  }
+
+  const ogImage = builder
+    .image(data?.frontpage?.openGraphImage ?? {})
+    ?.auto("format")
+    .quality(60)
+    .width(1200)
+    .height(627)
+    .crop("focalpoint")
+    .url();
+
+  return json(
+    { page: data.frontpage, ogImage },
+    {
+      headers: {
+        "Cache-Control":
+          "public, max-age=5000 s-maxage=5000 stale-while-revalidate=5000",
+      },
+    }
   );
-  return {
-    // This is an example of how to set caching headers for a route
-    // For more info on headers in Remix, see: https://remix.run/docs/en/v1/route/headers
-    "Cache-Control": "public, max-age=60, s-maxage=60",
-  };
-}
+};
 
 export default function Index() {
+  const { page } = useLoaderData<typeof loader>();
   return (
-    <main style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer noopener"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer noopener"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/docs"
-            rel="noreferrer noopener"
-          >
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </main>
+    <Layout>
+      <Page content={page.content} />
+    </Layout>
   );
 }
