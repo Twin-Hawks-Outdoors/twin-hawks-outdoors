@@ -5,6 +5,7 @@ import {  siteConfigZ } from "types/siteConfig";
 import Layout from "~/components/Layout";
 import { Page, PageQuery } from "~/components/Page";
 import { builder, client } from "~/sanity.server";
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 
 export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
   return [
@@ -91,4 +92,7 @@ export default function Index() {
       <Page content={page.content} />
     </Layout>
   );
+}
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import Layout from "~/components/Layout";
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -22,4 +23,7 @@ export default function SuccessRoute() {
       </div>
     </Layout>
   );
+}
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

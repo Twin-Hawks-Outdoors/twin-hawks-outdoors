@@ -7,7 +7,7 @@ import { z } from "zod";
 import { ProductCardQuery } from "~/components/ProductCard";
 import ProductList from "~/components/ProductList";
 import { builder, client } from "~/sanity.server";
-
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 export const meta: MetaFunction<typeof loader> = ({ data, matches, params }) => {
 
   return [
@@ -108,4 +108,7 @@ export default function ShopCategoryRoute() {
       <ProductList products={products} />
     </section>
   );
+}
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

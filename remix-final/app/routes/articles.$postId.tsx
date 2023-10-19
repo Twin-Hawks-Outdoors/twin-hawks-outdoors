@@ -6,6 +6,7 @@ import groq from "groq";
 import { postZ } from "types/post";
 import Layout from "~/components/Layout";
 import { ImageQuery, MainImage } from "~/components/MainImage";
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 import { Icon } from "~/components/ui/Icon";
 import { formatDate } from "~/lib/formatDate";
 import { portableTextComponents } from "~/lib/portableTextComponents";
@@ -134,4 +135,8 @@ export default function ArticleRoute() {
       </article>
     </Layout>
   );
+}
+
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

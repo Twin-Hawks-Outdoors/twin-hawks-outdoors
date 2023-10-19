@@ -11,6 +11,7 @@ import { z } from "zod";
 import Layout from "~/components/Layout";
 import { ImageQuery } from "~/components/MainImage";
 import { builder, client } from "~/sanity.server";
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     { title: `Order Confirmation | ${data?.meta?.title || ""} ` },
@@ -154,4 +155,7 @@ export default function OrderSuccessRoute() {
       </section>
     </Layout>
   );
+}
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

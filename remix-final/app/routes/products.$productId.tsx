@@ -15,6 +15,7 @@ import { Icon } from "~/components/ui/Icon";
 import { cn } from "~/lib/misc";
 import { portableTextComponents } from "~/lib/portableTextComponents";
 import { client } from "~/sanity.server";
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 
 export const ProductVariantQuery = groq`
 	_type == "productVariant" => {
@@ -232,4 +233,7 @@ export default function ProductIDRoute() {
       </section>
     </Layout>
   );
+}
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

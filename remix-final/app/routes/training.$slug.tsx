@@ -18,7 +18,7 @@ import { TextWithImageQuery } from "~/components/modules/TextWithImageSection";
 import { builder, client } from "~/sanity.server";
 import type { EventsResponse } from "./resources.getEvents";
 import { formatDate } from "~/lib/formatDate";
-
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
   return [
     { title: `${data?.trainingClass?.title || ""} | ${matches[0]?.data?.data?.title}` },
@@ -207,4 +207,7 @@ export default function TrainingSlugRoute() {
       </section>
     </Layout>
   );
+}
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

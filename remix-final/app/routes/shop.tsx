@@ -6,6 +6,7 @@ import { z } from "zod";
 import Layout from "~/components/Layout";
 import { cn } from "~/lib/misc";
 import { client } from "~/sanity.server";
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 export const loader = async () => {
   const categories = await client
     .fetch(
@@ -85,4 +86,7 @@ export default function Shop() {
       </div>
     </Layout>
   );
+}
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

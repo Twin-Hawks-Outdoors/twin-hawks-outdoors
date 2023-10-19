@@ -12,6 +12,7 @@ import { Page, PageQuery } from "~/components/Page";
 import { Skeleton } from "~/components/Skeleton";
 import { sendMessage } from "~/lib/sendMessage.server";
 import { builder, client } from "~/sanity.server";
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 
 const LazyBlogList = lazy(async () => {
   const { BlogList: Component } = await import("~/components/BlogList");
@@ -82,7 +83,7 @@ export const loader = async ({ params }: DataFunctionArgs) => {
     throw new Response("No page found", { status: 404 });
   }
 
-	const ogImage = builder.image(pageData?.page?.openGraphImage ?? {})?.auto("format").quality(60).width(1200).height(627).crop("focalpoint").url()
+	const ogImage = builder.image(pageData?.page?.openGraphImage ?? "")?.auto("format").quality(60).width(1200).height(627).crop("focalpoint").url()
   return json({ pageData, ogImage }, { headers: { "Cache-Control": "public, max-age=86400 s-maxage=86400" } });
 };
 
@@ -115,4 +116,8 @@ export default function NestedRoute() {
       </Suspense>
     </Layout>
   );
+}
+
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }

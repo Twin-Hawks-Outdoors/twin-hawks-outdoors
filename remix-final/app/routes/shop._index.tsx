@@ -9,7 +9,7 @@ import { ImageQuery } from "~/components/MainImage";
 import { ProductCardQuery } from "~/components/ProductCard";
 import ProductList from "~/components/ProductList";
 import { builder, client } from "~/sanity.server";
-
+import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
 
   return [
@@ -115,4 +115,8 @@ export default function ShopIndexRoute() {
       <ProductList products={products} />
     </section>
   );
+}
+
+export function ErrorBoundary() {
+  return <RouteErrorBoundary />;
 }
