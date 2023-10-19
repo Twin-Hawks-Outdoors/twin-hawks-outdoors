@@ -18,7 +18,7 @@ import { AnimatePresence } from "framer-motion";
 import Footer from "./components/Footer";
 import { CartProvider } from "use-shopping-cart";
 import { client } from "./sanity.server";
-import groq from 'groq'
+import groq from "groq";
 import { ImageQuery } from "./components/MainImage";
 import { siteConfigZ } from "types/siteConfig";
 export const links: LinksFunction = () => [
@@ -28,10 +28,10 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: quattrocentoStyles },
 ];
 
-export const loader = async ({request}) => {
+export const loader = async ({ request }) => {
   const stripePublic = process.env.STRIPE_PUBLIC_KEY!;
-	// const
-	const data = await client
+  // const
+  const data = await client
     .fetch(
       groq`*[_type == "siteConfig"][0]{
 		_id,
@@ -80,9 +80,16 @@ export const loader = async ({request}) => {
         : null
     );
 
-	if(!data) throw new Response("Not found", {status: 404})
+  if (!data) throw new Response("Not found", { status: 404 });
 
-  return json({ stripePublic, mainNavigation: data.mainNavigation, footerNavigation: data.footerNavigation, socialLinks: data.socialLinks,logo: data.logo, data});
+  return json({
+    stripePublic,
+    mainNavigation: data.mainNavigation,
+    footerNavigation: data.footerNavigation,
+    socialLinks: data.socialLinks,
+    logo: data.logo,
+    data,
+  });
 };
 
 export default function App() {
@@ -92,6 +99,27 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff"></meta>
         <Meta />
         <Links />
       </head>

@@ -1,5 +1,6 @@
-import { createClient } from "@sanity/client";
 
+import { createClient } from "@sanity/client";
+import imageUrlBuilder from '@sanity/image-url'
 export const client = createClient({
 	perspective: "published",
 	projectId: process.env.SANITY_PROJECT_ID ?? "rur2issm",
@@ -16,3 +17,5 @@ export const writeClient = createClient({
   useCdn: false,
   apiVersion: "2022-10-01",
 });
+
+export const builder = imageUrlBuilder(client);

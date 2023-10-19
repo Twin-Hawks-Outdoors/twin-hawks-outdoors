@@ -15,6 +15,7 @@ export const PageQuery = groq`
 	_type,
 	_key,
 	title,
+	description,
 	"slug": slug.current,
 	openGraphImage {
 		${ImageQuery}

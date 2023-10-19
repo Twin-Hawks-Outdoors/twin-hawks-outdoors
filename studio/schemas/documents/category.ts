@@ -12,7 +12,14 @@ export default {
       title: 'Title',
       type: 'string',
     },
-    slugWithType('category', 'title'),
+    {
+			name: "slug",
+			type: "slug",
+			title: "Slug",
+			options: {
+				source: "title",
+			},
+		},
     {
       name: 'description',
       title: 'Description',

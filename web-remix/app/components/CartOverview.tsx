@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from "react";
 
-import {  DebugCart, useShoppingCart } from 'use-shopping-cart';
-import type { CartEntry } from 'use-shopping-cart/core';
-import { Icon } from './ui/Icon';
+import {  useShoppingCart } from "use-shopping-cart";
+import type { CartEntry } from "use-shopping-cart/core";
+import { Icon } from "./ui/Icon";
+import { useFetcher } from "@remix-run/react";
 
 interface CartItem {
   name: string;
@@ -18,11 +19,15 @@ interface CartItem {
   product_data?: Record<string, any>;
 }
 const CartItem = ({ cartItem }: { cartItem: CartEntry }) => {
-	const { decrementItem, incrementItem } = useShoppingCart();
+  const { decrementItem, incrementItem } = useShoppingCart();
   return (
-
-		<li className="py-2 border-b-2 flex gap-4 items-center justify-between">
-      <img className='object-cover object-center rounded-sm shadow-md' src={cartItem?.image} alt={cartItem?.name} width={100} />
+    <li className="py-2 border-b-2 flex gap-4 items-center justify-between">
+      <img
+        className="object-cover object-center rounded-sm shadow-md"
+        src={cartItem?.image}
+        alt={cartItem?.name}
+        width={100}
+      />
       <div className="justify-self-start">
         <h6>{cartItem?.name}</h6>
         <p className="mb-0">
@@ -45,34 +50,22 @@ const CartItem = ({ cartItem }: { cartItem: CartEntry }) => {
 
 export default function CartOverview() {
   const cart = useShoppingCart();
-  const [checkoutStatus, setCheckoutStatus] = React.useState<
-    'idle' | 'submitting' | 'error'
-  >('idle');
+
+  const sessionFetcher = useFetcher<{sessionId?: string}>();
   const {
-    cartDetails,
     shouldDisplayCart,
     handleCloseCart,
     redirectToCheckout,
     formattedTotalPrice,
   } = cart;
 
-  // async function to handle checkout click
-  const handleCheckoutClick = () => {
-    setCheckoutStatus('submitting');
-    // basic fetch to get api sessionId
-    fetch('/api/session', {
-      method: 'POST',
-      body: JSON.stringify(cartDetails),
-      headers: {
-        'content-type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((resBody) => {
-        redirectToCheckout(resBody.sessionId);
-        setCheckoutStatus('idle');
-      });
-  };
+
+	useEffect(() => {
+		if(sessionFetcher.data?.sessionId) {
+			redirectToCheckout(sessionFetcher.data.sessionId)
+		}
+
+	}, [sessionFetcher, redirectToCheckout])
 
   if (!shouldDisplayCart) return null;
   return (
@@ -88,8 +81,8 @@ export default function CartOverview() {
         </button>
       </header>
       <ul className="max-w-sm  mb-16">
-        {Object.values(cartDetails).length > 0 ? (
-          Object.values(cartDetails).map((cartItem) => (
+        {Object.values(cart.cartDetails ?? {}).length > 0 ? (
+          Object.values(cart.cartDetails ?? {}).map((cartItem) => (
             <CartItem cartItem={cartItem} key={cartItem?.id} />
           ))
         ) : (
@@ -97,18 +90,25 @@ export default function CartOverview() {
         )}
       </ul>
       <footer className="">
-        <button
-          onClick={handleCheckoutClick}
-          type="button"
-          disabled={checkoutStatus === 'submitting'}
-          className="bg-teal-500 text-white w-full py-2 text-md font-serif   shadow-md hover:shadow-lg transition-all duration-200 link-focus"
-        >
-          {checkoutStatus === 'submitting' ? (
-            <span className="animate-pulse">Please wait...</span>
-          ) : (
-            `Checkout ${formattedTotalPrice || ''}`
-          )}
-        </button>
+        <sessionFetcher.Form action="/resources/session" method="POST">
+          <input
+            type="hidden"
+            name="body"
+            value={JSON.stringify(cart.cartDetails)}
+          />
+          <button
+            // onClick={handleCheckoutClick}
+            type="submit"
+            disabled={sessionFetcher.state === "submitting"}
+            className="bg-teal-500 text-white w-full py-2 text-md font-serif   shadow-md hover:shadow-lg transition-all duration-200 link-focus"
+          >
+            {sessionFetcher.state === "submitting" ? (
+              <span className="animate-pulse">Please wait...</span>
+            ) : (
+              `Checkout ${formattedTotalPrice || ""}`
+            )}
+          </button>
+        </sessionFetcher.Form>
       </footer>
     </div>
   );

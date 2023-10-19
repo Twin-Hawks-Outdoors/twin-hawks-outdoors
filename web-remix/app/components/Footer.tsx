@@ -22,14 +22,14 @@ function Footer() {
   const {data} = useRouteLoaderData("root") as {data: SiteConfigDoc}
 
   return (
-    <footer className=" bg-black grid">
+    <footer className=" bg-black grid ">
       <img
         src="/images/whitegrit.png"
         alt=""
         height={500}
-        className="col-span-full row-start-1 col-start-1 brightness-50 "
+        className="col-span-full row-start-1 col-start-1 brightness-50 object-cover w-full h-96"
       />
-      <div className=" container mx-auto col-start-1 row-start-1 col-span-full flex flex-wrap items-center justify-center lg:justify-between gap-8 z-10">
+      <div className="py-12 container mx-auto col-start-1 row-start-1 col-span-full flex flex-wrap items-center justify-center lg:justify-between gap-8 z-10">
         <div>
           <img
             width={200}
@@ -38,15 +38,29 @@ function Footer() {
             alt="logo"
           />
           <div className="text-white max-w-prose mt-8 prose-p:text-white prose-p:text-base prose-p:font-serif prose-p:tracking-wide">
-            <PortableText components={portableTextComponents} value={data?.footerText || []} />
+            <PortableText
+              components={portableTextComponents}
+              value={data?.footerText || []}
+            />
           </div>
         </div>
         <nav className=" text-white">
+          <script
+            async
+            data-uid="9c467da376"
+            src="https://twin-hawks-outdoors.ck.page/9c467da376/index.js"
+          ></script>
           <ul className="flex gap-8 flex-wrap justify-between items-center">
             {data?.footerNavigation?.map((item) => (
               <NavLink
-                className={({ isActive }) => cn('font-sans uppercase', isActive ? "text-red-500 border-b-current border-b-2" : "text-white")}
-
+                className={({ isActive }) =>
+                  cn(
+                    "font-sans uppercase",
+                    isActive
+                      ? "text-red-500 border-b-current border-b-2"
+                      : "text-white"
+                  )
+                }
                 key={item?.slug}
                 to={item?.slug}
               >
@@ -67,7 +81,7 @@ function Footer() {
               {
                 iconMap[
                   (item?.platform as keyof typeof iconMap) ??
-                    ('default' as keyof typeof iconMap)
+                    ("default" as keyof typeof iconMap)
                 ]
               }
             </a>

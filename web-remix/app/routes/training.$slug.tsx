@@ -1,13 +1,9 @@
-import type { DataFunctionArgs } from "@remix-run/node";
+import type { DataFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
   useLoaderData,
-  useMatches,
-  useRouteLoaderData,
 } from "@remix-run/react";
 import groq from "groq";
-import React from "react";
-import type { TrainingDoc } from "types/training";
 import { trainingZ } from "types/training";
 import Layout from "~/components/Layout";
 import { ImageQuery } from "~/components/MainImage";
@@ -19,9 +15,37 @@ import {
 } from "~/components/modules/ImageGallery";
 import { TextSectionQuery } from "~/components/modules/TextSection";
 import { TextWithImageQuery } from "~/components/modules/TextWithImageSection";
-import { client } from "~/sanity.server";
+import { builder, client } from "~/sanity.server";
 import type { EventsResponse } from "./resources.getEvents";
 import { formatDate } from "~/lib/formatDate";
+
+export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
+  return [
+    { title: `${data?.trainingClass?.title || ""} | ${matches[0]?.data?.data?.title}` },
+    {
+      name: "description",
+      content:
+        (data?.trainingClass?.description || matches[0]?.data?.data?.description) ?? "",
+    },
+    {
+      name: "og:image",
+      content: data?.ogImage || "",
+    },
+    {
+      property: `og:type`,
+      content: `article`,
+    },
+    {
+      name: `og:title`,
+      content: `${data?.trainingClass?.title || ""} | ${matches[0]?.data?.data?.title}`,
+    },
+    {
+      name: `og:description`,
+      content:
+        (data?.trainingClass?.description || matches[0]?.data?.data?.description) ?? "",
+    },
+  ];
+};
 
 export const loader = async ({ params, request }: DataFunctionArgs) => {
   const now = Math.floor(Date.now() / 1000);
@@ -107,6 +131,8 @@ export const loader = async ({ params, request }: DataFunctionArgs) => {
     (module) => module?._type !== "hero" && module?._type !== "imageGallery"
   );
 
+
+	const ogImage = builder.image(trainingClass.openGraphImage || {}).auto("format").quality(60).width(1200).height(627).crop("focalpoint").url()
   return json(
     {
       trainingClass,
@@ -114,10 +140,11 @@ export const loader = async ({ params, request }: DataFunctionArgs) => {
       heroModule,
       events: truncatedEvents,
       imageGallery,
+			ogImage
     },
     {
       headers: {
-        "Cache-Control": "public, max-age=3600 s-maxage=3600",
+        "Cache-Control": "public, max-age=5000 s-maxage=5000",
       },
     }
   );
@@ -129,7 +156,7 @@ export default function TrainingSlugRoute() {
     events,
     heroModule,
     otherModules,
-    imageGallery /* heroModule, otherModules, imageGallery */,
+    imageGallery: {_type,...imageGalleryRest} /* heroModule, otherModules, imageGallery */,
   } = useLoaderData<typeof loader>();
   console.log({ events });
   return (
@@ -175,7 +202,7 @@ export default function TrainingSlugRoute() {
         </div>
         <section className="w-full group pb-24">
           <h3 className="">Class Photos</h3>
-          <ImageGallery {...imageGallery} />
+          <ImageGallery _type="imageGallery" {...imageGalleryRest} />
         </section>
       </section>
     </Layout>

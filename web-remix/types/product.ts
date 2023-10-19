@@ -36,6 +36,9 @@ export const productExcerptZ = productZ.pick({
 	_id: true,
 	mainImage: true,
 	blurb: true,
+	defaultProductVariant: true,
+	variants: true,
+	slug: true
 })
 
 export type ProductDoc = z.infer<typeof productZ>

@@ -1,5 +1,5 @@
 import { PortableText } from "@portabletext/react";
-import type { DataFunctionArgs } from "@remix-run/node";
+import type { DataFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import groq from "groq";
@@ -10,14 +10,13 @@ import { useShoppingCart } from "use-shopping-cart";
 import imageUrlBuilder from '@sanity/image-url'
 import Layout from "~/components/Layout";
 import { ImageQuery, MainImage } from "~/components/MainImage";
-import PrettyJson from "~/components/PrettyJson";
 import { ProductGallery } from "~/components/ProductGallery";
 import { Icon } from "~/components/ui/Icon";
-import { cn, urlFor } from "~/lib/misc";
+import { cn } from "~/lib/misc";
 import { portableTextComponents } from "~/lib/portableTextComponents";
 import { client } from "~/sanity.server";
 
-const ProductVariantQuery = groq`
+export const ProductVariantQuery = groq`
 	_type == "productVariant" => {
 		isAvailable,
 		_type,
@@ -33,6 +32,34 @@ const ProductVariantQuery = groq`
 		}
 	}
 `;
+
+export const meta: MetaFunction<typeof loader> = ({ data, matches }) => {
+  return [
+    { title: `Shop: ${data?.product?.title || ""} | ${matches[0]?.data?.data?.title}` },
+    {
+      name: "description",
+      content:
+        (data?.product?.blurb || matches[0]?.data?.data?.description) ?? "",
+    },
+    {
+      name: "og:image",
+      content: data?.ogImage || "",
+    },
+    {
+      property: `og:type`,
+      content: `product`,
+    },
+    {
+      name: `og:title`,
+      content: `${data?.product?.title || ""} | ${matches[0]?.data?.data?.title}`,
+    },
+    {
+      name: `og:description`,
+      content:
+        (data?.product?.blurb || matches[0]?.data?.data?.description) ?? "",
+    },
+  ];
+};
 
 export const loader = async ({ params }: DataFunctionArgs) => {
 	const builder = imageUrlBuilder(client);
@@ -81,10 +108,12 @@ export const loader = async ({ params }: DataFunctionArgs) => {
     ...(product.variants || []),
   ];
 
-	const cartImage = builder.image(product?.mainImage || {}).width(300).height(300).quality(60).url()
+	const cartImage = builder.image(product?.mainImage || {}).width(400).height(400).crop("focalpoint").auto("format").quality(60).url()
+	const ogImage = builder.image(product?.mainImage || {}).width(1200).height(627).crop("focalpoint").auto("format").quality(60).url()
 
   return json(
     {
+			ogImage,
 			cartImage,
       product,
       allVariants,
@@ -127,7 +156,7 @@ export default function ProductIDRoute() {
             value={product?.body ?? []}
             components={portableTextComponents}
           />
-          <div className="flex  flex-col @xl:flex-row gap-4 my-4 ">
+          <div className="flex  flex-wrap @xl:flex-nowrap gap-4 my-4 ">
             {allVariants?.map((variant) => (
               <button
                 key={variant?.title}

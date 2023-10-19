@@ -18,6 +18,7 @@ export default {
           { title: "Contact Form", value: "contactForm" },
           { title: "Upcoming Events", value: "eventList" },
           { title: "All Products", value: "productList" },
+          { title: "Newsletter Signup", value: "newsletterSignup" },
         ],
         layout: "radio",
         direction: "horizontal",

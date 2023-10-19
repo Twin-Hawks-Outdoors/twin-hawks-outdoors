@@ -24,7 +24,7 @@ interface ImageProps {
   alt?: string;
   className?: string;
   sizes?: string;
-	loading?: "lazy" | "eager";
+  loading?: "lazy" | "eager";
 }
 
 const baseUrl = `https://cdn.sanity.io/images/rur2issm/development/`;
@@ -38,27 +38,24 @@ export const MainImage = ({
   alt,
   className,
   sizes,
-	loading="lazy",
+  loading = "lazy",
 }: ImageProps) => {
-  const {
-    hotspot,
-    asset: { _id, altText, description, metadata },
-    crop,
-  } = image;
+  const { hotspot, asset, crop } = image;
 
-  const { width: defaultWidth, height: defaultHeight } =
-    getImageDimensions(image);
+  const { width: defaultWidth, height: defaultHeight } = getImageDimensions(
+    image?.asset ?? ""
+  );
   return (
     <SanityImage
       className={className}
       sizes={sizes}
-      id={_id}
+      id={asset?._id}
       baseUrl={baseUrl}
       width={(width ?? defaultWidth) || 400}
       height={(height ?? defaultHeight) || 300}
       mode={mode}
       queryParams={queryParams}
-      alt={alt ? alt : altText ?? description ?? ""}
+      alt={alt ? alt : asset?.altText ?? asset?.description ?? ""}
       hotspot={hotspot}
       crop={crop}
     />

@@ -1,6 +1,6 @@
 
 import { conform, useForm } from "@conform-to/react";
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { z } from "zod";
 import { parse } from "@conform-to/zod";
 import { useId } from "react";
@@ -33,6 +33,11 @@ export function ContactForm() {
       return parse(formData, { schema: contactSchema });
     },
   });
+
+	const navigation = useNavigation();
+
+	console.log({navigation})
+
 
   return (
     <div className="container max-w-xl my-8">
@@ -110,23 +115,12 @@ export function ContactForm() {
           )}
         </div>
         <input
-          // disabled={isSubmitting || (submitCount > 0 && submitCount < 2)}
+          disabled={navigation.state !== 'idle' }
           className="col-span-full justify-self-end button-sm bg-teal-500 cursor-pointer hover:bg-teal-400 focus:bg-teal-400 hover:text-gray-800 active:bg-teal-600  active:text-black focus:ring-teal-600 disabled:opacity-50 disabled:hover:bg-teal-500 disabled:cursor-not-allowed disabled:active:bg-teal-500 disabled:active:text-white"
           type="submit"
           value="Send"
         />
       </Form>
-      {/* <form
-        className=" grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-full max-w-3xl mx-auto"
-        name="contact"
-        method="POST"
-        data-netlify="true"
-        action="/success"
-        netlify-honeypot="bot-field"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <input type="hidden" name="form-name" value="contact" />
-      </form> */}
     </div>
   );
 }

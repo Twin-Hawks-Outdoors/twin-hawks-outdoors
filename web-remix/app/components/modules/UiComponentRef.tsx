@@ -16,8 +16,14 @@ const ComponentMap = {
       default: Component,
     };
   }),
-  productList: React.lazy(async () => {
-    const { ProductList: Component } = await import("../ProductList");
+  // productList: React.lazy(async () => {
+  //   const { ProductList: Component } = await import("../ProductList");
+  //   return {
+  //     default: Component,
+  //   };
+  // }),
+  newsletterSignup: React.lazy(async () => {
+    const { NewsletterSignup: Component } = await import("../NewsletterSignup");
     return {
       default: Component,
     };
