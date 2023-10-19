@@ -7,7 +7,7 @@
     "build": "remix build",
     "predev": "rimraf ./public/_redirects",
     "dev": "remix dev",
-    "start": "netlify serve",
+    "start": "netlify functions:serve",
     "typecheck": "tsc -b",
     "build:icons": "tsx ./other/build-icons.ts"
   },
