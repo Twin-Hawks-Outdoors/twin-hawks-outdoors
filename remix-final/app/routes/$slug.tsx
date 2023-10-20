@@ -14,6 +14,7 @@ import { sendMessage } from "~/lib/sendMessage.server";
 import { builder, client } from "~/sanity.server";
 import { ErrorBoundary as RouteErrorBoundary } from "~/components/ErrorBoundary";
 
+
 const LazyBlogList = lazy(async () => {
   const { BlogList: Component } = await import("~/components/BlogList");
   return {

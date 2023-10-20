@@ -2,6 +2,7 @@
   "name": "remix-final",
   "private": true,
   "sideEffects": false,
+  "type": "module",
   "scripts": {
     "build": "remix build",
     "predev": "rimraf ./public/_redirects",

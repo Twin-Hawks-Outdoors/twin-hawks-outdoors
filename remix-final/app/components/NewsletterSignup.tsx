@@ -1,12 +1,8 @@
-import { conform, useForm } from "@conform-to/react";
-import { parse } from "@conform-to/zod";
+
 import {
-  Form,
-  useActionData,
   useFetcher,
   useNavigation,
 } from "@remix-run/react";
-import { useId } from "react";
 import { z } from "zod";
 
 export const newsletterSchema = z.object({
@@ -17,22 +13,25 @@ export const newsletterSchema = z.object({
   "got-ya": z.string().nullish(),
 });
 export const NewsletterSignup = () => {
-  const lastSubmission = useActionData();
-  const id = useId();
-  const [form, fields] = useForm({
-    id,
-    lastSubmission,
-    shouldRevalidate: "onBlur",
-    onValidate({ formData }) {
-      return parse(formData, { schema: newsletterSchema });
-    },
-  });
   const navigation = useNavigation();
+  const newsletterFetcher = useFetcher();
+  const state = navigation?.formData
+    ? "submitting"
+    : newsletterFetcher?.data?.subscription
+    ? "success"
+    : newsletterFetcher?.data?.error
+    ? "error"
+    : "idle";
 
   return (
-    <div className="@container">
-      <div className="grid  container p-8 my-4 mx-auto [grid-template:1/1;] box-border w-max items-center justify-center bg-white shadow-md rounded-sm ">
-        <Form method="POST" action="/resources/subscribe" {...form.props}>
+    <div className="@container bg-cream-500">
+      <div className="grid  container px-4 @md:px-8 py-8 mx-auto newsletter w-full max-w-max  ">
+        <newsletterFetcher.Form
+          method="POST"
+          action="/resources/subscribe"
+          aria-hidden={state === "success"}
+          // {...form.props}
+        >
           <h4 className="mt-0">Stay in Touch!</h4>
           <p className="mb-0">
             Stay up to date with class schedules and new product drops!
@@ -42,46 +41,64 @@ export const NewsletterSignup = () => {
               Don’t fill this out if you’re human:{" "}
               <input
                 tabIndex={-1}
-                {...conform.input(fields["got-ya"], { type: "text" })}
+                type="text"
+                name="got-ya"
                 autoComplete="false"
               />
             </label>
           </p>
-          <fieldset className="flex  items-center my-2">
-            <div className="form-group">
-              <label htmlFor={fields.first_name.id}>
+          <fieldset className="flex flex-col @md:flex-row gap-0 @md:gap-2 items-center @md:items-end mt-4">
+            <div className="w-full">
+              <label className="flex flex-col" htmlFor={"first_name"}>
                 Full Name
                 <input
-                  {...conform.input(fields.first_name, {
-                    type: "text",
-                  })}
+                  className="h-10"
+                  name="first_name"
+                  type="text"
                   placeholder="Please enter your name"
+                  id="first_name"
                 />
               </label>
-              {fields.first_name.errorId && (
-                <small className="error">{fields.first_name.errors}</small>
-              )}
             </div>
-            <div className="form-group">
-              <label htmlFor={fields.email.id}>
+            <div className="w-full">
+              <label className="flex flex-col " htmlFor={"email"}>
                 Email
                 <input
-                  type="fields.email"
+                  type="email"
+                  className="h-10"
+                  name="email"
                   placeholder="Please enter a valid email"
-                  {...conform.input(fields.email, { type: "email" })}
+                  id="email"
                 />
               </label>
-              {fields.email.errorId && (
-                <small className="error">{fields.email.errors}</small>
-              )}
             </div>
-            <button className="rounded-md bg-teal-500 self-end px-2 py-1 text-white" type="submit">
-              {navigation.state === "submitting"
-                ? "Subscribing..."
-                : "Subscribe"}
-            </button>
+            <div className="flex flex-col">
+              <span className="hidden @md:inline">&nbsp;</span>
+              <button
+                className="h-10 rounded-md bg-teal-500/90 hover:bg-teal-400 focus:bg-teal-400 button self-end px-2 py-1 text-white"
+                type="submit"
+              >
+                {navigation.state === "submitting"
+                  ? "Subscribing..."
+                  : "Subscribe"}
+              </button>
+            </div>
           </fieldset>
-        </Form>
+          <div className="text-center text-red-500 flex justify-center gap-2">
+            {newsletterFetcher?.data?.error && (
+              <>
+                <small>{newsletterFetcher?.data?.error?.email?.[0]}</small>
+                <small>{newsletterFetcher?.data?.error?.first_name?.[0]}</small>
+              </>
+            )}
+          </div>
+        </newsletterFetcher.Form>
+        <div aria-hidden={state !== "success"}>
+          <h4 className="text-center">You're Subscribed!</h4>
+          <p className="text-center">
+            Please check your email to confirm your subscription.
+          </p>
+        </div>
       </div>
     </div>
   );

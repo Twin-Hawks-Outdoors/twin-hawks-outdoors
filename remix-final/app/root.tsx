@@ -21,6 +21,7 @@ import { client } from "./sanity.server";
 import groq from "groq";
 import { ImageQuery } from "./components/MainImage";
 import { siteConfigZ } from "types/siteConfig";
+import { NewsletterSignup } from "./components/NewsletterSignup";
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: stylesheet },
@@ -132,9 +133,10 @@ export default function App() {
           stripe={stripePublic}
         >
           <Header />
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" presenceAffectsLayout>
             <Outlet />
           </AnimatePresence>
+					<NewsletterSignup />
           <Footer />
         </CartProvider>
         <ScrollRestoration />
