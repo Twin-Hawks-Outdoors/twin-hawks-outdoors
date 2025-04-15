@@ -110,21 +110,27 @@ export const loader = async ({}) => {
       throw new Response("No Events Found", { status: 404 });
     }
 
-		const truncatedEvents = events.data?.map((node) => ({
-			id: node?.id,
-			cta: node?.call_to_action,
-			description: node?.description,
-			start: node?.start,
-			end: node?.end,
-			venue: node?.venue,
-			name: node?.name,
-			url: node?.url
-		}))
+    const truncatedEvents = events.data?.map((node) => ({
+      id: node?.id,
+      cta: node?.call_to_action,
+      description: node?.description,
+      start: node?.start,
+      end: node?.end,
+      venue: node?.venue,
+      name: node?.name,
+      url: node?.url,
+    }));
 
-    return json({ events: truncatedEvents }, {headers: {
-			"Cache-Control": "public, max-age=3600 s-maxage=3600"
-		}});
+    return json(
+      { events: truncatedEvents },
+      {
+        headers: {
+          "Cache-Control": "public, max-age=3600 s-maxage=3600",
+        },
+      }
+    );
   } catch (error) {
-    throw new Response(`${error}`, { status: 500 });
+    const errorText = await error.text();
+    return json({ events: [], error: errorText }, { status: 404 });
   }
 };
